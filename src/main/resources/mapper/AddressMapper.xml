@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.store.mapper.AddressMapper">
+	<!--添加地址信息 -->
+	<!-- void insertAddress(Address address); -->
+
+	<insert id="insertAddress" parameterType="cn.tedu.store.bean.Address">
+		insert into t_address(
+		uid,recv_name,recv_province, recv_city,
+		recv_area,
+		recv_district,
+		recv_address,
+		recv_phone,
+		recv_tel,
+		recv_zip,
+		recv_tag,
+		isDefault,
+		create_user,
+		create_time,
+		modified_user,
+		modified_time
+		)values(
+		#{uid},#{recvname},#{recvprovince},
+		#{recvcity},
+		#{recvarea},
+		#{recvdistrict},
+		#{recvaddress},
+		#{recvphone},
+		#{recvtel},
+		#{recvzip},
+		#{recvtag},
+		#{isDefault},
+		#{createuser},
+		#{createtime},
+		#{modifieduser},
+		#{modifiedtime}
+		)
+
+	</insert>
+	<select id="selectByUid" resultType="cn.tedu.store.bean.Address">
+		select
+			id,
+			uid,
+			recv_name recvname,
+			recv_province recvprovince, 
+			recv_city recvcity,
+			recv_area recvarea,
+			recv_district recvdistrict,
+			recv_address recvaddress,
+			recv_phone recvphone,
+			recv_tel recvtel,
+			recv_zip recvzip,
+			recv_tag recvtag,
+			isDefault,
+			create_user createuser,
+			create_time createtime,
+			modified_user modifieduser,
+			modified_time modifiedtime
+		from
+			t_address
+		where
+			uid=#{uid}
+		order by isDefault desc
+	</select>
+	<!--Integer updateByUid(Integer uid);-->
+	<update id="updateByUid">
+		update
+		 	t_address
+		set 
+			isDefault=0
+		where
+			uid=#{uid}	
+	</update>
+	<!--Integer updateById(Integer id); -->
+	<update id="updateById">
+		update
+		 	t_address
+		set 
+			isDefault=1
+		where
+			id=#{id}	
+	</update>
+	<!--Address selectById();	  -->
+	<select id="selectById" resultType="cn.tedu.store.bean.Address">
+		select 
+			id,
+			uid,
+			recv_name recvname,
+			recv_province recvprovince, 
+			recv_city recvcity,
+			recv_area recvarea,
+			recv_district recvdistrict,
+			recv_address recvaddress,
+			recv_phone recvphone,
+			recv_tel recvtel,
+			recv_zip recvzip,
+			recv_tag recvtag,
+			isDefault,
+			create_user createuser,
+			create_time createtime,
+			modified_user modifieduser,
+			modified_time modifiedtime
+		from
+			t_address
+		where
+			id=#{id}
+	</select>
+	<!--void updateAddress(Address address);  -->
+	<update id="updateAddress" parameterType="cn.tedu.store.bean.Address">
+		update
+		 	t_address
+		set 
+			recv_name=#{recvname},
+			recv_province=#{recvprovince}, 
+			recv_city=#{recvcity},
+			recv_area=#{recvarea},
+			recv_district=#{recvdistrict},
+			recv_address=#{recvaddress},
+			recv_phone=#{recvphone},
+			recv_tel=#{recvtel},
+			recv_zip=#{recvzip},
+			recv_tag=#{recvtag}
+		where
+			id=#{id}	
+	</update>
+	<!--void deleteById(Integer id);  -->
+	<delete id="deleteById">
+		delete 
+			from t_address
+		where 
+			id=#{id}
+	</delete>
+</mapper>
+
+		
+	
+	
+	
+	
+	
+	
+	
+	
