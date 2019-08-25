@@ -66,20 +66,6 @@ public class UserController extends BaseController {
 
 	}
 
-	// ###1.4.3验证邮箱
-	@RequestMapping("/checkEmail.do")
-	@ResponseBody
-	public ResponseResult<Void> checkEmail(String email) {
-		ResponseResult<Void> rr = null;
-		// 1.调用业务层方法
-		if (userService.checkEmail(email)) {
-			rr = new ResponseResult<Void>(0, "邮箱不可用");
-		} else {
-			rr = new ResponseResult<Void>(1, "邮箱可以用");
-		}
-		return rr;
-	}
-
 	// ###1.4.4验证手机
 	@RequestMapping("/checkPhone.do")
 	@ResponseBody
@@ -98,7 +84,7 @@ public class UserController extends BaseController {
 	@RequestMapping("/register.do")
 	@ResponseBody
 	public ResponseResult<Void> register(@RequestParam("uname") String username, @RequestParam("upwd") String password,
-			String email, String phone) {
+			@RequestParam("phone") String phone) {
 		// 声明rr对象和user对象
 		ResponseResult<Void> rr = null;
 		try {
@@ -107,7 +93,6 @@ public class UserController extends BaseController {
 			user.setUsername(username);
 			user.setPassword(password);
 			user.setPhone(phone);
-			user.setEmail(email);
 			// 调用业务层方法
 			userService.addUser(user);
 			rr = new ResponseResult<Void>(1, "添加成功");
@@ -163,12 +148,12 @@ public class UserController extends BaseController {
 	// 修改个人信息
 	@RequestMapping("/updateUser.do")
 	@ResponseBody
-	public ResponseResult<Void> updateUser(HttpSession session, String username, Integer gender, String email,
+	public ResponseResult<Void> updateUser(HttpSession session, String username,  
 			String phone) {
 		ResponseResult<Void> rr = null;
 		try {
 			// 调用业务层方法
-			userService.updateUser(this.getId(session), username, gender, email, phone);
+			userService.updateUser(this.getId(session), username,phone);
 			rr = new ResponseResult<>(1, "修改成功");
 			// 把session中的user对象替换成修改后的对象
 			session.setAttribute("user", userService.getUserById(this.getId(session)));
@@ -179,18 +164,4 @@ public class UserController extends BaseController {
 
 	}
 
-	// 异步请求，上传图片
-	@RequestMapping("/getImage.do")
-	@ResponseBody
-	public ResponseResult<Void> getImage(MultipartFile file, HttpSession session) throws Exception {
-		ResponseResult<Void> rr = new ResponseResult<Void>(1, "成功");
-		// 1上传照片
-		// 获取项目真实路径
-		String path = session.getServletContext().getRealPath("/");
-		System.out.println(path);
-		file.transferTo(new File(path, "/upload/" + file.getOriginalFilename()));
-		// 2修改数据库image
-		userService.updImage(this.getId(session),"/upload/" + file.getOriginalFilename());
-		return rr;
-	}
 }

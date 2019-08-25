@@ -30,20 +30,17 @@ public class UserService implements IUserService {
 		User user1 = userMapper.selectByUsername(user.getUsername());
 		if (user1 == null) {
 			//获取页面的密码
-			String pwd=user.getPassword();
+			//String pwd=user.getPassword();
 			//生成的密码密文
-			String md5pwd=DigestUtils.md5Hex(pwd+salt);
+			//String md5pwd=DigestUtils.md5Hex(pwd+salt);
 			//把密文设置为user的属性
-			user.setPassword(md5pwd);
+			//user.setPassword(pwd);
 			userMapper.insert(user);
 		} else {
 			throw new UsernameAlreadyExistException("用户名已存在！");
 		}
 	}
 
-	public boolean checkEmail(String email) {
-		return userMapper.selectByEmail(email) > 0;
-	}
 
 	public boolean checkPhone(String phone) {
 		return userMapper.selectByPhone(phone) > 0;
@@ -63,8 +60,8 @@ public class UserService implements IUserService {
 			throw new UserNotFoundException("帐号不存在");
 		} else {
 			//获取密码成为密文
-			String md5pwd=DigestUtils.md5Hex(password+salt);
-			if (user.getPassword().equals(md5pwd)) {
+			//String md5pwd=DigestUtils.md5Hex(password+salt);
+			if (user.getPassword().equals(password)) {
 				return user;
 			} else {
 				throw new PasswordNotMatchException("密码不匹配");
@@ -93,7 +90,7 @@ public class UserService implements IUserService {
 		}
 	}
 
-	public void updateUser(Integer id, String username, Integer gender, String email, String phone) {
+	public void updateUser(Integer id, String username,String phone) {
 		User user1 = userMapper.selectUserById(id);
 		// 1.调用持久层的方法selectById(通过session获取)，返回user1对象
 		// 判断是否存在
@@ -110,8 +107,6 @@ public class UserService implements IUserService {
 				// 设置属性包含
 				user.setId(id);
 				user.setUsername(username);
-				user.setGender(gender);
-				user.setEmail(email);
 				user.setPhone(phone);
 				// 调用持久层update(user);
 				userMapper.updateUser(user);
@@ -127,7 +122,4 @@ public class UserService implements IUserService {
 		return userMapper.selectUserById(id);
 	}
 
-	public void updImage(Integer id, String image) {
-		userMapper.updateImage(id, image);
-	}
 }

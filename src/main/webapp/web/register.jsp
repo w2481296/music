@@ -67,7 +67,7 @@
         lengths++;
       }
     });
-    if(lengths==5){
+    if(lengths==4){
     	$.ajax({
     		url:"../user/register.do",
     		//serialize()表示提交表单所有组件

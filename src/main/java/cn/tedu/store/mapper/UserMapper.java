@@ -19,11 +19,7 @@ public interface UserMapper {
 	 * */
 	User selectByUsername(String username);
 	/**
-	 * 邮箱验证
-	 * */
-	Integer selectByEmail(String email);
-	/**
-	 * 验证邮箱
+	 * 验证手机
 	 */
 	Integer selectByPhone(String phone);
 	/**
@@ -34,5 +30,5 @@ public interface UserMapper {
 	 * 根据id查询用户
 	 * */
 	User selectUserById(Integer id);
-	void updateImage(@Param("id")Integer id, @Param("image") String image);
+	void updateImage(@Param("id")Integer id, String image);
 }

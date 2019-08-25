@@ -9,90 +9,64 @@
 	<!-- void insertUser(User user); -->
 
 
-	<insert parameterType="cn.tedu.store.bean.User" id="insert">insert into
-		t_user
-		(username,password,email,phone,created_user,created_time,modified_user,modified_time)
-		values(#{username},#{password},#{email},#{phone},#{createdUser},#{createdTime},#{modifiedUser},#{modifiedTime})
+	<insert parameterType="cn.tedu.store.bean.User" id="insert">
+		insert into
+		w_user
+		(u_username,u_password,u_phone,u_updatetime)
+		values(#{username},#{password},#{phone},now())
 	</insert>
 	<select id="selectByUsername" resultType="cn.tedu.store.bean.User">
 		select
-		id,username,password,email,phone,image,gender,created_user
-		createUser,created_time createdTime, modified_user
-		modifiedUser,modified_time modifiedTime
+		id as id,
+		u_username as username,
+		u_password as password,
+		u_phone as phone,
+		u_updatetime as created_user
 		from
-		t_user
+		w_user
 		where
-		username=#{username}
+		u_username=#{username}
 	</select>
 	
 	<select id="selectUserById" resultType="cn.tedu.store.bean.User">
 		select
-		id,username,password,email,phone,image,gender,created_user
-		createUser,created_time createdTime, modified_user
-		modifiedUser,modified_time modifiedTime
+		id as id,
+		u_username as username,
+		u_password as password,
+		u_phone as phone,
+		u_updatetime as created_user
 		from
-		t_user
+		w_user
 		where
 		id=#{id}
-	</select>
-	
-	<select id="selectByEmail" resultType="java.lang.Integer">
-		select count(*)
-		from
-		t_user
-		where
-		email=#{email}
 	</select>
 	<select id="selectByPhone" resultType="java.lang.Integer">
 		select count(*)
 		from
-		t_user
+		w_user
 		where
-		phone=#{phone}
+		u_phone=#{phone}
 	</select>
 	<update id="updateUser" parameterType="cn.tedu.store.bean.User">
 		update
-			t_user
+			w_user
 		<set>
 			<if test="password!=null">
-				password=#{password},
+				u_password=#{password},
 			</if>
-
 			<if test="username!=null">
-				username=#{username},
-			</if>
-
-			<if test="gender!=null">
-				gender=#{gender},
-			</if>
-
+				u_username=#{username},
+			</if>			
 			<if test="phone!=null">
-				phone=#{phone},
+				u_phone=#{phone},
 			</if>
-
-			<if test="email!=null">
-				email=#{email},
-			</if>
-
-			<if test="modifiedUser!=null">
-				modified_user=#{modifiedUser},
-			</if>
-
 			<if test="modifiedTime!=null">
-				modified_time=#{modifiedTime}
+				u_updatetime=#{modifiedTime}
 			</if>
 		</set>
 		where
 			id=#{id}
 	</update>
-	<!-- void updateImage(@Param("id")Integer id, @Param("image") String image); -->
-	<update id="updateImage">
-	update t_user
-	set
-	image=#{image}
-	where
-	id=#{id}
-</update>
 </mapper>
 
 		
