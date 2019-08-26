@@ -9,19 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import cn.tedu.store.bean.Goods;
-import cn.tedu.store.bean.GoodsCategory;
-import cn.tedu.store.service.IGoodsCategoryService;
-import cn.tedu.store.service.IGoodsService;
 
 @Controller
 @RequestMapping("/main")
 public class MainController {
-	@Resource
-	private IGoodsCategoryService IGoodsCategoryService;
-	@Resource
-	private IGoodsService goodsService;
-
 	// 定义显示页面
 	@RequestMapping("/showIndex.do")
 	public String showIndex(ModelMap map) {

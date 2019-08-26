@@ -3,7 +3,7 @@
   <welcome-file-list>
   	<welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
-  <display-name>Tedu.store</display-name>
+  <display-name>Music</display-name>
   <!--设置web应用的上下文参数  -->
   	<context-param>
   		<param-name>contextConfigLocation</param-name>

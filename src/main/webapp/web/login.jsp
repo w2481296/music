@@ -4,19 +4,12 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>XX乐器店管理系统</title>
+    <title>乐器店铺管理系统</title>
     <link href="../css/header.css" rel="stylesheet"/>
     <link href="../css/animate.css" rel="stylesheet"/>
     <link href="../css/login.css" rel="stylesheet"/>
 </head>
 <body>
-<!-- 页面顶部-->
-<!-- <header id="top">
-    <div class="top">
-        <img src="../images/header/logo.png" alt="" style="width:70px;height: 70px;"/>
-        <span>XX乐器店管理系统</span>
-    </div>
-</header> -->
 <div id="container">
     <div id="cover" class="rt">
         <form id="login-form" method="post" name="form1">
