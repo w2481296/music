@@ -19,19 +19,12 @@ $(function(){
     	$('.nav-item>ul>li').css('background','none');
     	$(this).css('background','black');
     	var _link = $(this).children('a').attr('_link');
-    	console.log(_link);
+    	var menu2 = $(this).children('a').children('span').text();
+    	var menu1 = $(this).parent().prev().children('i').next().text();
+    	var men=menu1+">"+menu2;
+    	localStorage.setItem("men",men);
     	$('#mainContent').attr('src',_link);
-    	//location.href='../main/showIndex2.do';
-//  	$(this).siblings().css('background','none')
     })
-    //nav-mini切换
-    $('#mini').on('click',function(){
-        if (!$('.nav').hasClass('nav-mini')) {
-            $('.nav-item.nav-show').removeClass('nav-show');
-            $('.nav-item').children('ul').removeAttr('style');
-            $('.nav').addClass('nav-mini');
-        }else{
-            $('.nav').removeClass('nav-mini');
-        }
-    });
+    
+  
 });
