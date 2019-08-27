@@ -5,9 +5,9 @@
 
 <header id="top" class="fixed_nav">
     <div id="logo" class="lf">
-        <img class="animated jello" src="../images/header/logo.png" style="width: 446px;height: 100px;margin-top: -17px;margin-left: 131px;" alt="logo"/>
+        <img class="animated jello" src="../images/header/logo.png" style="width: 446px;height: 78px;margin-top: -20px;margin-left: 174px;" alt="logo"/>
     </div>
-    <div class="rt" style="margin-top: 33px;">
+    <div class="rt" style="margin-top: 15px;">
         <ul class="lf">
         	<li>您好    ${user.username}</li>
            <!-- 如果user==null，说明没有登录 -->

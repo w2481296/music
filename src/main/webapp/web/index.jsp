@@ -25,7 +25,7 @@
 		
 	</ul>
 </div>
-<iframe id="mainContent"  src="showIndex1.do" scrolling="no" width="1336px" height="620px" style="margin-left: 179px;margin-top: 93px;overflow-x:hidden"></iframe>
+<iframe id="mainContent"  src="showIndex1.do" scrolling="no" width="1350px" height="650px" style="margin-left: 179px;margin-top: 64px;overflow-x:hidden;"></iframe>
 <script src="../js/jquery-3.1.1.min.js"></script>
 <script>
 	$(function(){
