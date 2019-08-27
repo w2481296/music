@@ -1,39 +1,79 @@
 package cn.tedu.store.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-
+/**
+ * 主页面以及内部嵌套跳转页面
+ * 
+ * */
 @Controller
 @RequestMapping("/main")
 public class MainController {
-	// 定义显示页面
+	// 定义主显示页面
 	@RequestMapping("/showIndex.do")
-	public String showIndex(ModelMap map) {
-		//List<List<GoodsCategory>> list3 = new ArrayList<>();
-		// 调用业务层方法找到二级分类的集合
-		//List<GoodsCategory> list2 = IGoodsCategoryService.getByParent(161, 0, 3);
-		// 遍历list2 集合得到goodsCategory对象的ID,在调用业务层方法（ID，null，null）找到三级分类的集合
-		/*for (int i = 0; i < list2.size(); i++) {
-			Integer id = list2.get(i).getId();
-			List<GoodsCategory> list = IGoodsCategoryService.getByParent(id, null, null);
-			list3.add(list);
-		}*/
-		// 完成获取的热卖商品集合
-		//List<Goods> goodsList = goodsService.getByCategoryId(163, 0, 3);
-		//map.addAttribute("goodsList", goodsList);
-
-		// 把两个集合添加到map中
-	//	map.addAttribute("list2", list2);
-		//map.addAttribute("list3", list3);
-
-		// 把list2和3添加到map中
+	public String showIndex() {
 		return "index";
+	}
+	// 定义主乐器页面
+	@RequestMapping("/showIndex1.do")
+	public String showIndex1() {
+		return "MainInstrument";
+	}
+	// 定义配件管理页面
+	@RequestMapping("/showIndex2.do")
+	public String showIndex2() {
+		return "AccInstrument";
+	}
+	// 定义乐器添加页面
+	@RequestMapping("/showIndex3.do")
+	public String showIndex3() {
+		return "InstrumentAdd";
+	}
+	// 定义配件添加页面
+	@RequestMapping("/showIndex4.do")
+	public String showIndex4() {
+		return "AccessoryAdd";
+	}
+	// 定义配件连接页面
+	@RequestMapping("/showIndex5.do")
+	public String showIndex5() {
+		return "AccConnection";
+	}
+	// 定义添加销售记录页面
+	@RequestMapping("/showIndex6.do")
+	public String showIndex6() {
+		return "Addsalesrecords";
+	}
+	// 定义总入库页面
+	@RequestMapping("/showIndex7.do")
+	public String showIndex7() {
+		return "Totalstorage";
+	}
+	// 定义总出库页面
+	@RequestMapping("/showIndex8.do")
+	public String showIndex8() {
+		return "TotalDeposit";
+	}
+	// 定义销售记录页面
+	@RequestMapping("/showIndex9.do")
+	public String showIndex9() {
+		return "Salesrecords";
+	}
+	// 定义帐务情况页面
+	@RequestMapping("/showIndex10.do")
+	public String showIndex10() {
+		return "Accountingsit";
+	}
+	// 定义会员信息页面
+	@RequestMapping("/showIndex11.do")
+	public String showIndex11() {
+		return "MemberInfor";
+	}
+	// 定义修改密码页面
+	@RequestMapping("/showIndex12.do")
+	public String showIndex12() {
+		return "ChangePwd";
 	}
 }

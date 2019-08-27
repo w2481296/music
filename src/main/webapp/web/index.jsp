@@ -10,7 +10,6 @@
     <link href="../css/header.css" rel="stylesheet"/>
     
     <link rel="stylesheet" type="text/css" href="../css/nav.css">
- 
 <script type="text/javascript" src="../js/jquery.min.js"></script>
 <script type="text/javascript" src="../js/nav.js"></script>
 </head>
@@ -26,8 +25,8 @@
 		
 	</ul>
 </div>
- 
-
+<iframe id="mainContent"  src="showIndex1.do" scrolling="no" width="1336px" height="620px" style="margin-left: 179px;margin-top: 93px;overflow-x:hidden"></iframe>
+<script src="../js/jquery-3.1.1.min.js"></script>
 <script>
 	$(function(){
 		var navList = [
@@ -58,16 +57,26 @@
 		]
 		var navData = '';
 		for(var i=0;i<navList.length;i++){
-			navData+= "<li class='nav-item'><a href='javascript:;'><i class='my-icon nav-icon icon_1'></i><span>"+navList[i].p+"</span><i class='my-icon nav-more'></i></a><ul>"
-			for(var w=0;w<navList[i].c.length;w++){
-				navData+="<li><a href='javascript:;'><span>"+navList[i].c[w]+"</span></a></li>"
+			 navData+= "<li class='nav-item'><a href='javascript:;'><i class='my-icon nav-icon icon_1'></i><span>"+navList[i].p+"</span><i class='my-icon nav-more'></i></a><ul>";
+				if(i==0){
+						navData+="<li><a  href='javascript:;' _link='showIndex1.do'><span>主乐器管理</span></a></li><li><a  href='javascript:;' _link='showIndex2.do'><span>配件管理</span></a></li>";
+				}else if(i==1){
+						navData+="<li><a  href='javascript:;' _link='showIndex3.do'><span>乐器添加</span></a></li><li><a  href='javascript:;' _link='showIndex4.do'><span>配件添加</span></a></li><li><a href='javascript:;' _link='showIndex5.do'><span>配件连接</span></a></li>";
+				}else if(i==2){
+						navData+="<li><a  href='javascript:;' _link='showIndex6.do'><span>添加销售记录</span></a></li>";
+				}else if(i==3){
+						navData+="<li><a  href='javascript:;' _link='showIndex7.do'><span>总入库</span></a></li><li><a  href='javascript:;' _link='showIndex8.do'><span>总出库</span></a></li><li><a href='javascript:;' _link='showIndex9.do'><span>销售记录</span></a></li><li><a  href='javascript:;' _link='showIndex10.do'><span>账务情况</span></a></li>";
+				}
+				else if(i==4){
+						navData+="<li><a  href='javascript:;' _link='showIndex11.do'><span>会员信息</span></a></li>";
+				}
+				else if(i==5){
+						navData+="<li><a href='javascript:;' _link='showIndex12.do'><span>修改密码</span></a></li>";
+				}
+				navData+="</ul></li>";
 			}
-			navData+="</ul></li>"
-		}
 		$('#aat').html(navData)
 	})
 </script>
-<script src="../js/jquery-3.1.1.min.js"></script>
-
 </body>
 </html>

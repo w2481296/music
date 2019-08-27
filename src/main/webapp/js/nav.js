@@ -16,8 +16,12 @@ $(function(){
     });
     // 标志点击样式
     $('#aat').on('click','.nav-item>ul>li',function(){
-    	$('.nav-item>ul>li').css('background','none')
-    	$(this).css('background','black')
+    	$('.nav-item>ul>li').css('background','none');
+    	$(this).css('background','black');
+    	var _link = $(this).children('a').attr('_link');
+    	console.log(_link);
+    	$('#mainContent').attr('src',_link);
+    	//location.href='../main/showIndex2.do';
 //  	$(this).siblings().css('background','none')
     })
     //nav-mini切换

@@ -7,9 +7,7 @@
     <div id="logo" class="lf">
         <img class="animated jello" src="../images/header/logo.png" style="width: 446px;height: 100px;margin-top: -17px;margin-left: 131px;" alt="logo"/>
     </div>
-   
     <div class="rt" style="margin-top: 33px;">
-    	
         <ul class="lf">
         	<li>您好    ${user.username}</li>
            <!-- 如果user==null，说明没有登录 -->
