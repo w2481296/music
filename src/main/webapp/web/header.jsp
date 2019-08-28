@@ -5,7 +5,7 @@
 
 <header id="top" class="fixed_nav">
     <div id="logo" class="lf">
-        <img class="animated jello" src="../images/header/logo.png" style="width: 446px;height: 78px;margin-top: -20px;margin-left: 174px;" alt="logo"/>
+        <img class="animated jello" src="../images/header/logo4.png" style="width: 593px;height: 71px;margin-top: -20px;margin-left: 31px;" alt="logo"/>
     </div>
     <div class="rt" style="margin-top: 15px;">
         <ul class="lf">

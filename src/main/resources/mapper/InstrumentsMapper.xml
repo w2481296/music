@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.store.mapper.InstrumentsMapper">
+
+	<!-- 插入用户信息 -->
+
+
+	<!-- void insertUser(User user); -->
+
+
+	<!-- <insert parameterType="cn.tedu.store.bean.Instruments" id="insert">
+		insert into
+		w_instrument_information
+		(u_username,u_password,u_phone,u_updatetime)
+		values(#{username},#{password},#{phone},now())
+	</insert> -->
+	<select id="selinstruByName" resultType="java.util.Map" parameterType="java.lang.String"
+	useCache="false" flushCache="true">
+		select
+		id as id,
+		ins_name as insName,
+		ins_type as insType,
+		ins_cost as insCost,
+		ins_pricing as insPricing,
+		ins_manufacturers as insManufacturers,
+		ins_parts as insParts,
+		ins_remake as insRemake,
+		ins_time as insTime
+		from
+		w_instrument_information w
+		<where> 1=1
+			<if test="insName!=null and insName!=''">
+				AND w.ins_name=#{insName} 
+			</if>
+		</where>
+		group by id
+	</select>
+	
+	<!-- <select id="selectUserById" resultType="cn.tedu.store.bean.Instruments">
+		select
+		id as id,
+		u_username as username,
+		u_password as password,
+		u_phone as phone,
+		u_updatetime as created_user
+		from
+		w_instrument_information
+		where
+		id=#{id}
+	</select> -->
+<!-- 	<select id="selectByPhone" resultType="java.lang.Integer">
+		select count(*)
+		from
+		w_instrument_information
+		where
+		u_phone=#{phone}
+	</select> -->
+	<!-- <update id="updateUser" parameterType="cn.tedu.store.bean.Instruments">
+		update
+			w_instrument_information
+		<set>
+			<if test="password!=null">
+				u_password=#{password},
+			</if>
+			<if test="username!=null">
+				u_username=#{username},
+			</if>			
+			<if test="phone!=null">
+				u_phone=#{phone},
+			</if>
+			<if test="modifiedTime!=null">
+				u_updatetime=#{modifiedTime}
+			</if>
+		</set>
+		where
+			id=#{id}
+	</update> -->
+</mapper>
+
+		
+	
+	
+	
+	
+	
+	
+	
+	

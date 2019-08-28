@@ -35,6 +35,7 @@
 			<mvc:mapping path="/user/*"/>
 			<mvc:mapping path="/address/*"/>
 			<mvc:mapping path="/cart/*"/>
+			<mvc:mapping path="/ins/*"/>
 			<mvc:exclude-mapping path="/user/showRegister.do"/>
 			<mvc:exclude-mapping path="/user/checkUsername.do"/>
 			<mvc:exclude-mapping path="/user/checkEmail.do"/>
@@ -42,6 +43,7 @@
 			<mvc:exclude-mapping path="/user/register.do"/>
 			<mvc:exclude-mapping path="/user/showLogin.do"/>
 			<mvc:exclude-mapping path="/user/login.do"/>
+			<mvc:exclude-mapping path="/ins/selectinstruByName.do"/>
 			<!--实例化拦截器  -->
 			<bean class="cn.tedu.store.interceptor.LoginInterceptor"/>
 		</mvc:interceptor>

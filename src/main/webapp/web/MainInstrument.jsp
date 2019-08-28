@@ -16,9 +16,7 @@
 <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
 <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
-<!--[if IE 6]>
-<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
-<script>DD_belatedPNG.fix('*');</script><![endif]-->
+
 <!--/meta 作为公共模版分离出去-->
 <meta name="keywords" content="H-ui.admin v3.0">
 <meta name="description" content="H-ui.admin v3.0">
@@ -33,60 +31,41 @@
 				<input type="text" onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}'})" id="datemin" class="input-text Wdate" style="width:120px;">
 				-
 				<input type="text" onfocus="WdatePicker({minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d'})" id="datemax" class="input-text Wdate" style="width:120px;">
-				<input type="text" class="input-text" style="width:250px" placeholder="输入关键词" id="" name="">
-				<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜意见</button>
+				<input type="text" class="input-text" style="width:250px" placeholder="输入乐器关键词" id="insname" name="">
+				<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 查询</button>
 			</div>
 			<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> </span> <span class="r">共有数据：<strong>88</strong> 条</span> </div>
 			<div class="mt-20">
-				<table class="table table-border table-bordered table-hover table-bg table-sort">
+				<table class="table table-border table-bordered table-hover table-bg table-sort" id="DataTables_Table_0">
 					<thead>
 						<tr class="text-c">
 							<th width="25"><input type="checkbox" name="" value=""></th>
-							<th width="60">ID</th>
-							<th width="60">用户名</th>
-							<th>留言内容</th>
-							<th width="100">操作</th>
+							<th width="30">ID</th>
+							<th width="50">名称</th>
+							<th width="50">规格</th>
+							<th width="50">定价</th>
+							<th width="100">厂商</th>
+							<th width="50">配件</th>
+							<th width="100">备注</th>
+							<th width="50">更新时间</th>
+							<th width="50">操作</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="table-data">
 						<tr class="text-c">
 							<td><input type="checkbox" value="1" name=""></td>
 							<td>1</td>
-							<td><a href="javascript:;" onclick="member_show('张三','member-show.html','10001','360','400')"><i class="avatar size-L radius"><img alt="" src="http://static.h-ui.net/h-ui/images/avatar-default-S.gif"></i></a></td>
-							<td class="text-l"><div class="c-999 f-12">
-									<u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','10001','360','400')">张三</u> <time title="2014年8月31日 下午3:20" datetime="2014-08-31T03:54:20">2014-8-31 15:20</time> <span class="ml-20">13000000000</span> <span class="ml-20">admin@mail.com</span></div>
-									<div class="f-12 c-999"><a href="http://www.h-ui.net/Hui-4.22-comment.shtml" target="_blank">http://www.h-ui.net/Hui-4.22-comment.shtml</a></div>
-								<div>留言内容</div></td>
-							<td class="td-manage"><a title="编辑" href="javascript:;" onclick="member_edit('编辑','member-add.html','4','','510')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-						</tr>
-						<tr class="text-c">
-							<td><input type="checkbox" value="1" name=""></td>
+							<td>
+							<div class="c-999 f-12">
+								<u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','10001','360','400')">张三</u>
+							</div>
+							</td>
 							<td>1</td>
-							<td><a href="javascript:;" onclick="member_show('张三','member-show.html','10001','360','400')"><i class="avatar size-L radius"><img alt="" src="http://static.h-ui.net/h-ui/images/avatar-default-S.gif"></i></a></td>
-							<td class="text-l"><div class="c-999 f-12">
-									<u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','10001','360','400')">张三</u> <time title="2014年8月31日 下午3:20" datetime="2014-08-31T03:54:20">2014-8-31 15:20</time> <span class="ml-20">13000000000</span> <span class="ml-20">admin@mail.com</span></div>
-									<div class="f-12 c-999"><a href="http://www.h-ui.net/Hui-4.22-comment.shtml" target="_blank">http://www.h-ui.net/Hui-4.22-comment.shtml</a></div>
-								<div>留言内容</div></td>
-							<td class="td-manage"><a title="编辑" href="javascript:;" onclick="member_edit('编辑','member-add.html','4','','510')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-						</tr>
-						<tr class="text-c">
-							<td><input type="checkbox" value="1" name=""></td>
 							<td>1</td>
-							<td><a href="javascript:;" onclick="member_show('张三','member-show.html','10001','360','400')"><i class="avatar size-L radius"><img alt="" src="http://static.h-ui.net/h-ui/images/avatar-default-S.gif"></i></a></td>
-							<td class="text-l"><div class="c-999 f-12">
-									<u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','10001','360','400')">张三</u> <time title="2014年8月31日 下午3:20" datetime="2014-08-31T03:54:20">2014-8-31 15:20</time> <span class="ml-20">13000000000</span> <span class="ml-20">admin@mail.com</span></div>
-									<div class="f-12 c-999"><a href="http://www.h-ui.net/Hui-4.22-comment.shtml" target="_blank">http://www.h-ui.net/Hui-4.22-comment.shtml</a></div>
-								<div>留言内容</div></td>
-							<td class="td-manage"><a title="编辑" href="javascript:;" onclick="member_edit('编辑','member-add.html','4','','510')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-						</tr>
-						<tr class="text-c">
-							<td><input type="checkbox" value="1" name=""></td>
 							<td>1</td>
-							<td><a href="javascript:;" onclick="member_show('张三','member-show.html','10001','360','400')"><i class="avatar size-L radius"><img alt="" src="http://static.h-ui.net/h-ui/images/avatar-default-S.gif"></i></a></td>
-							<td class="text-l"><div class="c-999 f-12">
-									<u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','10001','360','400')">张三</u> <time title="2014年8月31日 下午3:20" datetime="2014-08-31T03:54:20">2014-8-31 15:20</time> <span class="ml-20">13000000000</span> <span class="ml-20">admin@mail.com</span></div>
-									<div class="f-12 c-999"><a href="http://www.h-ui.net/Hui-4.22-comment.shtml" target="_blank">http://www.h-ui.net/Hui-4.22-comment.shtml</a></div>
-								<div>留言内容</div></td>
+							<td>1</td>
+							<td>1</td>
+							<td>1</td>
 							<td class="td-manage"><a title="编辑" href="javascript:;" onclick="member_edit('编辑','member-add.html','4','','510')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 						</tr>
 					</tbody>
@@ -126,15 +105,57 @@ $(function(){
 			$(this).addClass('selected');
 		}
 	});
+	var url = "../ins/selectinstruByName.do";
+	var insname=$("#insname").val();
+	console.log("=="+insname);
+	var params = {
+		insname : insname
+	}
+	$.ajax({
+		url :"../ins/selectinstruByName.do",
+		data : "insname="+$("#insname").val(),
+		type:"post",
+		dataType : "json",
+		contentType : "application/json;charset=utf-8",
+		async : false,
+		success : function(result) {
+ 			var allNum=result.length;
+ 			console.log("allNum"+allNum);
+ 			//var htmlStr ='';
+ 			for(var i =0;i<allNum;i++){
+ 				var id= result[i].id;
+ 				var insName = result[i].insName;
+ 				var insType = result[i].insType;
+ 				var insPricing = result[i].insPricing;
+ 				var insManufacturers = result[i].insManufacturers;
+ 				var insParts = result[i].insParts;
+ 				var insRemake = result[i].insRemake;
+ 				var insTime = result[i].insTime; 				
+ 				htmlStr='<tr class="text-c">'+
+ 				'<td><input type="checkbox" value="'+id+'" name=""></td>'+
+				'<td>'+id+'</td>'+
+				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show("'+insName+'","member-show.html","10001","360","400")">'+insName+'</u></div></td>'+
+				'<td>'+insType+'</td>'+
+				'<td>'+insPricing+'</td>'+
+				'<td>'+insManufacturers+'</td>'+
+				'<td>'+insParts+'</td>'+
+				'<td>'+insRemake+'</td>'+
+				'<td>'+insTime+'</td>'+
+				'<td class="td-manage"><a title="编辑" href="javascript:;" onclick="member_edit("编辑","member-add.html","4","","510")" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,"1")" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
+			'</tr>';
+ 				$("#table-data").append(htmlStr);
+ 				console.log("==>"+i);
+ 			}
+ 			
+		}
+	});
+	
 });
 /*用户-添加*/
 function member_add(title,url,w,h){
 	layer_show(title,url,w,h);
 }
-/*用户-查看*/
-function member_show(title,url,id,w,h){
-	layer_show(title,url,w,h);
-}
+
 /*用户-停用*/
 function member_stop(obj,id){
 	layer.confirm('确认要停用吗？',function(index){

@@ -38,18 +38,6 @@ public class UserController extends BaseController {
 		return "login";
 	}
 
-	// 显示修改密码页面
-	@RequestMapping("/showPassword.do")
-	public String showPassword() {
-		return "personal_password";
-	}
-
-	// 显示个人信息页面
-	@RequestMapping("/showPersonpage.do")
-	public String showpersonpage() {
-		return "personpage";
-	}
-
 	// 异步请求，验证用户名
 	@RequestMapping("/checkUsername.do")
 	@ResponseBody
