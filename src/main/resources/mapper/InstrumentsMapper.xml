@@ -26,7 +26,7 @@
 		ins_manufacturers as insManufacturers,
 		ins_parts as insParts,
 		ins_remake as insRemake,
-		ins_time as insTime
+		date_format(ins_time,'%Y-%c-%d %h:%i:%s') AS insTime
 		from
 		w_instrument_information w
 		<where> 1=1

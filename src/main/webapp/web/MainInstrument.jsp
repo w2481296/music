@@ -39,15 +39,15 @@
 				<table class="table table-border table-bordered table-hover table-bg table-sort" id="DataTables_Table_0">
 					<thead>
 						<tr class="text-c">
-							<th width="25"><input type="checkbox" name="" value=""></th>
-							<th width="30">ID</th>
-							<th width="50">名称</th>
+							<th width="10"><input type="checkbox" name="" value=""></th>
+							<th width="20">ID</th>
+							<th width="60">名称</th>
 							<th width="50">规格</th>
 							<th width="50">定价</th>
 							<th width="100">厂商</th>
 							<th width="50">配件</th>
 							<th width="100">备注</th>
-							<th width="50">更新时间</th>
+							<th width="70">更新时间</th>
 							<th width="50">操作</th>
 						</tr>
 					</thead>
@@ -92,25 +92,24 @@ $(function(){
 		"aaSorting": [[ 1, "desc" ]],//默认第几个排序
 		"bStateSave": true,//状态保存
 		"aoColumnDefs": [
-		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
 		  {"orderable":false,"aTargets":[0,2,4]}// 制定列不参与排序
-		]
+		],
 	});
-	$('.table-sort tbody').on( 'click', 'tr', function () {
+	
+	/* $('.table-sort tbody').on( 'click', 'tr', function () {
 		if ( $(this).hasClass('selected') ) {
+			
 			$(this).removeClass('selected');
 		}
 		else {
 			table.$('tr.selected').removeClass('selected');
 			$(this).addClass('selected');
 		}
-	});
-	var url = "../ins/selectinstruByName.do";
+	}); */
+	var dat;
 	var insname=$("#insname").val();
 	console.log("=="+insname);
-	var params = {
-		insname : insname
-	}
+	var t=$('.table-sort').dataTable();
 	$.ajax({
 		url :"../ins/selectinstruByName.do",
 		data : "insname="+$("#insname").val(),
@@ -119,32 +118,43 @@ $(function(){
 		contentType : "application/json;charset=utf-8",
 		async : false,
 		success : function(result) {
+			dat=result;
  			var allNum=result.length;
+ 		/* 	$('.table-sort').DataTable( {
+ 		        data: result,
+ 		        columns: [
+ 		            { data: 'id' },
+ 		            { data: 'insName' },
+ 		            { data: 'insType' },
+ 		            { data: 'insManufacturers' },
+ 		            { data: 'insParts' },
+ 		            { data: 'insRemake' },
+ 		            { data: 'insTime' },
+ 		        ]
+ 		    } ); */
  			console.log("allNum"+allNum);
- 			//var htmlStr ='';
  			for(var i =0;i<allNum;i++){
  				var id= result[i].id;
  				var insName = result[i].insName;
- 				var insType = result[i].insType;
- 				var insPricing = result[i].insPricing;
- 				var insManufacturers = result[i].insManufacturers;
- 				var insParts = result[i].insParts;
- 				var insRemake = result[i].insRemake;
- 				var insTime = result[i].insTime; 				
- 				htmlStr='<tr class="text-c">'+
+ 				var insType = result[i].insType!=null?result[i].insType:"";
+ 				var insPricing = result[i].insPricing!=null?result[i].insPricing:"";
+ 				var insManufacturers = result[i].insManufacturers!=null?result[i].insManufacturers:"";
+ 				var insParts = result[i].insParts!=null?result[i].insParts:"";
+ 				var insRemake = result[i].insRemake!=null?result[i].insRemake:"";
+ 				var insTime = result[i].insTime!=null?result[i].insTime:"";
+ 			 	htmlStr='<tr class="text-c odd" role="row">'+
  				'<td><input type="checkbox" value="'+id+'" name=""></td>'+
 				'<td>'+id+'</td>'+
-				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show("'+insName+'","member-show.html","10001","360","400")">'+insName+'</u></div></td>'+
+				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show('+"'"+insName+"'"+','+"'member-show.html',"+"'10001',"+"'360',"+"'400'"+')">'+insName+'</u></div></td>'+
 				'<td>'+insType+'</td>'+
 				'<td>'+insPricing+'</td>'+
 				'<td>'+insManufacturers+'</td>'+
 				'<td>'+insParts+'</td>'+
 				'<td>'+insRemake+'</td>'+
 				'<td>'+insTime+'</td>'+
-				'<td class="td-manage"><a title="编辑" href="javascript:;" onclick="member_edit("编辑","member-add.html","4","","510")" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,"1")" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
+				'<td class="td-manage"><a title='+"'编辑'"+' href="javascript:;" onclick="member_edit('+"'编辑',"+"'member-add.html',"+"'4',"+"'',"+"'510'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
 			'</tr>';
- 				$("#table-data").append(htmlStr);
- 				console.log("==>"+i);
+ 				$("#table-data").append(htmlStr); 
  			}
  			
 		}
@@ -156,32 +166,13 @@ function member_add(title,url,w,h){
 	layer_show(title,url,w,h);
 }
 
-/*用户-停用*/
-function member_stop(obj,id){
-	layer.confirm('确认要停用吗？',function(index){
-		$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_start(this,id)" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
-		$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
-		$(obj).remove();
-		layer.msg('已停用!',{icon: 5,time:1000});
-	});
-}
-
-/*用户-启用*/
-function member_start(obj,id){
-	layer.confirm('确认要启用吗？',function(index){
-		$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_stop(this,id)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
-		$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
-		$(obj).remove();
-		layer.msg('已启用!',{icon: 6,time:1000});
-	});
+/*用户-查看*/
+function member_show(title,url,id,w,h){
+	layer_show(title,url,w,h);
 }
 /*用户-编辑*/
 function member_edit(title,url,id,w,h){
 	layer_show(title,url,w,h);
-}
-/*密码-修改*/
-function change_password(title,url,id,w,h){
-	layer_show(title,url,w,h);	
 }
 /*用户-删除*/
 function member_del(obj,id){
