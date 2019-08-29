@@ -2,13 +2,6 @@
 	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
 		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="cn.tedu.store.mapper.InstrumentsMapper">
-
-	<!-- 插入用户信息 -->
-
-
-	<!-- void insertUser(User user); -->
-
-
 	<!-- <insert parameterType="cn.tedu.store.bean.Instruments" id="insert">
 		insert into
 		w_instrument_information
@@ -36,7 +29,10 @@
 		</where>
 		group by id
 	</select>
-	
+	<!-- 删除乐器 -->  
+	<delete id="delMainInsById" parameterType="cn.tedu.store.bean.Instruments">  
+		delete from w_instrument_information  where id= #{insid2}
+	</delete> 
 	<!-- <select id="selectUserById" resultType="cn.tedu.store.bean.Instruments">
 		select
 		id as id,

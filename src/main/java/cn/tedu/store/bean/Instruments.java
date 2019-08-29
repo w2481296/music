@@ -8,7 +8,7 @@ public class Instruments implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -5163225600638423135L;
-	private String id;
+	private Integer id;
 	private String insName;// 乐器名称
 	private String insType;// 乐器类型
 	private String insCost;// 乐器成本
@@ -17,10 +17,10 @@ public class Instruments implements Serializable{
 	private String insParts;// 乐器所属配件
 	private String insRemake;// 备注
 	private String insTime;// 时间
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getInsName() {

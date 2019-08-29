@@ -18,8 +18,6 @@ import cn.tedu.store.mapper.InstrumentsMapper;
 public class InstrumentsController {
 	@Autowired(required = false)
 	public InstrumentsMapper instrumentsMapper;
-	//@Resource
-	//private InstrumentsService instrumentsService;
 	/**
 	 * <pre>selectinstruByName(通过名字 查出乐器相关信息)    
 	 * @param insName
@@ -33,6 +31,20 @@ public class InstrumentsController {
 		machiningList=instrumentsMapper.selinstruByName(insName);//订单id
 		System.out.println(machiningList);
 		return machiningList;
+	}
+	/**
+	 * <pre>selectinstruByName(通过乐器Id 删除乐器相关信息)    
+	 * @param id
+	 * @param response
+	 * @return</pre>
+	 */
+	@RequestMapping("/delMainInsById.do")
+	@ResponseBody
+	public String delMainInsById(String insid, HttpServletResponse response) {
+		System.out.println("删除乐器id=="+insid);
+		Integer insid2=Integer.valueOf(insid);
+		instrumentsMapper.delMainInsById(insid2);
+		return "success";
 	}
 
 	

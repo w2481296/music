@@ -34,42 +34,32 @@
 				<input type="text" class="input-text" style="width:250px" placeholder="输入乐器关键词" id="insname" name="">
 				<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 查询</button>
 			</div>
-			<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> </span> <span class="r">共有数据：<strong>88</strong> 条</span> </div>
+			<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> </span> <span class="r">共有数据：<span id="num2"></span> 条</span> </div>
 			<div class="mt-20">
 				<table class="table table-border table-bordered table-hover table-bg table-sort" id="DataTables_Table_0">
 					<thead>
 						<tr class="text-c">
-							<th width="10"><input type="checkbox" name="" value=""></th>
-							<th width="20">ID</th>
-							<th width="60">名称</th>
-							<th width="50">规格</th>
-							<th width="50">定价</th>
-							<th width="100">厂商</th>
-							<th width="50">配件</th>
-							<th width="100">备注</th>
-							<th width="70">更新时间</th>
-							<th width="50">操作</th>
+							<th style="width:10px"><input type="checkbox" name="" value=""></th>
+							<th style="width:50px">ID</th>
+							<th style="width:100px">名称</th>
+							<th style="width:100px">规格</th>
+							<th style="width:70px">定价</th>
+							<th style="width:100px">厂商</th>
+							<th style="width:100px">配件</th>
+							<th style="width:100px">备注</th>
+							<th style="width:150px">更新时间</th>
+							<th style="width:50px">操作</th>
 						</tr>
 					</thead>
 					<tbody id="table-data">
-						<tr class="text-c">
-							<td><input type="checkbox" value="1" name=""></td>
-							<td>1</td>
-							<td>
-							<div class="c-999 f-12">
-								<u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','10001','360','400')">张三</u>
-							</div>
-							</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td class="td-manage"><a title="编辑" href="javascript:;" onclick="member_edit('编辑','member-add.html','4','','510')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-						</tr>
 					</tbody>
 				</table>
+				<div id="datacount"	style="float:left">
+					显示 <span id="show"></span> 到 <span id="end"></span>，共 <span id="num"></span> 条
+				</div>
+				<div id="mes" style="float:left;display:none">
+					当前没有数据
+				</div>
 			</div>
 		</article>
 	</div>
@@ -81,35 +71,13 @@
 <script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script> 
 <script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.page.js"></script> 
 <!--/_footer /作为公共模版分离出去-->
-
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script>
-<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+ --><script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
 $(function(){
-	$('.table-sort').dataTable({
-		"aaSorting": [[ 1, "desc" ]],//默认第几个排序
-		"bStateSave": true,//状态保存
-		"aoColumnDefs": [
-		  {"orderable":false,"aTargets":[0,2,4]}// 制定列不参与排序
-		],
-	});
-	
-	/* $('.table-sort tbody').on( 'click', 'tr', function () {
-		if ( $(this).hasClass('selected') ) {
-			
-			$(this).removeClass('selected');
-		}
-		else {
-			table.$('tr.selected').removeClass('selected');
-			$(this).addClass('selected');
-		}
-	}); */
-	var dat;
 	var insname=$("#insname").val();
 	console.log("=="+insname);
-	var t=$('.table-sort').dataTable();
 	$.ajax({
 		url :"../ins/selectinstruByName.do",
 		data : "insname="+$("#insname").val(),
@@ -118,20 +86,15 @@ $(function(){
 		contentType : "application/json;charset=utf-8",
 		async : false,
 		success : function(result) {
-			dat=result;
  			var allNum=result.length;
- 		/* 	$('.table-sort').DataTable( {
- 		        data: result,
- 		        columns: [
- 		            { data: 'id' },
- 		            { data: 'insName' },
- 		            { data: 'insType' },
- 		            { data: 'insManufacturers' },
- 		            { data: 'insParts' },
- 		            { data: 'insRemake' },
- 		            { data: 'insTime' },
- 		        ]
- 		    } ); */
+ 			if(allNum==0){
+ 				document.getElementById("mes").style.display="inline";
+ 			}else{
+ 				$('#show').html(1);
+ 				$('#end').html(allNum);
+ 				$('#num').html(allNum);
+ 				$('#num2').html(allNum);
+ 			}
  			console.log("allNum"+allNum);
  			for(var i =0;i<allNum;i++){
  				var id= result[i].id;
@@ -176,9 +139,30 @@ function member_edit(title,url,id,w,h){
 }
 /*用户-删除*/
 function member_del(obj,id){
-	layer.confirm('确认要删除吗？',function(index){
-		$(obj).parents("tr").remove();
-		layer.msg('已删除!',{icon:1,time:1000});
+	var change=true;
+	layer.confirm('确认要删除吗？',{
+		btn: ['确定', '取消']
+	  },function(index){
+			var params={
+					insid:id
+			};
+			$.ajax({
+				url :"../ins/delMainInsById.do",
+				data : params,
+				type:"post",
+				async : false,
+				success : function(result) {
+					console.log("=="+result);
+					if(result=="success"){
+						$(obj).parents("tr").remove();
+					}else{
+						alert("删除失败");
+					}
+				}
+			});
+			layer.closeAll('dialog'); 
+	},function(){
+		layer.closeAll('dialog'); 
 	});
 }
 </script>
