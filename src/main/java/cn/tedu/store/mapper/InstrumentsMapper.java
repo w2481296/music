@@ -8,7 +8,9 @@ import org.apache.ibatis.annotations.Param;
 public interface InstrumentsMapper {
 
 	//查询乐器信息
-	List<Map<String, Object>> selinstruByName(@Param("insName")String insName);
+	List<Map<String, Object>> selinstruByName(@Param("insName")String insName,@Param("insTime1")String insTime1,@Param("insTime2")String insTime2);
 	//删除乐器信息
-	void delMainInsById(@Param("insid2")Integer insid2);
+	void delMainInsById(@Param("insid")Integer insid);
+	//批量删除
+	int deletesById(@Param("array")int[] array);
 }

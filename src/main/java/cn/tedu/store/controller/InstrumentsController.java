@@ -26,9 +26,9 @@ public class InstrumentsController {
 	 */
 	@RequestMapping("/selectinstruByName.do")
 	@ResponseBody
-	public List<Map<String, Object>> selectinstruByName(String insName, HttpServletResponse response) {
+	public List<Map<String, Object>> selectinstruByName(String insName,String insTime1,String insTime2, HttpServletResponse response) {
 		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
-		machiningList=instrumentsMapper.selinstruByName(insName);//订单id
+		machiningList=instrumentsMapper.selinstruByName(insName,insTime1,insTime2);//订单id
 		System.out.println(machiningList);
 		return machiningList;
 	}
@@ -44,6 +44,19 @@ public class InstrumentsController {
 		System.out.println("删除乐器id=="+insid);
 		Integer insid2=Integer.valueOf(insid);
 		instrumentsMapper.delMainInsById(insid2);
+		return "success";
+	}
+	/**
+	 * <pre>selectinstruByName(通过乐器Id 批量删除乐器相关信息)    
+	 * @param id
+	 * @param response
+	 * @return</pre>
+	 */
+	@RequestMapping("/delsById.do")
+	@ResponseBody
+	public String delsById(int[]array, HttpServletResponse response) {
+		System.out.println("删除乐器id=="+array);
+		instrumentsMapper.deletesById(array);
 		return "success";
 	}
 

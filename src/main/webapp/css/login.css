@@ -225,17 +225,17 @@ input[type="button"] {
 #showResult{
     width: 258px;
     height: 30px;
-    /* margin-top: 250px; */
-    /* margin-bottom: -51px; */
     position: absolute;
     top: 330px;
     right: 135px;
     display: inline-block;
     line-height: 30px;
     /*background: red;*/
-    font-size: 12px;
-    color: #fff;
+    font-size: 14px;
+    color: #f11010;
     padding-left: 8px;
+    margin-right: 541px;
+    margin-top: 23px;
 }
 
 

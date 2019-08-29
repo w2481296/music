@@ -28,11 +28,11 @@
 	<div class="Hui-article">
 		<article class="cl pd-20">
 			<div class="text-c"> 日期范围：
-				<input type="text" onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}'})" id="datemin" class="input-text Wdate" style="width:120px;">
+				<input type="text" onfocus="WdatePicker({skin:'whyGreen',maxDate: '%y-%M-%d'})" id="datemin" class="input-text Wdate" style="width:120px;">
 				-
-				<input type="text" onfocus="WdatePicker({minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d'})" id="datemax" class="input-text Wdate" style="width:120px;">
+				<input type="text" onfocus="WdatePicker({skin:'whyGreen',maxDate: '%y-%M-%d' })" id="datemax" class="input-text Wdate" style="width:120px;">
 				<input type="text" class="input-text" style="width:250px" placeholder="输入乐器关键词" id="insname" name="">
-				<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 查询</button>
+				<button type="submit" class="btn btn-success radius" id="search" name=""><i class="Hui-iconfont">&#xe665;</i> 查询</button>
 			</div>
 			<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> </span> <span class="r">共有数据：<span id="num2"></span> 条</span> </div>
 			<div class="mt-20">
@@ -54,9 +54,6 @@
 					<tbody id="table-data">
 					</tbody>
 				</table>
-				<div id="datacount"	style="float:left">
-					显示 <span id="show"></span> 到 <span id="end"></span>，共 <span id="num"></span> 条
-				</div>
 				<div id="mes" style="float:left;display:none">
 					当前没有数据
 				</div>
@@ -76,11 +73,9 @@
  --><script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
 $(function(){
-	var insname=$("#insname").val();
-	console.log("=="+insname);
+	$("#table-data").html(''); 
 	$.ajax({
 		url :"../ins/selectinstruByName.do",
-		data : "insname="+$("#insname").val(),
 		type:"post",
 		dataType : "json",
 		contentType : "application/json;charset=utf-8",
@@ -88,14 +83,14 @@ $(function(){
 		success : function(result) {
  			var allNum=result.length;
  			if(allNum==0){
- 				document.getElementById("mes").style.display="inline";
+ 				document.getElementById("mes").style.display="block";
+ 				$('#num2').html(allNum);
  			}else{
  				$('#show').html(1);
  				$('#end').html(allNum);
  				$('#num').html(allNum);
  				$('#num2').html(allNum);
  			}
- 			console.log("allNum"+allNum);
  			for(var i =0;i<allNum;i++){
  				var id= result[i].id;
  				var insName = result[i].insName;
@@ -108,20 +103,80 @@ $(function(){
  			 	htmlStr='<tr class="text-c odd" role="row">'+
  				'<td><input type="checkbox" value="'+id+'" name=""></td>'+
 				'<td>'+id+'</td>'+
-				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show('+"'"+insName+"'"+','+"'member-show.html',"+"'10001',"+"'360',"+"'400'"+')">'+insName+'</u></div></td>'+
+				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show('+"'"+insName+"'"+','+"'member-show.jsp',"+"'10001',"+"'360',"+"'400'"+')">'+insName+'</u></div></td>'+
 				'<td>'+insType+'</td>'+
 				'<td>'+insPricing+'</td>'+
 				'<td>'+insManufacturers+'</td>'+
 				'<td>'+insParts+'</td>'+
 				'<td>'+insRemake+'</td>'+
 				'<td>'+insTime+'</td>'+
-				'<td class="td-manage"><a title='+"'编辑'"+' href="javascript:;" onclick="member_edit('+"'编辑',"+"'member-add.html',"+"'4',"+"'',"+"'510'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
+				'<td class="td-manage"><a title='+"'编辑'"+' href="javascript:;" onclick="member_edit('+"'编辑',"+"'member-show.jsp',"+"'4',"+"'',"+"'510'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
 			'</tr>';
  				$("#table-data").append(htmlStr); 
  			}
  			
 		}
 	});
+	
+});
+
+/*-查询功能*/
+$("#search").click(function(){
+	$("#table-data").html(''); 
+	document.getElementById("mes").style.display="none";
+	var html = $('#datacount').children(); 
+	$('#datacount').html(html); 
+	var insname=$("#insname").val();
+	var datemin=$("#datemin").val();
+	var datemax=$("#datemax").val();
+	console.log("=="+insname);
+	var params={
+			insName:insname,
+			insTime1:datemin,
+			insTime2:datemax
+	};
+	$.ajax({
+		url :"../ins/selectinstruByName.do",
+		data : params,
+		type:"post",
+		async : false,
+		success : function(result) {
+ 			var allNum=result.length;
+ 			if(allNum==0){
+ 				document.getElementById("mes").style.display="block";
+ 				$('#num2').html(allNum);
+ 			}else{
+ 				$('#show').html(1);
+ 				$('#end').html(allNum);
+ 				$('#num').html(allNum);
+ 				$('#num2').html(allNum);
+ 			}
+ 			for(var i =0;i<allNum;i++){
+ 				var id= result[i].id;
+ 				var insName = result[i].insName;
+ 				var insType = result[i].insType!=null?result[i].insType:"";
+ 				var insPricing = result[i].insPricing!=null?result[i].insPricing:"";
+ 				var insManufacturers = result[i].insManufacturers!=null?result[i].insManufacturers:"";
+ 				var insParts = result[i].insParts!=null?result[i].insParts:"";
+ 				var insRemake = result[i].insRemake!=null?result[i].insRemake:"";
+ 				var insTime = result[i].insTime!=null?result[i].insTime:"";
+ 			 	htmlStr='<tr class="text-c odd" role="row">'+
+ 				'<td><input type="checkbox" value="'+id+'" name=""></td>'+
+				'<td>'+id+'</td>'+
+				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show('+"'"+insName+"'"+','+"'showindex1.do',"+"'10001',"+"'360',"+"'400'"+')">'+insName+'</u></div></td>'+
+				'<td>'+insType+'</td>'+
+				'<td>'+insPricing+'</td>'+
+				'<td>'+insManufacturers+'</td>'+
+				'<td>'+insParts+'</td>'+
+				'<td>'+insRemake+'</td>'+
+				'<td>'+insTime+'</td>'+
+				'<td class="td-manage"><a title='+"'编辑'"+' href="javascript:;" onclick="member_edit('+"'编辑',"+"'showindex1.do',"+"'4',"+"'',"+"'510'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
+			'</tr>';
+ 				$("#table-data").append(htmlStr); 
+ 			}
+		}
+	});
+	
 	
 });
 /*用户-添加*/
@@ -139,7 +194,6 @@ function member_edit(title,url,id,w,h){
 }
 /*用户-删除*/
 function member_del(obj,id){
-	var change=true;
 	layer.confirm('确认要删除吗？',{
 		btn: ['确定', '取消']
 	  },function(index){
@@ -152,7 +206,6 @@ function member_del(obj,id){
 				type:"post",
 				async : false,
 				success : function(result) {
-					console.log("=="+result);
 					if(result=="success"){
 						$(obj).parents("tr").remove();
 					}else{
@@ -165,6 +218,46 @@ function member_del(obj,id){
 		layer.closeAll('dialog'); 
 	});
 }
+/*用户-批量删除*/
+function datadel(){
+	console.log("批量删除");
+	var ptag_ids = new Array(); //定义一个数组存储id
+	     // 循环获取选中的checkbox
+	    $("#table-data input[type='checkbox']:checked").each(function() {
+	        if (!isNaN($(this).val())) {
+	            ptag_ids.push($(this).val()); // 把值push进入数组里面
+	        }
+	    });
+	    if(ptag_ids.length ==0){
+	        alert('请选择至少一条记录删除');
+	        return false;
+	    }
+		console.log("选择得id"+ptag_ids);
+	     //调用删除函数
+	    deletePtag(ptag_ids);
+	}
+
+	 
+
+	function deletePtag(ptag_ids){
+	     if(confirm("您确定要删除单条或者多条标签记录吗？删除后无法恢复,请谨慎操作！")){
+	         $.ajax({
+	             type : "post",
+	             url : "../ins/delsById.do",
+	             data : { "array" : ptag_ids.toString() },  //数组.toString();转成字符串，号隔开的
+	             success : function(data) {
+	                 console.info(data);
+	                 if(data=="success"){
+	                     $("#btn-danger").prop("checked", false);//成功后把全选按钮设置成不选中，其他下面刷新了，要不要都可以的
+	                     location.reload();
+	                 }else{
+	                     alert(data.msg);
+	                 }
+	             }
+	         });
+	     }
+	}
+
 </script>
 <!--/请在上方写此页面业务相关的脚本-->
 </body>
