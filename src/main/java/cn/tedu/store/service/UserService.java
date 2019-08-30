@@ -74,4 +74,15 @@ public class UserService implements IUserService {
 		return userMapper.selectUserById(id);
 	}
 
+	//查询旧密码根据用户名
+	@Override
+	public String queryoldPwd(String username) {
+		return userMapper.queryoldPwd(username);
+	}
+
+	@Override
+	public void updateuserNwd(String username, String newPwd) {
+		userMapper.updateuserNwd(username,newPwd);
+	}
+
 }

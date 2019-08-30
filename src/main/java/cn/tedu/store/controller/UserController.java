@@ -4,7 +4,6 @@ package cn.tedu.store.controller;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.tedu.store.bean.ResponseResult;
 import cn.tedu.store.bean.User;
-import cn.tedu.store.mapper.UserMapper;
 import cn.tedu.store.service.IUserService;
 
 @Controller
@@ -122,6 +120,13 @@ public class UserController extends BaseController {
 	@ResponseBody
 	public String updatePassword(String username, String newPwd,String oldPwd) {
 		//先查询旧密码是否正确
+		String old=userService.queryoldPwd(username);
+		if(old.equals(oldPwd)){
+			/*密码输入正确时更改密码*/
+			userService.updateuserNwd(username,newPwd);
+		}else{
+			return "fail";
+		}
 		return "success";
 	}
 

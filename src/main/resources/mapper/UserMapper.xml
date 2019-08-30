@@ -60,6 +60,23 @@
 		where
 			id=#{id}
 	</update>
+	<select id="queryoldPwd" resultType="java.lang.String" parameterType="java.lang.String">
+		select
+		u_password as password
+		from
+		w_user
+		where
+		u_username=#{username}
+	</select>
+	<update id="updateuserNwd" parameterType="java.lang.String">
+		update
+			w_user
+		set u_password=#{newPwd}
+		where
+			u_username=#{username}
+	</update>
+	
+	
 </mapper>
 
 		

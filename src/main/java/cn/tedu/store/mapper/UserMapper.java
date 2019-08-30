@@ -30,5 +30,7 @@ public interface UserMapper {
 	 * 根据id查询用户
 	 * */
 	User selectUserById(Integer id);
+	String queryoldPwd(@Param("username")String username);
+	void updateuserNwd(@Param("username")String username, @Param("newPwd")String newPwd);
 
 }

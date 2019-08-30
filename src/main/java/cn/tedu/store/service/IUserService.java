@@ -8,4 +8,6 @@ public interface IUserService {
 	boolean checkUsername(String name);
 	User login(String username,String password);
 	User getUserById(Integer id);
+	String queryoldPwd(String username);
+	void updateuserNwd(String username, String newPwd);
 }

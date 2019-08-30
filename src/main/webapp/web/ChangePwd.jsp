@@ -78,7 +78,7 @@
 			<div class="row cl">
 				<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
 					<input class="btn btn-primary radius" type="submit"
-						value="&nbsp;&nbsp;保存&nbsp;&nbsp;">
+						value="&nbsp;&nbsp;修改&nbsp;&nbsp;">
 				</div>
 			</div>
 		</form>
@@ -119,7 +119,7 @@
 				focusCleanup : true,
 				success : "valid",
 				submitHandler : function(form) {
-					var username =$('#username').val(); 
+					var username =$('#username').html(); 
 					var oldPwd = $('#oldpassword').val();
 					var newPwd = $('#newpassword').val();
 					$.ajax({
@@ -133,15 +133,32 @@
 						success : function(data) {
 							console.log(data);
 							if (data=="success") {
-								alert("修改密码成功");
+								member_del();
 							}else if(data=="fail"){
-								alert("修改密码失败");
+								alert("旧密码输入错误");
 							}
 						}
 					});
 				}
 			});
 		});
+		
+		//修改密码重新登陆
+		function member_del(){
+			layer.confirm('修改密码成功，请重新登陆',{
+				btn: ['确定']
+			  },function(){
+					$.ajax({
+						url :"../user/showLogin.do",
+						type:"post",
+						async : false,
+						success : function(result){
+							layer.closeAll('dialog'); 
+							top.location.href='../user/showLogin.do';
+						}
+					});
+			});
+		}
 	</script>
 	<!--/请在上方写此页面业务相关的脚本-->
 </body>
