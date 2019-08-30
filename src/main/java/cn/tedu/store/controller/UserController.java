@@ -1,22 +1,17 @@
 package cn.tedu.store.controller;
 
-import java.io.File;
-import java.io.IOException;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import cn.tedu.store.bean.ResponseResult;
 import cn.tedu.store.bean.User;
-import cn.tedu.store.mapper.InstrumentsMapper;
 import cn.tedu.store.mapper.UserMapper;
 import cn.tedu.store.service.IUserService;
 
@@ -25,8 +20,6 @@ import cn.tedu.store.service.IUserService;
 public class UserController extends BaseController {
 	@Resource
 	private IUserService userService;
-	@Autowired(required = false)
-	public UserMapper userMapper;
 
 	// 显示视图
 	@RequestMapping("/showRegister.do")
@@ -129,7 +122,6 @@ public class UserController extends BaseController {
 	@ResponseBody
 	public String updatePassword(String username, String newPwd,String oldPwd) {
 		//先查询旧密码是否正确
-		userMapper.changePassword(username, newPwd);
 		return "success";
 	}
 

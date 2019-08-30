@@ -40,6 +40,7 @@
 			<mvc:exclude-mapping path="/user/register.do"/>
 			<mvc:exclude-mapping path="/user/showLogin.do"/>
 			<mvc:exclude-mapping path="/user/login.do"/>
+			<mvc:exclude-mapping path="/user/updatePassword.do"/>
 			<!-- 主乐器 -->
 			<mvc:exclude-mapping path="/ins/selectinstruByName.do"/>
 			<mvc:exclude-mapping path="/ins/delMainInsById.do"/>
