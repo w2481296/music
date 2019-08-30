@@ -2,13 +2,6 @@
 	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
 		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="cn.tedu.store.mapper.UserMapper">
- 
-	<!-- 插入用户信息 -->
-
-
-	<!-- void insertUser(User user); -->
-
-
 	<insert parameterType="cn.tedu.store.bean.User" id="insert">
 		insert into
 		w_user

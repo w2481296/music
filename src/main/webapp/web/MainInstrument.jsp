@@ -33,6 +33,7 @@
 				<input type="text" onfocus="WdatePicker({skin:'whyGreen',maxDate: '%y-%M-%d' })" id="datemax" class="input-text Wdate" style="width:120px;">
 				<input type="text" class="input-text" style="width:250px" placeholder="输入乐器关键词" id="insname" name="">
 				<button type="submit" class="btn btn-success radius" id="search" name=""><i class="Hui-iconfont">&#xe665;</i> 查询</button>
+				<button type="submit" class="btn btn-success radius" id="clean" name="" style="width:70px">清空</button>
 			</div>
 			<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> </span> <span class="r">共有数据：<span id="num2"></span> 条</span> </div>
 			<div class="mt-20">
@@ -41,8 +42,9 @@
 						<tr class="text-c">
 							<th style="width:10px"><input type="checkbox" name="" value=""></th>
 							<th style="width:50px">ID</th>
-							<th style="width:100px">名称</th>
-							<th style="width:100px">规格</th>
+							<th style="width:80px">名称</th>
+							<th style="width:80px">规格</th>
+							<th style="width:80px">类型</th>
 							<th style="width:70px">定价</th>
 							<th style="width:100px">厂商</th>
 							<th style="width:100px">配件</th>
@@ -70,7 +72,7 @@
 <!--/_footer /作为公共模版分离出去-->
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script>
- --><script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
 $(function(){
 	$("#table-data").html(''); 
@@ -95,6 +97,7 @@ $(function(){
  				var id= result[i].id;
  				var insName = result[i].insName;
  				var insType = result[i].insType!=null?result[i].insType:"";
+ 				var insSpecifications = result[i].insSpecifications!=null?result[i].insSpecifications:"";
  				var insPricing = result[i].insPricing!=null?result[i].insPricing:"";
  				var insManufacturers = result[i].insManufacturers!=null?result[i].insManufacturers:"";
  				var insParts = result[i].insParts!=null?result[i].insParts:"";
@@ -105,6 +108,7 @@ $(function(){
 				'<td>'+id+'</td>'+
 				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show('+"'"+insName+"'"+','+"'member-show.jsp',"+"'10001',"+"'360',"+"'400'"+')">'+insName+'</u></div></td>'+
 				'<td>'+insType+'</td>'+
+				'<td>'+insSpecifications+'</td>'+
 				'<td>'+insPricing+'</td>'+
 				'<td>'+insManufacturers+'</td>'+
 				'<td>'+insParts+'</td>'+
@@ -119,7 +123,12 @@ $(function(){
 	});
 	
 });
-
+/* 清空按钮 */
+$("#clean").click(function(){
+	$("#datemin").val("");
+	$("#datemax").val("");
+	$("#insname").val("");
+});
 /*-查询功能*/
 $("#search").click(function(){
 	$("#table-data").html(''); 
@@ -155,6 +164,7 @@ $("#search").click(function(){
  				var id= result[i].id;
  				var insName = result[i].insName;
  				var insType = result[i].insType!=null?result[i].insType:"";
+ 				var insSpecifications = result[i].insSpecifications!=null?result[i].insSpecifications:"";
  				var insPricing = result[i].insPricing!=null?result[i].insPricing:"";
  				var insManufacturers = result[i].insManufacturers!=null?result[i].insManufacturers:"";
  				var insParts = result[i].insParts!=null?result[i].insParts:"";
@@ -165,6 +175,7 @@ $("#search").click(function(){
 				'<td>'+id+'</td>'+
 				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show('+"'"+insName+"'"+','+"'showindex1.do',"+"'10001',"+"'360',"+"'400'"+')">'+insName+'</u></div></td>'+
 				'<td>'+insType+'</td>'+
+				'<td>'+insSpecifications+'</td>'+
 				'<td>'+insPricing+'</td>'+
 				'<td>'+insManufacturers+'</td>'+
 				'<td>'+insParts+'</td>'+
@@ -244,7 +255,7 @@ function datadel(){
 	         $.ajax({
 	             type : "post",
 	             url : "../ins/delsById.do",
-	             data : { "array" : ptag_ids.toString() },  //数组.toString();转成字符串，号隔开的
+	             data : { "ids" : ptag_ids.toString() },  //数组.toString();转成字符串，号隔开的
 	             success : function(data) {
 	                 console.info(data);
 	                 if(data=="success"){

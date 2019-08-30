@@ -40,9 +40,14 @@
 			<mvc:exclude-mapping path="/user/register.do"/>
 			<mvc:exclude-mapping path="/user/showLogin.do"/>
 			<mvc:exclude-mapping path="/user/login.do"/>
+			<!-- 主乐器 -->
 			<mvc:exclude-mapping path="/ins/selectinstruByName.do"/>
 			<mvc:exclude-mapping path="/ins/delMainInsById.do"/>
 			<mvc:exclude-mapping path="/ins/delsById.do"/>
+			<!-- 配件 -->
+			<mvc:exclude-mapping path="/parts/selectpartByName.do"/>
+			<mvc:exclude-mapping path="/parts/delpartsById.do"/>
+			<mvc:exclude-mapping path="/parts/delsById.do"/>
 			<!--实例化拦截器  -->
 			<bean class="cn.tedu.store.interceptor.LoginInterceptor"/>
 		</mvc:interceptor>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.store.mapper.partsMapper">
+	<select id="selinstruByName" resultType="java.util.Map" parameterType="java.lang.String"
+	useCache="false" flushCache="true">
+		select
+		id as id,
+		parts_name as insName,
+		parts_type as insType,
+		parts_specifications as insSpecifications,
+		parts_cost as insCost,
+		parts_pricing as insPricing,
+		parts_manufacturers as insManufacturers,
+		parts_remake as insRemake,
+		date_format(parts_time,'%Y-%c-%d %h:%i:%s') AS insTime
+		from
+		w_parts 
+		<where> 1=1
+			<if test="insName!=null and insName!=''">
+				AND parts_name like CONCAT('%',#{insName},'%')
+			</if>
+			<if test="insTime1!=null and insTime1!=''">
+				AND DATE_FORMAT(parts_time , '%Y-%m-%d')&gt;=#{insTime1}
+			</if>
+			<if test="insTime2!=null and insTime2!=''">
+				AND DATE_FORMAT(parts_time , '%Y-%m-%d')&lt;=#{insTime2}
+			</if>
+		</where>
+		group by id
+	</select>
+	<!-- 删除乐器 -->  
+	<delete id="delMainInsById" parameterType="cn.tedu.store.bean.Instruments">  
+		delete from w_parts  where id= #{insid2}
+	</delete> 
+	<!-- 批量删除 -->
+	<delete id="deletesById"  parameterType="java.util.List">
+         delete from w_parts where id in ( 
+         <foreach collection="ids2" item="id" separator=",">
+            #{id}
+        </foreach>)
+	</delete>
+</mapper>
+
+		
+	
+	
+	
+	
+	
+	
+	
+	

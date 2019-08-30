@@ -25,10 +25,10 @@ public interface UserMapper {
 	/**
 	 * 修改个人信息
 	 */
-	void updateUser(User user);
+	void changePassword(@Param("username")String username,@Param("newPwd")String  newPwd);
 	/**
 	 * 根据id查询用户
 	 * */
 	User selectUserById(Integer id);
-	void updateImage(@Param("id")Integer id, String image);
+
 }

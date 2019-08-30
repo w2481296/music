@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
-public interface InstrumentsMapper {
+public interface partsMapper {
 
 	//²éÑ¯ÀÖÆ÷ĞÅÏ¢
 	List<Map<String, Object>> selinstruByName(@Param("insName")String insName,@Param("insTime1")String insTime1,@Param("insTime2")String insTime2);

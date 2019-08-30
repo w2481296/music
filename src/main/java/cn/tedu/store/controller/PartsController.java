@@ -12,51 +12,52 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.tedu.store.mapper.InstrumentsMapper;
+import cn.tedu.store.mapper.partsMapper;
 
 @Controller
-@RequestMapping("/ins")
-public class InstrumentsController {
+@RequestMapping("/parts")
+public class PartsController {
 	@Autowired(required = false)
-	public InstrumentsMapper instrumentsMapper;
+	public partsMapper partsMapper;
 
 	/**
 	 * <pre>
-	 * selectinstruByName(通过名字 查出乐器相关信息)    
+	 * selectpartByName(通过名字 查出乐器相关信息)    
 	 * &#64;param insName
 	 * &#64;param response
 	 * &#64;return
 	 * </pre>
 	 */
-	@RequestMapping("/selectinstruByName.do")
+	@RequestMapping("/selectpartByName.do")
 	@ResponseBody
 	public List<Map<String, Object>> selectinstruByName(String insName, String insTime1, String insTime2,
 			HttpServletResponse response) {
 		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
-		machiningList = instrumentsMapper.selinstruByName(insName, insTime1, insTime2);// 订单id
+		machiningList = partsMapper.selinstruByName(insName, insTime1, insTime2);// 订单id
 		System.out.println(machiningList);
 		return machiningList;
 	}
 
 	/**
 	 * <pre>
-	 * selectinstruByName(通过乐器Id 删除乐器相关信息)    
+	 * delpartById(通过乐器Id 删除乐器相关信息)    
 	 * &#64;param id
 	 * &#64;param response
 	 * &#64;return
 	 * </pre>
 	 */
-	@RequestMapping("/delMainInsById.do")
+	@RequestMapping("/delpartsById.do")
 	@ResponseBody
 	public String delMainInsById(String insid, HttpServletResponse response) {
 		System.out.println("删除乐器id==" + insid);
 		Integer insid2 = Integer.valueOf(insid);
-		instrumentsMapper.delMainInsById(insid2);
+		partsMapper.delMainInsById(insid2);
 		return "success";
 	}
 
 	/**
 	 * <pre>
-	 * selectinstruByName(通过乐器Id 批量删除乐器相关信息)    
+	 * delsById(通过乐器Id 批量删除乐器相关信息)    
 	 * &#64;param id
 	 * &#64;param response
 	 * &#64;return
@@ -70,7 +71,7 @@ public class InstrumentsController {
 		for (int i = 0; i < ids2.length; i++) {
 			ids2[i] = Integer.parseInt(aStrings[i]);
 		}
-		instrumentsMapper.deletesById(ids2);
+		partsMapper.deletesById(ids2);
 		return "success";
 	}
 

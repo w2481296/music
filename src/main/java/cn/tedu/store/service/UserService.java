@@ -69,54 +69,6 @@ public class UserService implements IUserService {
 		}
 
 	}
-
-	// 实现修改密码
-	public void changePassword(Integer id, String oldPwd, String newPwd) {
-		// 调用持久层方法
-		User user = userMapper.selectUserById(id);
-		User user1 = new User();
-		String md5opwd=DigestUtils.md5Hex(oldPwd+salt);
-		if (user != null) {
-			if (user.getPassword().equals(md5opwd)) {
-				String md5pwd=DigestUtils.md5Hex(newPwd+salt);
-				user1.setPassword(md5pwd);
-				user1.setId(user.getId());
-				userMapper.updateUser(user1);
-			} else {
-				throw new PasswordNotMatchException("旧密码不正确");
-			}
-		} else {
-			throw new UserNotFoundException("用户不存在");
-		}
-	}
-
-	public void updateUser(Integer id, String username,String phone) {
-		User user1 = userMapper.selectUserById(id);
-		// 1.调用持久层的方法selectById(通过session获取)，返回user1对象
-		// 判断是否存在
-		if (user1 != null) {
-			// 调用持久层的方法selectByUsername，返回use2对象
-			User user2 = userMapper.selectByUsername(username);
-			//如果use2不为空，说明数据库中存在该用户名
-			//如果用户名和登录用户的名称相同，可以实现修改
-			if (user2 != null &&!user1.getUsername().equals(username)) {
-				// 抛出异常
-				throw new UsernameAlreadyExistException("用户名已存在");
-			} else {
-				User user = new User();
-				// 设置属性包含
-				user.setId(id);
-				user.setUsername(username);
-				user.setPhone(phone);
-				// 调用持久层update(user);
-				userMapper.updateUser(user);
-			}
-		} else {
-			// 抛出异常
-			throw new UserNotFoundException("用户没有找到");
-		}
-
-	}
 	//刷新页面
 	public User getUserById(Integer id) {
 		return userMapper.selectUserById(id);

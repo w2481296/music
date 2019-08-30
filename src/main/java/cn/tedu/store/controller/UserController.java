@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import cn.tedu.store.bean.ResponseResult;
 import cn.tedu.store.bean.User;
+import cn.tedu.store.mapper.InstrumentsMapper;
+import cn.tedu.store.mapper.UserMapper;
 import cn.tedu.store.service.IUserService;
 
 @Controller
@@ -22,6 +25,8 @@ import cn.tedu.store.service.IUserService;
 public class UserController extends BaseController {
 	@Resource
 	private IUserService userService;
+	@Autowired(required = false)
+	public UserMapper userMapper;
 
 	// 显示视图
 	@RequestMapping("/showRegister.do")
@@ -122,34 +127,10 @@ public class UserController extends BaseController {
 	// 修改密码页面
 	@RequestMapping("/updatePassword.do")
 	@ResponseBody
-	public ResponseResult<Void> updatePassword(HttpSession session, String oldPwd, String newPwd) {
-		ResponseResult<Void> rr = null;
-		try {
-			userService.changePassword(this.getId(session), oldPwd, newPwd);
-			rr = new ResponseResult<>(1, "修改成功");
-		} catch (RuntimeException e) {
-			rr = new ResponseResult<>(0, e.getMessage());
-		}
-		return rr;
-	}
-
-	// 修改个人信息
-	@RequestMapping("/updateUser.do")
-	@ResponseBody
-	public ResponseResult<Void> updateUser(HttpSession session, String username,  
-			String phone) {
-		ResponseResult<Void> rr = null;
-		try {
-			// 调用业务层方法
-			userService.updateUser(this.getId(session), username,phone);
-			rr = new ResponseResult<>(1, "修改成功");
-			// 把session中的user对象替换成修改后的对象
-			session.setAttribute("user", userService.getUserById(this.getId(session)));
-		} catch (RuntimeException e) {
-			rr = new ResponseResult<Void>(0, e.getMessage());
-		}
-		return rr;
-
+	public String updatePassword(String username, String newPwd,String oldPwd) {
+		//先查询旧密码是否正确
+		userMapper.changePassword(username, newPwd);
+		return "success";
 	}
 
 }
