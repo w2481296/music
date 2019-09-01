@@ -43,8 +43,8 @@
 							<th style="width:10px"><input type="checkbox" name="" value=""></th>
 							<th style="width:50px">ID</th>
 							<th style="width:80px">名称</th>
+							<th style="width:80px">所属乐器</th>
 							<th style="width:80px">规格</th>
-							<th style="width:80px">类型</th>
 							<th style="width:70px">定价</th>
 							<th style="width:100px">厂商</th>
 							<th style="width:100px">备注</th>

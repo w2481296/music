@@ -36,11 +36,6 @@ public class MainController {
 	public String showIndex4() {
 		return "AccessoryAdd";
 	}
-	// 定义配件连接页面
-	@RequestMapping("/showIndex5.do")
-	public String showIndex5() {
-		return "AccConnection";
-	}
 	// 定义添加销售记录页面
 	@RequestMapping("/showIndex6.do")
 	public String showIndex6() {
@@ -75,5 +70,10 @@ public class MainController {
 	@RequestMapping("/showIndex12.do")
 	public String showIndex12() {
 		return "ChangePwd";
+	}
+	// 跳转主乐器编辑页面
+	@RequestMapping("/showIndex13.do")
+	public String showIndex13() {
+		return "Mainmusic-add";
 	}
 }

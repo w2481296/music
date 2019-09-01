@@ -5,26 +5,27 @@
 	<select id="selinstruByName" resultType="java.util.Map" parameterType="java.lang.String"
 	useCache="false" flushCache="true">
 		select
-		id as id,
-		parts_name as insName,
-		parts_type as insType,
-		parts_specifications as insSpecifications,
-		parts_cost as insCost,
-		parts_pricing as insPricing,
-		parts_manufacturers as insManufacturers,
-		parts_remake as insRemake,
-		date_format(parts_time,'%Y-%c-%d %h:%i:%s') AS insTime
+		wp.id as id,
+		wp.parts_name as insName,
+		wii.ins_name as insType,
+		wp.parts_specifications as insSpecifications,
+		wp.parts_cost as insCost,
+		wp.parts_pricing as insPricing,
+		wp.parts_manufacturers as insManufacturers,
+		wp.parts_remake as insRemake,
+		date_format(wp.parts_time,'%Y-%c-%d %h:%i:%s') AS insTime
 		from
-		w_parts 
+		w_parts wp
+		left join w_instrument_information wii on wii.id=wp.parts_type
 		<where> 1=1
 			<if test="insName!=null and insName!=''">
-				AND parts_name like CONCAT('%',#{insName},'%')
+				AND wp.parts_name like CONCAT('%',#{insName},'%')
 			</if>
 			<if test="insTime1!=null and insTime1!=''">
-				AND DATE_FORMAT(parts_time , '%Y-%m-%d')&gt;=#{insTime1}
+				AND DATE_FORMAT(wp.parts_time , '%Y-%m-%d')&gt;=#{insTime1}
 			</if>
 			<if test="insTime2!=null and insTime2!=''">
-				AND DATE_FORMAT(parts_time , '%Y-%m-%d')&lt;=#{insTime2}
+				AND DATE_FORMAT(wp.parts_time , '%Y-%m-%d')&lt;=#{insTime2}
 			</if>
 		</where>
 		group by id

@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import cn.tedu.store.bean.Instruments;
 import cn.tedu.store.mapper.InstrumentsMapper;
 
 @Controller
@@ -33,7 +35,6 @@ public class InstrumentsController {
 			HttpServletResponse response) {
 		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
 		machiningList = instrumentsMapper.selinstruByName(insName, insTime1, insTime2);// 订单id
-		System.out.println(machiningList);
 		return machiningList;
 	}
 
@@ -48,7 +49,6 @@ public class InstrumentsController {
 	@RequestMapping("/delMainInsById.do")
 	@ResponseBody
 	public String delMainInsById(String insid, HttpServletResponse response) {
-		System.out.println("删除乐器id==" + insid);
 		Integer insid2 = Integer.valueOf(insid);
 		instrumentsMapper.delMainInsById(insid2);
 		return "success";
@@ -74,4 +74,34 @@ public class InstrumentsController {
 		return "success";
 	}
 
+	/**
+	 * <pre>
+	 * updateinstruById(通过乐器Id 查询乐器相关信息)    
+	 * &#64;param id
+	 * &#64;param response
+	 * &#64;return
+	 * </pre>
+	 */
+	@RequestMapping("/queryinstruById.do")
+	@ResponseBody
+	public List<Map<String, Object>> queryinstruById(String ids, HttpServletResponse response) {
+		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
+		Integer ids2 = Integer.parseInt(ids);
+		machiningList = instrumentsMapper.queryinstruById(ids2);
+		return machiningList;
+	}
+
+	/**
+	 * <pre>
+	 * updateinstruById(修改乐器相关信息)    
+	 * &#64;
+	 * &#64;param response
+	 * &#64;return
+	 * </pre>
+	 */
+	@RequestMapping("/updateinfo.do")
+	@ResponseBody
+	public void updateinfo(Instruments instruments) {
+		instrumentsMapper.updateinfo(instruments);
+	}
 }

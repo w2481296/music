@@ -7,16 +7,22 @@ public class Instruments implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -5163225600638423135L;
+	private static final long serialVersionUID = -6052390892751519427L;
+	/**
+	 * 
+	 */
+
 	private Integer id;
 	private String insName;// 乐器名称
 	private String insType;// 乐器类型
+	private String insSpecifications;// 乐器类型
 	private String insCost;// 乐器成本
 	private String insPricing;// 乐器定价
 	private String insManufacturers;// 乐器厂商
 	private String insParts;// 乐器所属配件
 	private String insRemake;// 备注
 	private String insTime;// 时间
+	
 	public Integer getId() {
 		return id;
 	}
@@ -34,6 +40,12 @@ public class Instruments implements Serializable{
 	}
 	public void setInsType(String insType) {
 		this.insType = insType;
+	}
+	public String getInsSpecifications() {
+		return insSpecifications;
+	}
+	public void setInsSpecifications(String insSpecifications) {
+		this.insSpecifications = insSpecifications;
 	}
 	public String getInsCost() {
 		return insCost;
@@ -71,6 +83,9 @@ public class Instruments implements Serializable{
 	public void setInsTime(String insTime) {
 		this.insTime = insTime;
 	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -82,6 +97,7 @@ public class Instruments implements Serializable{
 		result = prime * result + ((insParts == null) ? 0 : insParts.hashCode());
 		result = prime * result + ((insPricing == null) ? 0 : insPricing.hashCode());
 		result = prime * result + ((insRemake == null) ? 0 : insRemake.hashCode());
+		result = prime * result + ((insSpecifications == null) ? 0 : insSpecifications.hashCode());
 		result = prime * result + ((insTime == null) ? 0 : insTime.hashCode());
 		result = prime * result + ((insType == null) ? 0 : insType.hashCode());
 		return result;
@@ -130,6 +146,11 @@ public class Instruments implements Serializable{
 				return false;
 		} else if (!insRemake.equals(other.insRemake))
 			return false;
+		if (insSpecifications == null) {
+			if (other.insSpecifications != null)
+				return false;
+		} else if (!insSpecifications.equals(other.insSpecifications))
+			return false;
 		if (insTime == null) {
 			if (other.insTime != null)
 				return false;
@@ -144,9 +165,10 @@ public class Instruments implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "Instruments [id=" + id + ", insName=" + insName + ", insType=" + insType + ", insCost=" + insCost
-				+ ", insPricing=" + insPricing + ", insManufacturers=" + insManufacturers + ", insParts=" + insParts
-				+ ", insRemake=" + insRemake + ", insTime=" + insTime + "]";
+		return "Instruments [id=" + id + ", insName=" + insName + ", insType=" + insType + ", insSpecifications="
+				+ insSpecifications + ", insCost=" + insCost + ", insPricing=" + insPricing + ", insManufacturers="
+				+ insManufacturers + ", insParts=" + insParts + ", insRemake=" + insRemake + ", insTime=" + insTime
+				+ "]";
 	}
 	
 }

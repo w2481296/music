@@ -48,45 +48,38 @@
             #{id}
         </foreach>)
 	</delete>
-	<!-- <select id="selectUserById" resultType="cn.tedu.store.bean.Instruments">
+	<select id="queryinstruById" resultType="java.util.Map" parameterType="java.lang.Integer"
+	useCache="false" flushCache="true">
 		select
-		id as id,
-		u_username as username,
-		u_password as password,
-		u_phone as phone,
-		u_updatetime as created_user
+		wii.id as id,
+		wii.ins_name as insName,
+		wii.ins_specifications as insSpecifications,
+		wii.ins_cost as insCost,
+		wii.ins_pricing as insPricing,
+		wii.ins_manufacturers as insManufacturers,
+		wp.parts_name as insParts,
+		wii.ins_remake as insRemake
 		from
-		w_instrument_information
+		w_instrument_information wii
+		left join w_parts wp on wp.id=wii.ins_parts
 		where
-		id=#{id}
-	</select> -->
-<!-- 	<select id="selectByPhone" resultType="java.lang.Integer">
-		select count(*)
-		from
-		w_instrument_information
-		where
-		u_phone=#{phone}
-	</select> -->
-	<!-- <update id="updateUser" parameterType="cn.tedu.store.bean.Instruments">
+		wii.id=#{ids2}
+	</select>
+	<update id="updateinfo" parameterType="cn.tedu.store.bean.Instruments">
 		update
 			w_instrument_information
-		<set>
-			<if test="password!=null">
-				u_password=#{password},
-			</if>
-			<if test="username!=null">
-				u_username=#{username},
-			</if>			
-			<if test="phone!=null">
-				u_phone=#{phone},
-			</if>
-			<if test="modifiedTime!=null">
-				u_updatetime=#{modifiedTime}
-			</if>
-		</set>
+		set
+			ins_name =#{insName},
+			ins_specifications=#{insSpecifications},
+			ins_cost =#{insCost},
+			ins_pricing =#{insPricing},
+			ins_manufacturers =#{insManufacturers},
+			ins_remake =#{insRemake},
+			ins_time=now()
 		where
 			id=#{id}
-	</update> -->
+	</update>
+
 </mapper>
 
 		

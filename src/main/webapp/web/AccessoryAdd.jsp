@@ -85,8 +85,7 @@ $('.table-sort').dataTable({
 		//{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
 		{"orderable":false,"aTargets":[0,8]}// 不参与排序的列
 	]
-});
-
+}); 
 /*资讯-添加*/
 function article_add(title,url,w,h){
 	var index = layer.open({

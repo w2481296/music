@@ -46,6 +46,8 @@
 			<mvc:exclude-mapping path="/ins/selectinstruByName.do"/>
 			<mvc:exclude-mapping path="/ins/delMainInsById.do"/>
 			<mvc:exclude-mapping path="/ins/delsById.do"/>
+			<mvc:exclude-mapping path="/ins/queryinstruById.do"/>
+			<mvc:exclude-mapping path="/ins/updateinfo.do"/>
 			<!-- 配件 -->
 			<mvc:exclude-mapping path="/parts/selectpartByName.do"/>
 			<mvc:exclude-mapping path="/parts/delpartsById.do"/>

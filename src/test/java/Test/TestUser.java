@@ -83,14 +83,5 @@ public class TestUser {
 		System.out.println(um.selectUserById(2));
 		ac.close();
 	}
-		//≤‚ ‘’’∆¨–≈œ¢ ‰»Î≥÷æ√≤„
-		@Test
-		public void testImage(){
-			AbstractApplicationContext ac = new ClassPathXmlApplicationContext("application-dao.xml");
-			UserMapper gt = ac.getBean("userMapper",UserMapper.class);
-			gt.updateImage(6, "dsf");
-			ac.close();
-		}
-		
 		
 }

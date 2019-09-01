@@ -43,8 +43,8 @@
 							<th style="width:10px"><input type="checkbox" name="" value=""></th>
 							<th style="width:50px">ID</th>
 							<th style="width:80px">名称</th>
-							<th style="width:80px">规格</th>
 							<th style="width:80px">类型</th>
+							<th style="width:80px">规格</th>
 							<th style="width:70px">定价</th>
 							<th style="width:100px">厂商</th>
 							<th style="width:100px">配件</th>
@@ -106,7 +106,7 @@ $(function(){
  			 	htmlStr='<tr class="text-c odd" role="row">'+
  				'<td><input type="checkbox" value="'+id+'" name=""></td>'+
 				'<td>'+id+'</td>'+
-				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show('+"'"+insName+"'"+','+"'member-show.jsp',"+"'10001',"+"'360',"+"'400'"+')">'+insName+'</u></div></td>'+
+				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show('+"'"+insName+"'"+','+"'../main/showIndex13.do',"+"'"+id+"'"+','+"'360',"+"'400'"+')">'+insName+'</u></div></td>'+
 				'<td>'+insType+'</td>'+
 				'<td>'+insSpecifications+'</td>'+
 				'<td>'+insPricing+'</td>'+
@@ -114,7 +114,7 @@ $(function(){
 				'<td>'+insParts+'</td>'+
 				'<td>'+insRemake+'</td>'+
 				'<td>'+insTime+'</td>'+
-				'<td class="td-manage"><a title='+"'编辑'"+' href="javascript:;" onclick="member_edit('+"'编辑',"+"'member-show.jsp',"+"'4',"+"'',"+"'510'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
+				'<td class="td-manage"><a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex13.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
 			'</tr>';
  				$("#table-data").append(htmlStr); 
  			}
@@ -173,7 +173,7 @@ $("#search").click(function(){
  			 	htmlStr='<tr class="text-c odd" role="row">'+
  				'<td><input type="checkbox" value="'+id+'" name=""></td>'+
 				'<td>'+id+'</td>'+
-				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show('+"'"+insName+"'"+','+"'showindex1.do',"+"'10001',"+"'360',"+"'400'"+')">'+insName+'</u></div></td>'+
+				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show('+"'"+insName+"'"+','+"'../main/showIndex13.do',"+"'"+id+"'"+','+"'360',"+"'400'"+')">'+insName+'</u></div></td>'+
 				'<td>'+insType+'</td>'+
 				'<td>'+insSpecifications+'</td>'+
 				'<td>'+insPricing+'</td>'+
@@ -181,7 +181,7 @@ $("#search").click(function(){
 				'<td>'+insParts+'</td>'+
 				'<td>'+insRemake+'</td>'+
 				'<td>'+insTime+'</td>'+
-				'<td class="td-manage"><a title='+"'编辑'"+' href="javascript:;" onclick="member_edit('+"'编辑',"+"'showindex1.do',"+"'4',"+"'',"+"'510'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
+				'<td class="td-manage"><a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex13.do',"+"'"+id+"',"+"'700',"+"'550'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
 			'</tr>';
  				$("#table-data").append(htmlStr); 
  			}
@@ -190,19 +190,13 @@ $("#search").click(function(){
 	
 	
 });
-/*用户-添加*/
-function member_add(title,url,w,h){
-	layer_show(title,url,w,h);
-}
 
 /*用户-查看*/
 function member_show(title,url,id,w,h){
+	localStorage.setItem("editId",id);
 	layer_show(title,url,w,h);
 }
-/*用户-编辑*/
-function member_edit(title,url,id,w,h){
-	layer_show(title,url,w,h);
-}
+
 /*用户-删除*/
 function member_del(obj,id){
 	layer.confirm('确认要删除吗？',{
