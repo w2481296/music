@@ -52,6 +52,8 @@
 			<mvc:exclude-mapping path="/parts/selectpartByName.do"/>
 			<mvc:exclude-mapping path="/parts/delpartsById.do"/>
 			<mvc:exclude-mapping path="/parts/delsById.do"/>
+			<mvc:exclude-mapping path="/parts/updatepartinfo.do"/>
+			<mvc:exclude-mapping path="/parts/querypartById.do"/>
 			<!--实例化拦截器  -->
 			<bean class="cn.tedu.store.interceptor.LoginInterceptor"/>
 		</mvc:interceptor>

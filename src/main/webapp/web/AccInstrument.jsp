@@ -111,7 +111,7 @@ $(function(){
 				'<td>'+insManufacturers+'</td>'+
 				'<td>'+insRemake+'</td>'+
 				'<td>'+insTime+'</td>'+
-				'<td class="td-manage"><a title='+"'编辑'"+' href="javascript:;" onclick="member_edit('+"'编辑',"+"'member-show.jsp',"+"'4',"+"'',"+"'510'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
+				'<td class="td-manage"><a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex14.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')"  style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
 			'</tr>';
  				$("#table-data").append(htmlStr); 
  			}
@@ -171,7 +171,7 @@ $("#search").click(function(){
 				'<td>'+insManufacturers+'</td>'+
 				'<td>'+insRemake+'</td>'+
 				'<td>'+insTime+'</td>'+
-				'<td class="td-manage"><a title='+"'编辑'"+' href="javascript:;" onclick="member_edit('+"'编辑',"+"'showindex1.do',"+"'4',"+"'',"+"'510'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
+				'<td class="td-manage"><a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex14.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
 			'</tr>';
  				$("#table-data").append(htmlStr); 
  			}
@@ -186,17 +186,10 @@ $("#clean").click(function(){
 	$("#datemax").val("");
 	$("#insname").val("");
 });
-/*用户-添加*/
-function member_add(title,url,w,h){
-	layer_show(title,url,w,h);
-}
 
 /*用户-查看*/
 function member_show(title,url,id,w,h){
-	layer_show(title,url,w,h);
-}
-/*用户-编辑*/
-function member_edit(title,url,id,w,h){
+	localStorage.setItem("partseditId",id);
 	layer_show(title,url,w,h);
 }
 /*用户-删除*/

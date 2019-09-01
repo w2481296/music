@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.tedu.store.bean.Instruments;
+import cn.tedu.store.bean.parts;
 import cn.tedu.store.mapper.InstrumentsMapper;
 import cn.tedu.store.mapper.partsMapper;
 
@@ -73,6 +75,36 @@ public class PartsController {
 		}
 		partsMapper.deletesById(ids2);
 		return "success";
+	}
+	/**
+	 * <pre>
+	 * querypartById(通过配件Id 查询配件相关信息)    
+	 * &#64;param id
+	 * &#64;param response
+	 * &#64;return
+	 * </pre>
+	 */
+	@RequestMapping("/querypartById.do")
+	@ResponseBody
+	public List<Map<String, Object>> querypartById(String ids, HttpServletResponse response) {
+		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
+		Integer ids2 = Integer.parseInt(ids);
+		machiningList = partsMapper.queryinstruById(ids2);
+		return machiningList;
+	}
+
+	/**
+	 * <pre>
+	 * updatepartinfo(修改配件相关信息)    
+	 * &#64;
+	 * &#64;param response
+	 * &#64;return
+	 * </pre>
+	 */
+	@RequestMapping("/updatepartinfo.do")
+	@ResponseBody
+	public void updatepartinfo(parts parts) {
+		partsMapper.updateinfo(parts);
 	}
 
 }

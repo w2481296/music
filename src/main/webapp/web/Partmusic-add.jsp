@@ -23,57 +23,51 @@
 <div class="page-container">
 	<form action="" method="post" class="form form-horizontal" id="form-article-add">
 		<div class="row cl" style="margin-top: 0px;display:none">
-			<label class="form-label col-xs-4 col-sm-2">乐器id：</label>
+			<label class="form-label col-xs-4 col-sm-2">配件id：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text" id="id" name="id">
 			</div>
 		</div>
 		<div class="row cl" style="margin-top: 0px;">
-			<label class="form-label col-xs-4 col-sm-2">乐器名称：</label>
+			<label class="form-label col-xs-4 col-sm-2">配件名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" id="insName" name="insName">
+				<input type="text" class="input-text" id="partsName" name="partsName">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">类型：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text"  readonly="readonly" id="insType" name="insType">
+				<input type="text" class="input-text"  readonly="readonly" id="partsType" name="partsType">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">规格：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text"  id="insSpecifications" name="insSpecifications">
+				<input type="text" class="input-text"  id="partsSpecifications" name="partsSpecifications">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">厂商：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text"  id="insManufacturers"  name="insManufacturers" class="input-text">
+				<input type="text"  id="partsManufacturers"  name="partsManufacturers" class="input-text">
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">配件：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text"  id="insParts"   name="insParts"  class="input-text">
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">乐器展示价格：</label>
+			<label class="form-label col-xs-4 col-sm-2">配件展示价格：</label>
 			<div class="formControls col-xs-8 col-sm-9" style="width:240px;">
-				<input type="text" id="insPricing"  name="insPricing" class="input-text" style="width:90%">
+				<input type="text" id="partsPricing"  name="partsPricing" class="input-text" style="width:90%">
 				元</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">成本价格：</label>
 			<div class="formControls col-xs-8 col-sm-9" style="width:240px;">
-				<input type="text"  id="insCost" name="insCost" class="input-text" style="width:90%">
+				<input type="text"  id="partsCost" name="partsCost" class="input-text" style="width:90%">
 				元</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">乐器备注：</label>
+			<label class="form-label col-xs-4 col-sm-2">配件备注：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<textarea id="insRemake" class="textarea"  placeholder="说点什么..." name="insRemake" datatype="*10-100" ></textarea>
+				<textarea id="partsRemake" class="textarea"  placeholder="说点什么..." name="partsRemake" datatype="*10-100" ></textarea>
 				<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
 			</div>
 		</div>
@@ -97,38 +91,37 @@
 <script type="text/javascript">
 $(function(){
 	//清空表单
-	if(localStorage.getItem("editId")==null){
+	if(localStorage.getItem("partseditId")==null){
 		layer_close();
 	}
 	document.getElementById("form-article-add").reset(); 
-	var editId=localStorage.getItem("editId");
+	var editId=localStorage.getItem("partseditId");
 	console.log("=="+editId);
 	var params={
 			ids:editId
 	};
 	$.ajax({
-		url :"../ins/queryinstruById.do",
+		url :"../parts/querypartById.do",
 		type:"post",
 		data:params,
 		async : false,
 		success : function(result) {
 			localStorage.clear();
 			document.getElementById("id").value=result[0].id!=null?result[0].id:"";
-			document.getElementById("insType").value="主乐器";
-			document.getElementById("insName").value=result[0].insName!=null?result[0].insName:"";
-			document.getElementById("insSpecifications").value=result[0].insSpecifications!=null?result[0].insSpecifications:"";
-			document.getElementById("insPricing").value=result[0].insPricing!=null?result[0].insPricing:"";
-			document.getElementById("insManufacturers").value=result[0].insManufacturers!=null?result[0].insManufacturers:"";
-			document.getElementById("insParts").value=result[0].insParts!=null?result[0].insParts:"";
-			document.getElementById("insCost").value=result[0].insCost!=null?result[0].insCost:"";
-			$("#insRemake").val(result[0].insRemake!=null?result[0].insRemake:"");
+			document.getElementById("partsType").value=result[0].partsType!=null?result[0].partsType:"";
+			document.getElementById("partsName").value=result[0].partsName!=null?result[0].partsName:"";
+			document.getElementById("partsSpecifications").value=result[0].partsSpecifications!=null?result[0].partsSpecifications:"";
+			document.getElementById("partsPricing").value=result[0].partsPricing!=null?result[0].partsPricing:"";
+			document.getElementById("partsManufacturers").value=result[0].partsManufacturers!=null?result[0].partsManufacturers:"";
+			document.getElementById("partsCost").value=result[0].partsCost!=null?result[0].partsCost:"";
+			$("#partsRemake").val(result[0].partsRemake!=null?result[0].partsRemake:"");
 		}
 	});
 
 });
 function article_save_submit(){
 	$.ajax({
-		url :"../ins/updateinfo.do",
+		url :"../parts/updatepartinfo.do",
 		type:"post",
 		data:$("#form-article-add").serializeArray(),
 		success : function(result) {
@@ -138,6 +131,8 @@ function article_save_submit(){
 		},
 	});
 	parent.location.reload();
+	
+	
 }
 </script>
 <!--/请在上方写此页面业务相关的脚本-->

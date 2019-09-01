@@ -5,6 +5,9 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import cn.tedu.store.bean.Instruments;
+import cn.tedu.store.bean.parts;
+
 public interface partsMapper {
 
 	//查询乐器信息
@@ -13,4 +16,8 @@ public interface partsMapper {
 	void delMainInsById(@Param("insid")Integer insid);
 	//批量删除
 	int deletesById(@Param("ids2")Integer[] ids2);
+	//查询配件
+	List<Map<String, Object>> queryinstruById(Integer ids2);
+	//更新配件
+	void updateinfo(parts parts);
 }

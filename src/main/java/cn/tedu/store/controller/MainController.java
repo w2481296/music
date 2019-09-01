@@ -76,4 +76,9 @@ public class MainController {
 	public String showIndex13() {
 		return "Mainmusic-add";
 	}
+	// Ìø×ªÅä¼þ±à¼­Ò³Ãæ
+	@RequestMapping("/showIndex14.do")
+	public String showIndex14() {
+		return "Partmusic-add";
+	}
 }

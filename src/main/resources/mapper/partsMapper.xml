@@ -7,7 +7,7 @@
 		select
 		wp.id as id,
 		wp.parts_name as insName,
-		wii.ins_name as insType,
+		wp.parts_type as insType,
 		wp.parts_specifications as insSpecifications,
 		wp.parts_cost as insCost,
 		wp.parts_pricing as insPricing,
@@ -16,7 +16,6 @@
 		date_format(wp.parts_time,'%Y-%c-%d %h:%i:%s') AS insTime
 		from
 		w_parts wp
-		left join w_instrument_information wii on wii.id=wp.parts_type
 		<where> 1=1
 			<if test="insName!=null and insName!=''">
 				AND wp.parts_name like CONCAT('%',#{insName},'%')
@@ -41,6 +40,39 @@
             #{id}
         </foreach>)
 	</delete>
+	
+	
+	<select id="queryinstruById" resultType="java.util.Map" parameterType="java.lang.Integer"
+	useCache="false" flushCache="true">
+		select
+		wp.id as id,
+		wp.parts_name as partsName,
+		wp.parts_type as partsType,
+		wp.parts_specifications as partsSpecifications,
+		wp.parts_cost as partsCost,
+		wp.parts_pricing as partsPricing,
+		wp.parts_manufacturers as partsManufacturers,
+		wp.parts_remake as partsRemake
+		from
+		w_parts wp
+		where
+		  id=#{ids2}
+	</select>
+	<update id="updateinfo" parameterType="cn.tedu.store.bean.parts">
+		update
+			w_parts
+		set
+			parts_name =#{partsName},
+			parts_type =#{partsType},
+			parts_specifications=#{partsSpecifications},
+			parts_cost =#{partsCost},
+			parts_pricing =#{partsPricing},
+			parts_manufacturers =#{partsManufacturers},
+			parts_remake =#{partsRemake},
+			parts_time=now()
+		where
+			id=#{id}
+	</update>
 </mapper>
 
 		
