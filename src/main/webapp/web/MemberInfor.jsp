@@ -23,7 +23,6 @@
 </head>
 <body>
 
-<!--/_menu 作为公共模版分离出去-->
 <section class="Hui-article-box">
 	<nav class="breadcrumb">
 	<i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 会员管理 <span class="c-gray en">&gt;</span> 会员信息 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
@@ -37,21 +36,20 @@
 				<button type="submit" class="btn btn-success radius" id="search" name=""><i class="Hui-iconfont">&#xe665;</i> 查询</button>
 				<button type="submit" class="btn btn-success radius" id="clean" name="" style="width:70px">清空</button>
 			</div>
-			<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a class="btn btn-primary radius" data-title="添加资讯" _href="article-add.html" onclick="article_add('添加资讯','article-add.html')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加资讯</a></span> <span class="r">共有数据：<span id="num2"></span> 条</span> </div>
+			<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除会员</a> <a class="btn btn-primary radius" data-title="新增会员" _href="article-add.html" onclick="member_show('新增会员','../main/showIndex16.do','','500','500')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加会员</a></span> <span class="r">共有数据：<span id="num2"></span> 条</span> </div>
 			<div class="mt-20">
 				<table class="table table-border table-bordered table-hover table-bg table-sort" id="DataTables_Table_0">
 					<thead>
 						<tr class="text-c">
 							<th style="width:10px"><input type="checkbox" name="" value=""></th>
 							<th style="width:50px">ID</th>
-							<th style="width:80px">名称</th>
-							<th style="width:80px">规格</th>
-							<th style="width:80px">类型</th>
-							<th style="width:70px">定价</th>
-							<th style="width:100px">厂商</th>
-							<th style="width:100px">配件</th>
-							<th style="width:100px">备注</th>
+							<th style="width:80px">名字</th>
+							<th style="width:50px">性别</th>
+							<th style="width:50px">年龄</th>
+							<th style="width:100px">电话</th>
+							<th style="width:80px">积分</th>
 							<th style="width:150px">更新时间</th>
+							<th style="width:150px">注册时间</th>
 							<th style="width:50px">操作</th>
 						</tr>
 					</thead>
@@ -66,62 +64,197 @@
 	</div>
 </section>
 
-<!--_footer 作为公共模版分离出去-->
 <script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
 <script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.page.js"></script>
-<!--/_footer /作为公共模版分离出去-->
-
-<!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
-$('.table-sort').dataTable({
-	"aaSorting": [[ 1, "desc" ]],//默认第几个排序
-	"bStateSave": true,//状态保存
-	"aoColumnDefs": [
-		//{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-		{"orderable":false,"aTargets":[0,8]}// 不参与排序的列
-	]
+$(function(){
+	$("#table-data").html(''); 
+	$.ajax({
+		url :"../vip/selectVipInfo.do",
+		type:"post",
+		dataType : "json",
+		contentType : "application/json;charset=utf-8",
+		async : false,
+		success : function(result) {
+ 			var allNum=result.length;
+ 			if(allNum==0){
+ 				document.getElementById("mes").style.display="block";
+ 				$('#num2').html(allNum);
+ 			}else{
+ 				$('#show').html(1);
+ 				$('#end').html(allNum);
+ 				$('#num').html(allNum);
+ 				$('#num2').html(allNum);
+ 			}
+ 			for(var i =0;i<allNum;i++){
+ 				var id= result[i].id;
+ 				var vipName = result[i].vipName;
+ 				var vipGender = result[i].vipGender!=null?result[i].vipGender:"";
+ 				var vipAge = result[i].vipAge!=null?result[i].vipAge:"";
+ 				var vipPhone = result[i].vipPhone!=null?result[i].vipPhone:"";
+ 				var vipIntegral = result[i].vipIntegral!=null?result[i].vipIntegral:"";
+ 				var vipUpdatetime = result[i].vipUpdatetime!=null?result[i].vipUpdatetime:"";
+ 				var vipCreatetime = result[i].vipCreatetime!=null?result[i].vipCreatetime:"";
+ 			 	htmlStr='<tr class="text-c odd" role="row">'+
+ 				'<td><input type="checkbox" value="'+id+'" name=""></td>'+
+				'<td>'+id+'</td>'+
+				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show('+"'"+vipName+"'"+','+"'../main/showIndex13.do',"+"'"+id+"'"+','+"'360',"+"'400'"+')">'+vipName+'</u></div></td>'+
+				'<td>'+vipGender+'</td>'+
+				'<td>'+vipAge+'</td>'+
+				'<td>'+vipPhone+'</td>'+
+				'<td>'+vipIntegral+'</td>'+
+				'<td>'+vipUpdatetime+'</td>'+
+				'<td>'+vipCreatetime+'</td>'+
+				'<td class="td-manage"><a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex15.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
+			'</tr>';
+ 				$("#table-data").append(htmlStr); 
+ 			}
+ 			
+		}
+	});
+	
+});
+/* 清空按钮 */
+$("#clean").click(function(){
+	$("#datemin").val("");
+	$("#datemax").val("");
+	$("#insname").val("");
+});
+/*-查询功能*/
+$("#search").click(function(){
+	$("#table-data").html(''); 
+	document.getElementById("mes").style.display="none";
+	var html = $('#datacount').children(); 
+	$('#datacount').html(html); 
+	var insname=$("#insname").val();
+	var datemin=$("#datemin").val();
+	var datemax=$("#datemax").val();
+	console.log("=="+insname);
+	var params={
+			vipName:insname,
+			vipTime1:datemin,
+			vipTime2:datemax
+	};
+	$.ajax({
+		url :"../vip/selectVipInfo.do",
+		data : params,
+		type:"post",
+		async : false,
+		success : function(result) {
+ 			var allNum=result.length;
+ 			if(allNum==0){
+ 				document.getElementById("mes").style.display="block";
+ 				$('#num2').html(allNum);
+ 			}else{
+ 				$('#show').html(1);
+ 				$('#end').html(allNum);
+ 				$('#num').html(allNum);
+ 				$('#num2').html(allNum);
+ 			}
+ 			for(var i =0;i<allNum;i++){
+ 				var id= result[i].id;
+ 				var vipName = result[i].vipName;
+ 				var vipGender = result[i].vipGender!=null?result[i].vipGender:"";
+ 				var vipAge = result[i].vipAge!=null?result[i].vipAge:"";
+ 				var vipPhone = result[i].vipPhone!=null?result[i].vipPhone:"";
+ 				var vipIntegral = result[i].vipIntegral!=null?result[i].vipIntegral:"";
+ 				var vipUpdatetime = result[i].vipUpdatetime!=null?result[i].vipUpdatetime:"";
+ 				var vipCreatetime = result[i].vipCreatetime!=null?result[i].vipCreatetime:"";
+ 			 	htmlStr='<tr class="text-c odd" role="row">'+
+ 				'<td><input type="checkbox" value="'+id+'" name=""></td>'+
+				'<td>'+id+'</td>'+
+				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show('+"'"+vipName+"'"+','+"'../main/showIndex13.do',"+"'"+id+"'"+','+"'360',"+"'400'"+')">'+vipName+'</u></div></td>'+
+				'<td>'+vipGender+'</td>'+
+				'<td>'+vipAge+'</td>'+
+				'<td>'+vipPhone+'</td>'+
+				'<td>'+vipIntegral+'</td>'+
+				'<td>'+vipUpdatetime+'</td>'+
+				'<td>'+vipCreatetime+'</td>'+
+				'<td class="td-manage"><a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex15.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
+			'</tr>';
+ 				$("#table-data").append(htmlStr); 
+ 			}
+		}
+	});
+	
+	
 });
 
-/*资讯-添加*/
-function article_add(title,url,w,h){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url
-	});
-	layer.full(index);
-}
-/*资讯-编辑*/
-function article_edit(title,url,id,w,h){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url
-	});
-	layer.full(index);
-}
-/*资讯-删除*/
-function article_del(obj,id){
-	layer.confirm('确认要删除吗？',function(index){
-		$.ajax({
-			type: 'POST',
-			url: '',
-			dataType: 'json',
-			success: function(data){
-				$(obj).parents("tr").remove();
-				layer.msg('已删除!',{icon:1,time:1000});
-			},
-			error:function(data) {
-				console.log(data.msg);
-			},
-		});		
+/*用户-删除*/
+function member_del(obj,id){
+	layer.confirm('确认要删除吗？',{
+		btn: ['确定', '取消']
+	  },function(index){
+			var params={
+					vipid:id
+			};
+			$.ajax({
+				url :"../vip/delvipById.do",
+				data : params,
+				type:"post",
+				async : false,
+				success : function(result) {
+					if(result=="success"){
+						$(obj).parents("tr").remove();
+					}else{
+						alert("删除失败");
+					}
+				}
+			});
+			layer.closeAll('dialog'); 
+	},function(){
+		layer.closeAll('dialog'); 
 	});
 }
+/*用户-批量删除*/
+function datadel(){
+	console.log("批量删除");
+	var ptag_ids = new Array(); //定义一个数组存储id
+	     // 循环获取选中的checkbox
+	    $("#table-data input[type='checkbox']:checked").each(function() {
+	        if (!isNaN($(this).val())) {
+	            ptag_ids.push($(this).val()); // 把值push进入数组里面
+	        }
+	    });
+	    if(ptag_ids.length ==0){
+	        alert('请选择至少一条记录删除');
+	        return false;
+	    }
+		console.log("选择得id"+ptag_ids);
+	     //调用删除函数
+	    deletePtag(ptag_ids);
+	}
 
+	 
+
+	function deletePtag(ptag_ids){
+	     if(confirm("您确定要删除次会员或者多条会员记录吗？删除后无法恢复,请谨慎操作！")){
+	         $.ajax({
+	             type : "post",
+	             url : "../vip/delvipsByIds.do",
+	             data : { "ids" : ptag_ids.toString() },  //数组.toString();转成字符串，号隔开的
+	             success : function(data) {
+	                 console.info(data);
+	                 if(data=="success"){
+	                     $("#btn-danger").prop("checked", false);//成功后把全选按钮设置成不选中，其他下面刷新了，要不要都可以的
+	                     location.reload();
+	                 }else{
+	                     alert(data.msg);
+	                 }
+	             }
+	         });
+	     }
+	}
+
+	/*用户-查看*/
+	function member_show(title,url,id,w,h){
+		localStorage.setItem("editId",id);
+		layer_show(title,url,w,h);
+	}
 </script>
 <!--/请在上方写此页面业务相关的脚本-->
 </body>

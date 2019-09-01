@@ -13,7 +13,7 @@
 		wp.parts_pricing as insPricing,
 		wp.parts_manufacturers as insManufacturers,
 		wp.parts_remake as insRemake,
-		date_format(wp.parts_time,'%Y-%c-%d %h:%i:%s') AS insTime
+		date_format(wp.parts_time,'%Y-%c-%d %H:%i:%S') AS insTime
 		from
 		w_parts wp
 		<where> 1=1

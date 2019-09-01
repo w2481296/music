@@ -81,4 +81,14 @@ public class MainController {
 	public String showIndex14() {
 		return "Partmusic-add";
 	}
+	// 跳转会员编辑页面
+	@RequestMapping("/showIndex15.do")
+	public String showIndex15() {
+		return "member-show";
+	}
+	// 跳转添加页面
+	@RequestMapping("/showIndex16.do")
+	public String showIndex16() {
+		return "member-add";
+	}
 }

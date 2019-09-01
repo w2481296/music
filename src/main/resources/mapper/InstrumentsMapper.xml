@@ -2,12 +2,6 @@
 	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
 		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="cn.tedu.store.mapper.InstrumentsMapper">
-	<!-- <insert parameterType="cn.tedu.store.bean.Instruments" id="insert">
-		insert into
-		w_instrument_information
-		(u_username,u_password,u_phone,u_updatetime)
-		values(#{username},#{password},#{phone},now())
-	</insert> -->
 	<select id="selinstruByName" resultType="java.util.Map" parameterType="java.lang.String"
 	useCache="false" flushCache="true">
 		select
@@ -20,7 +14,7 @@
 		wii.ins_manufacturers as insManufacturers,
 		wp.parts_name as insParts,
 		wii.ins_remake as insRemake,
-		date_format(wii.ins_time,'%Y-%c-%d %h:%i:%s') AS insTime
+		date_format(wii.ins_time,'%Y-%c-%d %H:%i:%S') AS insTime
 		from
 		w_instrument_information wii
 		left join w_parts wp on wp.id=wii.ins_parts

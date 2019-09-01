@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.store.mapper.VipuserMapper">
+	<select id="selectVipInfo" resultType="java.util.Map" parameterType="java.lang.String"
+	useCache="false" flushCache="true">
+		select
+			id as id,
+			vip_name as vipName,
+			vip_gender as vipGender,
+			vip_age as vipAge,
+			vip_phone as vipPhone,
+			vip_integral as vipIntegral,
+		date_format(vip_createtime,'%Y-%c-%d %H:%i:%S') AS vipCreatetime,
+		date_format(vip_updatetime,'%Y-%c-%d %H:%i:%S') AS vipUpdatetime
+		from
+			w_vip
+		<where> 1=1
+			<if test="vipName!=null and vipName!=''">
+				AND vip_name like CONCAT('%',#{vipName},'%')
+			</if>
+			<if test="vipTime1!=null and vipTime1!=''">
+				AND DATE_FORMAT(vip_createtime ,'%Y-%c-%d')&gt;=#{vipTime1}
+			</if>
+			<if test="vipTime2!=null and vipTime2!=''">
+				AND DATE_FORMAT(vip_createtime ,'%Y-%c-%d')&lt;=#{vipTime2}
+			</if>
+		</where>
+		group by id
+	</select>
+	<!-- 删除乐器 -->  
+	<delete id="delMainInsById" parameterType="cn.tedu.store.bean.vipuser">  
+		delete from w_vip  where id= #{vipid2}
+	</delete> 
+	<!-- 批量删除 -->
+	<delete id="delvipsByIds"  parameterType="java.util.List">
+         delete from w_vip where id in ( 
+         <foreach collection="ids2" item="id" separator=",">
+            #{id}
+        </foreach>)
+	</delete>
+	
+	
+</mapper>
+
+		
+	
+	
+	
+	
+	
+	
+	
+	

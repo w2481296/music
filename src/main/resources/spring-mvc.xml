@@ -34,6 +34,7 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/user/*"/>
 			<mvc:mapping path="/ins/*"/>
+			<mvc:mapping path="/vip/*"/>
 			<mvc:exclude-mapping path="/user/showRegister.do"/>
 			<mvc:exclude-mapping path="/user/checkUsername.do"/>
 			<mvc:exclude-mapping path="/user/checkPhone.do"/>
@@ -54,6 +55,10 @@
 			<mvc:exclude-mapping path="/parts/delsById.do"/>
 			<mvc:exclude-mapping path="/parts/updatepartinfo.do"/>
 			<mvc:exclude-mapping path="/parts/querypartById.do"/>
+			<!-- Vip用户-->
+			<mvc:exclude-mapping path="/vip/selectVipInfo.do"/>
+			<mvc:exclude-mapping path="/vip/delvipById.do"/>
+			<mvc:exclude-mapping path="/vip/delvipsByIds.do"/>
 			<!--实例化拦截器  -->
 			<bean class="cn.tedu.store.interceptor.LoginInterceptor"/>
 		</mvc:interceptor>

@@ -11,9 +11,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 
-<link href="static/h-ui/css/H-ui.min.css" rel="stylesheet" type="text/css" />
-<link href="static/h-ui.admin/css/H-ui.admin.css" rel="stylesheet" type="text/css" />
-<link href="lib/Hui-iconfont/1.0.8/iconfont.css" rel="stylesheet" type="text/css" />
+<link href="../static/h-ui/css/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="../static/h-ui.admin/css/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="../lib/Hui-iconfont/1.0.8/iconfont.css" rel="stylesheet" type="text/css" />
 
 <title>用户查看</title>
 </head>
@@ -33,16 +33,12 @@
         <td>男</td>
       </tr>
       <tr>
+        <th class="text-r">年龄：</th>
+        <td>23</td>
+      </tr>
+      <tr>
         <th class="text-r">手机：</th>
         <td>13000000000</td>
-      </tr>
-      <tr>
-        <th class="text-r">邮箱：</th>
-        <td>admin@mail.com</td>
-      </tr>
-      <tr>
-        <th class="text-r">地址：</th>
-        <td>北京市 海淀区</td>
       </tr>
       <tr>
         <th class="text-r">注册时间：</th>
@@ -55,12 +51,10 @@
     </tbody>
   </table>
 </div>
-<!--_footer 作为公共模版分离出去-->
-<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script> 
-<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
-<script type="text/javascript" src="static/h-ui/js/H-ui.js"></script>
-<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.page.js"></script>
-<!--/_footer /作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.page.js"></script>
 
 </body>
 </html>
