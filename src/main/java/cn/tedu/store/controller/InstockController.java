@@ -39,6 +39,14 @@ public class InstockController extends BaseController {
 		machiningList = instockMapper.selectinstockByName(inName, inTime1, inTime2);// ¶©µ¥id
 		return machiningList;
 	}
+	@RequestMapping("/selectinstockByName1.do")
+	@ResponseBody
+	public List<Map<String, Object>> selectinstockByName1(String inName, String inTime1, String inTime2,
+			HttpServletResponse response) {
+		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
+		machiningList = instockMapper.selectinstockByName1(inName, inTime1, inTime2);// ¶©µ¥id
+		return machiningList;
+	}
 
 	/**
 	 * <pre>

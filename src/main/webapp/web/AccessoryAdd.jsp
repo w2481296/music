@@ -76,7 +76,7 @@
 $(function(){
 	$("#table-data").html(''); 
 	$.ajax({
-		url :"../in/selectinstockByName.do",
+		url :"../in/selectinstockByName1.do",
 		type:"post",
 		dataType : "json",
 		contentType : "application/json;charset=utf-8",
@@ -146,7 +146,7 @@ $("#search").click(function(){
 			inTime2:datemax
 	};
 	$.ajax({
-		url :"../in/selectinstockByName.do",
+		url :"../in/selectinstockByName1.do",
 		data : params,
 		type:"post",
 		async : false,

@@ -11,6 +11,8 @@ import cn.tedu.store.bean.Instruments;
 public interface InstockMapper {
 	//查询乐器信息
 	List<Map<String, Object>> selectinstockByName(@Param("inName")String inName,@Param("inTime1")String inTime1,@Param("inTime2")String inTime2);
+	//查询配件信息
+	List<Map<String, Object>> selectinstockByName1(@Param("inName")String inName,@Param("inTime1")String inTime1,@Param("inTime2")String inTime2);
 	//删除乐器信息
 	void delMainInstockById(@Param("insid2")Integer insid2);
 	//批量删除

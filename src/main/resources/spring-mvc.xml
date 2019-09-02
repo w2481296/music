@@ -65,6 +65,7 @@
 			<mvc:exclude-mapping path="/vip/updatevipinfo.do"/>
 			<!-- 入库 -->
 			<mvc:exclude-mapping path="/in/selectinstockByName.do"/>
+			<mvc:exclude-mapping path="/in/selectinstockByName1.do"/>
 			<mvc:exclude-mapping path="/in/delMainInstockById.do"/>
 			<mvc:exclude-mapping path="/in/delMainInsstockById.do"/>
 			<mvc:exclude-mapping path="/in/queryinstockById.do"/>
