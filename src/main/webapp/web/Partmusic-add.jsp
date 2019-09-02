@@ -47,6 +47,12 @@
 			</div>
 		</div>
 		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">库存数量：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text"  id="partsQty" name="partsQty">
+			</div>
+		</div>
+		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">厂商：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text"  id="partsManufacturers"  name="partsManufacturers" class="input-text">
@@ -114,6 +120,7 @@ $(function(){
 			document.getElementById("partsPricing").value=result[0].partsPricing!=null?result[0].partsPricing:"";
 			document.getElementById("partsManufacturers").value=result[0].partsManufacturers!=null?result[0].partsManufacturers:"";
 			document.getElementById("partsCost").value=result[0].partsCost!=null?result[0].partsCost:"";
+			document.getElementById("partsQty").value=result[0].partsQty!=null?result[0].partsQty:"";
 			$("#partsRemake").val(result[0].partsRemake!=null?result[0].partsRemake:"");
 		}
 	});

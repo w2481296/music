@@ -10,11 +10,14 @@
 		wii.ins_type as insType,
 		wii.ins_specifications as insSpecifications,
 		wii.ins_cost as insCost,
+		wii.ins_qty as insQty,
 		wii.ins_pricing as insPricing,
+		wii.ins_qty as insQty,
 		wii.ins_manufacturers as insManufacturers,
 		wp.parts_name as insParts,
 		wii.ins_remake as insRemake,
-		date_format(wii.ins_time,'%Y-%c-%d %H:%i:%S') AS insTime
+		date_format(wii.ins_updatetime,'%Y-%c-%d %H:%i:%S') AS insUpdatetime,
+		date_format(wii.ins_createtime,'%Y-%c-%d %H:%i:%S') AS insCreatetime
 		from
 		w_instrument_information wii
 		left join w_parts wp on wp.id=wii.ins_parts
@@ -23,10 +26,10 @@
 				AND wii.ins_name like CONCAT('%',#{insName},'%')
 			</if>
 			<if test="insTime1!=null and insTime1!=''">
-				AND DATE_FORMAT(wii.ins_time , '%Y-%m-%d')&gt;=#{insTime1}
+				AND DATE_FORMAT(wii.ins_createtime , '%Y-%m-%d')&gt;=#{insTime1}
 			</if>
 			<if test="insTime2!=null and insTime2!=''">
-				AND DATE_FORMAT(wii.ins_time , '%Y-%m-%d')&lt;=#{insTime2}
+				AND DATE_FORMAT(wii.ins_createtime , '%Y-%m-%d')&lt;=#{insTime2}
 			</if>
 		</where>
 		group by id
@@ -49,6 +52,7 @@
 		wii.ins_name as insName,
 		wii.ins_specifications as insSpecifications,
 		wii.ins_cost as insCost,
+		wii.ins_qty as insQty,
 		wii.ins_pricing as insPricing,
 		wii.ins_manufacturers as insManufacturers,
 		wp.parts_name as insParts,
@@ -66,10 +70,11 @@
 			ins_name =#{insName},
 			ins_specifications=#{insSpecifications},
 			ins_cost =#{insCost},
+			ins_qty =#{insQty},
 			ins_pricing =#{insPricing},
 			ins_manufacturers =#{insManufacturers},
 			ins_remake =#{insRemake},
-			ins_time=now()
+			ins_updatetime=now()
 		where
 			id=#{id}
 	</update>

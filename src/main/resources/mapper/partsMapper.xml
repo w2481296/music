@@ -11,9 +11,11 @@
 		wp.parts_specifications as insSpecifications,
 		wp.parts_cost as insCost,
 		wp.parts_pricing as insPricing,
+		wp.parts_qty as insQty,
 		wp.parts_manufacturers as insManufacturers,
 		wp.parts_remake as insRemake,
-		date_format(wp.parts_time,'%Y-%c-%d %H:%i:%S') AS insTime
+		date_format(wp.parts_updatetime,'%Y-%c-%d %H:%i:%S') AS insUpdatetime,
+		date_format(wp.parts_createtime,'%Y-%c-%d %H:%i:%S') AS insCreatetime
 		from
 		w_parts wp
 		<where> 1=1
@@ -21,10 +23,10 @@
 				AND wp.parts_name like CONCAT('%',#{insName},'%')
 			</if>
 			<if test="insTime1!=null and insTime1!=''">
-				AND DATE_FORMAT(wp.parts_time , '%Y-%m-%d')&gt;=#{insTime1}
+				AND DATE_FORMAT(wp.parts_createtime , '%Y-%m-%d')&gt;=#{insTime1}
 			</if>
 			<if test="insTime2!=null and insTime2!=''">
-				AND DATE_FORMAT(wp.parts_time , '%Y-%m-%d')&lt;=#{insTime2}
+				AND DATE_FORMAT(wp.parts_createtime , '%Y-%m-%d')&lt;=#{insTime2}
 			</if>
 		</where>
 		group by id
@@ -51,6 +53,7 @@
 		wp.parts_specifications as partsSpecifications,
 		wp.parts_cost as partsCost,
 		wp.parts_pricing as partsPricing,
+		wp.parts_qty as partsQty,
 		wp.parts_manufacturers as partsManufacturers,
 		wp.parts_remake as partsRemake
 		from
@@ -66,10 +69,11 @@
 			parts_type =#{partsType},
 			parts_specifications=#{partsSpecifications},
 			parts_cost =#{partsCost},
+			parts_qty =#{partsQty},
 			parts_pricing =#{partsPricing},
 			parts_manufacturers =#{partsManufacturers},
 			parts_remake =#{partsRemake},
-			parts_time=now()
+			parts_updatetime=now()
 		where
 			id=#{id}
 	</update>

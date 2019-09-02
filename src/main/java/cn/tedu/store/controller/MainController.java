@@ -91,4 +91,14 @@ public class MainController {
 	public String showIndex16() {
 		return "member-add";
 	}
+	// 跳转主乐器添加页面
+	@RequestMapping("/showIndex17.do")
+	public String showIndex17() {
+		return "Mainmusic2-add";
+	}
+	// 跳转主乐器编辑页面
+	@RequestMapping("/showIndex18.do")
+	public String showIndex18() {
+		return "Mainmusic-show";
+	}
 }

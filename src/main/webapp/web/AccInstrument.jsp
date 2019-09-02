@@ -46,9 +46,11 @@
 							<th style="width:80px">所属乐器</th>
 							<th style="width:80px">规格</th>
 							<th style="width:70px">定价</th>
+							<th style="width:70px">库存数量</th>
 							<th style="width:100px">厂商</th>
 							<th style="width:100px">备注</th>
 							<th style="width:150px">更新时间</th>
+							<th style="width:150px">入库时间</th>
 							<th style="width:50px">操作</th>
 						</tr>
 					</thead>
@@ -98,9 +100,11 @@ $(function(){
  				var insType = result[i].insType!=null?result[i].insType:"";
  				var insSpecifications = result[i].insSpecifications!=null?result[i].insSpecifications:"";
  				var insPricing = result[i].insPricing!=null?result[i].insPricing:"";
+ 				var insQty = result[i].insQty!=null?result[i].insQty:"";
  				var insManufacturers = result[i].insManufacturers!=null?result[i].insManufacturers:"";
  				var insRemake = result[i].insRemake!=null?result[i].insRemake:"";
- 				var insTime = result[i].insTime!=null?result[i].insTime:"";
+ 				var insUpdatetime = result[i].insUpdatetime!=null?result[i].insUpdatetime:"";
+ 				var insCreatetime = result[i].insCreatetime!=null?result[i].insCreatetime:"";
  			 	htmlStr='<tr class="text-c odd" role="row">'+
  				'<td><input type="checkbox" value="'+id+'" name=""></td>'+
 				'<td>'+id+'</td>'+
@@ -108,9 +112,11 @@ $(function(){
 				'<td>'+insType+'</td>'+
 				'<td>'+insSpecifications+'</td>'+
 				'<td>'+insPricing+'</td>'+
+				'<td>'+insQty+'</td>'+
 				'<td>'+insManufacturers+'</td>'+
 				'<td>'+insRemake+'</td>'+
-				'<td>'+insTime+'</td>'+
+				'<td>'+insUpdatetime+'</td>'+
+				'<td>'+insCreatetime+'</td>'+
 				'<td class="td-manage"><a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex14.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')"  style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
 			'</tr>';
  				$("#table-data").append(htmlStr); 
@@ -158,20 +164,24 @@ $("#search").click(function(){
  				var insType = result[i].insType!=null?result[i].insType:"";
  				var insSpecifications = result[i].insSpecifications!=null?result[i].insSpecifications:"";
  				var insPricing = result[i].insPricing!=null?result[i].insPricing:"";
+ 				var insQty = result[i].insQty!=null?result[i].insQty:"";
  				var insManufacturers = result[i].insManufacturers!=null?result[i].insManufacturers:"";
  				var insRemake = result[i].insRemake!=null?result[i].insRemake:"";
- 				var insTime = result[i].insTime!=null?result[i].insTime:"";
+ 				var insUpdatetime = result[i].insUpdatetime!=null?result[i].insUpdatetime:"";
+ 				var insCreatetime = result[i].insCreatetime!=null?result[i].insCreatetime:"";
  			 	htmlStr='<tr class="text-c odd" role="row">'+
  				'<td><input type="checkbox" value="'+id+'" name=""></td>'+
 				'<td>'+id+'</td>'+
-				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show('+"'"+insName+"'"+','+"'showindex1.do',"+"'10001',"+"'360',"+"'400'"+')">'+insName+'</u></div></td>'+
+				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show('+"'"+insName+"'"+','+"'member-show.jsp',"+"'10001',"+"'360',"+"'400'"+')">'+insName+'</u></div></td>'+
 				'<td>'+insType+'</td>'+
 				'<td>'+insSpecifications+'</td>'+
 				'<td>'+insPricing+'</td>'+
+				'<td>'+insQty+'</td>'+
 				'<td>'+insManufacturers+'</td>'+
 				'<td>'+insRemake+'</td>'+
-				'<td>'+insTime+'</td>'+
-				'<td class="td-manage"><a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex14.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
+				'<td>'+insUpdatetime+'</td>'+
+				'<td>'+insCreatetime+'</td>'+
+				'<td class="td-manage"><a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex14.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')"  style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
 			'</tr>';
  				$("#table-data").append(htmlStr); 
  			}

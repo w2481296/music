@@ -4,25 +4,23 @@ import java.io.Serializable;
 
 public class Instruments implements Serializable{
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6052390892751519427L;
-	/**
-	 * 
-	 */
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2663083388473782045L;
 	private Integer id;
 	private String insName;// 乐器名称
 	private String insType;// 乐器类型
 	private String insSpecifications;// 乐器类型
 	private String insCost;// 乐器成本
 	private String insPricing;// 乐器定价
+	private String insQty;// 乐器库存
 	private String insManufacturers;// 乐器厂商
 	private String insParts;// 乐器所属配件
 	private String insRemake;// 备注
-	private String insTime;// 时间
-	
+	private String insUpdatetime;// 更新时间
+	private String insCreatetime;// 入库时间
 	public Integer getId() {
 		return id;
 	}
@@ -59,6 +57,12 @@ public class Instruments implements Serializable{
 	public void setInsPricing(String insPricing) {
 		this.insPricing = insPricing;
 	}
+	public String getInsQty() {
+		return insQty;
+	}
+	public void setInsQty(String insQty) {
+		this.insQty = insQty;
+	}
 	public String getInsManufacturers() {
 		return insManufacturers;
 	}
@@ -77,14 +81,17 @@ public class Instruments implements Serializable{
 	public void setInsRemake(String insRemake) {
 		this.insRemake = insRemake;
 	}
-	public String getInsTime() {
-		return insTime;
+	public String getInsUpdatetime() {
+		return insUpdatetime;
 	}
-	public void setInsTime(String insTime) {
-		this.insTime = insTime;
+	public void setInsUpdatetime(String insUpdatetime) {
+		this.insUpdatetime = insUpdatetime;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public String getInsCreatetime() {
+		return insCreatetime;
+	}
+	public void setInsCreatetime(String insCreatetime) {
+		this.insCreatetime = insCreatetime;
 	}
 	@Override
 	public int hashCode() {
@@ -92,14 +99,16 @@ public class Instruments implements Serializable{
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((insCost == null) ? 0 : insCost.hashCode());
+		result = prime * result + ((insCreatetime == null) ? 0 : insCreatetime.hashCode());
 		result = prime * result + ((insManufacturers == null) ? 0 : insManufacturers.hashCode());
 		result = prime * result + ((insName == null) ? 0 : insName.hashCode());
 		result = prime * result + ((insParts == null) ? 0 : insParts.hashCode());
 		result = prime * result + ((insPricing == null) ? 0 : insPricing.hashCode());
+		result = prime * result + ((insQty == null) ? 0 : insQty.hashCode());
 		result = prime * result + ((insRemake == null) ? 0 : insRemake.hashCode());
 		result = prime * result + ((insSpecifications == null) ? 0 : insSpecifications.hashCode());
-		result = prime * result + ((insTime == null) ? 0 : insTime.hashCode());
 		result = prime * result + ((insType == null) ? 0 : insType.hashCode());
+		result = prime * result + ((insUpdatetime == null) ? 0 : insUpdatetime.hashCode());
 		return result;
 	}
 	@Override
@@ -121,6 +130,11 @@ public class Instruments implements Serializable{
 				return false;
 		} else if (!insCost.equals(other.insCost))
 			return false;
+		if (insCreatetime == null) {
+			if (other.insCreatetime != null)
+				return false;
+		} else if (!insCreatetime.equals(other.insCreatetime))
+			return false;
 		if (insManufacturers == null) {
 			if (other.insManufacturers != null)
 				return false;
@@ -141,6 +155,11 @@ public class Instruments implements Serializable{
 				return false;
 		} else if (!insPricing.equals(other.insPricing))
 			return false;
+		if (insQty == null) {
+			if (other.insQty != null)
+				return false;
+		} else if (!insQty.equals(other.insQty))
+			return false;
 		if (insRemake == null) {
 			if (other.insRemake != null)
 				return false;
@@ -151,24 +170,24 @@ public class Instruments implements Serializable{
 				return false;
 		} else if (!insSpecifications.equals(other.insSpecifications))
 			return false;
-		if (insTime == null) {
-			if (other.insTime != null)
-				return false;
-		} else if (!insTime.equals(other.insTime))
-			return false;
 		if (insType == null) {
 			if (other.insType != null)
 				return false;
 		} else if (!insType.equals(other.insType))
+			return false;
+		if (insUpdatetime == null) {
+			if (other.insUpdatetime != null)
+				return false;
+		} else if (!insUpdatetime.equals(other.insUpdatetime))
 			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
 		return "Instruments [id=" + id + ", insName=" + insName + ", insType=" + insType + ", insSpecifications="
-				+ insSpecifications + ", insCost=" + insCost + ", insPricing=" + insPricing + ", insManufacturers="
-				+ insManufacturers + ", insParts=" + insParts + ", insRemake=" + insRemake + ", insTime=" + insTime
-				+ "]";
+				+ insSpecifications + ", insCost=" + insCost + ", insPricing=" + insPricing + ", insQty=" + insQty
+				+ ", insManufacturers=" + insManufacturers + ", insParts=" + insParts + ", insRemake=" + insRemake
+				+ ", insUpdatetime=" + insUpdatetime + ", insCreatetime=" + insCreatetime + "]";
 	}
 	
 }
