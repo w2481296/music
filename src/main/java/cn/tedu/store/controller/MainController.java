@@ -111,4 +111,9 @@ public class MainController {
 	public String showIndex20() {
 		return "Mainmusic-show";
 	}
+	// 跳转配件连接页面
+	@RequestMapping("/showIndex21.do")
+	public String showIndex21() {
+		return "partconnect";
+	}
 }

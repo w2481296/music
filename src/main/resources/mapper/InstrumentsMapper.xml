@@ -72,6 +72,7 @@
 			ins_cost =#{insCost},
 			ins_qty =#{insQty},
 			ins_pricing =#{insPricing},
+			ins_parts =#{insParts},
 			ins_manufacturers =#{insManufacturers},
 			ins_remake =#{insRemake},
 			ins_updatetime=now()
