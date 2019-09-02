@@ -85,6 +85,15 @@
 		#{inCost},#{inPricing},#{inQty},#{inPart},#{inManufacturers},
 		now(),now())
 	</insert>
+	<insert parameterType="cn.tedu.store.bean.Instock" id="addpartsinstock">
+		insert into
+		w_instock
+		(in_name,in_type,in_specifications,in_cost,in_pricing,
+		in_qty,in_manufacturers,in_updatetime,in_createtime
+		)
+		values(#{inName},'配件',#{inSpecifications},
+		#{inCost},#{inPricing},#{inQty},#{inManufacturers},now(),now())
+	</insert>
 	<select id="queryByName" parameterType="cn.tedu.store.bean.Instock" resultType="java.util.Map">
 		select
 		id as id,
@@ -94,6 +103,16 @@
 		w_instrument_information
 		where
 		ins_name=#{inName} and ins_specifications=#{inSpecifications} and ins_manufacturers=#{inManufacturers}
+	</select>
+	<select id="querypartsByName" parameterType="cn.tedu.store.bean.Instock" resultType="java.util.Map">
+		select
+		id as id,
+		parts_name as inName,
+		parts_qty as inQty
+		from
+		w_parts
+		where
+		parts_name=#{inName} and parts_specifications=#{inSpecifications} and parts_manufacturers=#{inManufacturers}
 	</select>
 	<insert parameterType="cn.tedu.store.bean.Instock" id="insertInfo">
 		insert into
@@ -105,6 +124,16 @@
 		#{inCost},#{inPricing},#{inQty},#{inPart},#{inManufacturers},
 		now(),now())
 	</insert>
+	<insert parameterType="cn.tedu.store.bean.Instock" id="insertpartsInfo">
+		insert into
+		w_parts
+		(parts_name,parts_type,parts_specifications,parts_cost,parts_pricing,
+		parts_qty,parts_manufacturers,parts_updatetime,parts_createtime
+		)
+		values(#{inName},'配件',#{inSpecifications},
+		#{inCost},#{inPricing},#{inQty},#{inManufacturers},
+		now(),now())
+	</insert>
 	<update id="updateoldinfo" parameterType="cn.tedu.store.bean.Instock">
 		update
 			w_instrument_information
@@ -113,6 +142,15 @@
 			ins_updatetime=now()
 		where
 			ins_name=#{inName}
+	</update>
+	<update id="updateoldpartsinfo" parameterType="cn.tedu.store.bean.Instock">
+		update
+			w_parts
+		set
+			parts_qty =#{inQty},
+			parts_updatetime=now()
+		where
+			parts_name=#{inName}
 	</update>
 </mapper>
 

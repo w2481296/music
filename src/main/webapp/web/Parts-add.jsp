@@ -56,12 +56,6 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">配件：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" style="width: 210px;" id="inPart" name="inPart">
-			</div>
-		</div>
-		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>工厂：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text" style="width: 210px;" id="inManufacturers" name="inManufacturers">
@@ -115,7 +109,7 @@ $(function(){
 		success:"valid",
 		submitHandler:function(form){
 				$.ajax({
-					url :"../in/addinstock.do",
+					url :"../in/addpartsinstock.do",
 					type:"post",
 					async:false,
 					data:$("#form-member-add").serializeArray(),

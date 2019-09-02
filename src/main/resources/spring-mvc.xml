@@ -70,6 +70,8 @@
 			<mvc:exclude-mapping path="/in/queryinstockById.do"/>
 			<mvc:exclude-mapping path="/in/updateinstock.do"/>
 			<mvc:exclude-mapping path="/in/addinstock.do"/>
+			
+			<mvc:exclude-mapping path="/in/addpartsinstock.do"/>
 			<!--实例化拦截器  -->
 			<bean class="cn.tedu.store.interceptor.LoginInterceptor"/>
 		</mvc:interceptor>

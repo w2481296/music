@@ -49,7 +49,6 @@
 							<th style="width:50px">成本</th>
 							<th style="width:80px">定价</th>
 							<th style="width:50px">入库数量</th>
-							<th style="width:50px">配件</th>
 							<th style="width:100px">工厂</th>
 							<th style="width:150px">更新时间</th>
 							<th style="width:150px">入库时间</th>
@@ -101,7 +100,6 @@ $(function(){
  				var inCost = result[i].inCost!=null?result[i].inCost:"";
  				var inPricing = result[i].inPricing!=null?result[i].inPricing:"";
  				var inQty = result[i].inQty!=null?result[i].inQty:"";
- 				var inPart = result[i].inPart!=null?result[i].inPart:"";
  				var inManufacturers = result[i].inManufacturers!=null?result[i].inManufacturers:"";
  				var inUpdatetime = result[i].inUpdatetime!=null?result[i].inUpdatetime:"";
  				var inCreatetime = result[i].inCreatetime!=null?result[i].inCreatetime:"";
@@ -114,7 +112,6 @@ $(function(){
 				'<td>'+inCost+'</td>'+
 				'<td>'+inPricing+'</td>'+
 				'<td>'+inQty+'</td>'+
-				'<td>'+inPart+'</td>'+
 				'<td>'+inManufacturers+'</td>'+
 				'<td>'+inUpdatetime+'</td>'+
 				'<td>'+inCreatetime+'</td>'+
@@ -172,7 +169,6 @@ $("#search").click(function(){
  				var inCost = result[i].inCost!=null?result[i].inCost:"";
  				var inPricing = result[i].inPricing!=null?result[i].inPricing:"";
  				var inQty = result[i].inQty!=null?result[i].inQty:"";
- 				var inPart = result[i].inPart!=null?result[i].inPart:"";
  				var inManufacturers = result[i].inManufacturers!=null?result[i].inManufacturers:"";
  				var inUpdatetime = result[i].inUpdatetime!=null?result[i].inUpdatetime:"";
  				var inCreatetime = result[i].inCreatetime!=null?result[i].inCreatetime:"";
@@ -185,7 +181,6 @@ $("#search").click(function(){
 				'<td>'+inCost+'</td>'+
 				'<td>'+inPricing+'</td>'+
 				'<td>'+inQty+'</td>'+
-				'<td>'+inPart+'</td>'+
 				'<td>'+inManufacturers+'</td>'+
 				'<td>'+inUpdatetime+'</td>'+
 				'<td>'+inCreatetime+'</td>'+

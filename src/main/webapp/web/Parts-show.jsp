@@ -28,43 +28,37 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>名字：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" style="width:210px;" id="inName" name="inName">
+				<input type="text" class="input-text" style="width:210px;" id="partsName" name="partsName">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>规格：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" style="width:210px;" id="inSpecifications" name="inSpecifications">
+				<input type="text" class="input-text" style="width:210px;" id="partsSpecifications" name="partsSpecifications">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>成本：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" style="width:210px;" id="inCost" name="inCost">
+				<input type="text" class="input-text" style="width:210px;" id="partsCost" name="partsCost">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"></span>定价：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" style="width: 210px;" name="inPricing" id="inPricing">
+				<input type="text" class="input-text" style="width: 210px;" name="partsPricing" id="partsPricing">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>数量：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" style="width: 210px;" id="inQty" name="inQty">
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">配件：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" style="width: 210px;" id="inPart" name="inPart">
+				<input type="text" class="input-text" style="width: 210px;" id="partsQty" name="partsQty">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>工厂：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" style="width: 210px;" id="inManufacturers" name="inManufacturers">
+				<input type="text" class="input-text" style="width: 210px;" id="partsManufacturers" name="partsManufacturers">
 			</div>
 		</div>
 		<div class="row cl">
@@ -106,10 +100,7 @@ $(function(){
 			document.getElementById("inCost").value=result[0].inCost!=null?result[0].inCost:"";
 			document.getElementById("inPricing").value=result[0].inPricing!=null?result[0].inPricing:"";
 			document.getElementById("inQty").value=result[0].inQty!=null?result[0].inQty:"";
-			document.getElementById("inPart").value=result[0].inPart!=null?result[0].inPart:"";
 			document.getElementById("inManufacturers").value=result[0].inManufacturers!=null?result[0].inManufacturers:"";
-			document.getElementById("inCreatetime").value=result[0].inCreatetime!=null?result[0].inCreatetime:"";
-			document.getElementById("inUpdatetime").value=result[0].inUpdatetime!=null?result[0].inUpdatetime:"";
 		}
 	});
 

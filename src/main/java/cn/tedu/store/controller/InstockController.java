@@ -113,7 +113,7 @@ public class InstockController extends BaseController {
 		//修改乐器表
 	}
 
-	// 添加入库
+	// 主乐器添加入库
 	@RequestMapping("/addinstock.do")
 	@ResponseBody
 	public void addinstock(Instock instock) {
@@ -130,6 +130,26 @@ public class InstockController extends BaseController {
 		}else{
 			//添加到主表
 			instockMapper.insertInfo(instock);
+		}
+		
+	}
+	// 配件添加入库
+	@RequestMapping("/addpartsinstock.do")
+	@ResponseBody
+	public void addpartsinstock(Instock instock) {
+		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
+		//添加到库存表
+		instockMapper.addpartsinstock(instock);
+		machiningList=instockMapper.querypartsByName(instock);
+		if(machiningList.size()!=0){
+			//存在主表，更新数据
+			Integer a=Integer.valueOf(machiningList.get(0).get("inQty").toString());
+			Integer b=Integer.valueOf(instock.getInQty());
+			instock.setInQty(String.valueOf(b+a));
+			instockMapper.updateoldpartsinfo(instock);
+		}else{
+			//添加到主表
+			instockMapper.insertpartsInfo(instock);
 		}
 		
 	}

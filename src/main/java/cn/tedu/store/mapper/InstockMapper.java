@@ -23,11 +23,20 @@ public interface InstockMapper {
 	void addinstock(Instock instock);
 	//判断是否是新乐器
 	List<Map<String, Object>> queryByName(Instock instock);
-
 	//新乐器添加到乐器表
-	void updateoldinfo(Instock instock);
-	//旧乐器更新乐器表
 	void insertInfo(Instock instock);
+	//旧乐器更新乐器表
+	void updateoldinfo(Instock instock);
+		
+	
+	//添加入库配件
+	void addpartsinstock(Instock instock);
+	//判断是否是新配件
+	List<Map<String, Object>> querypartsByName(Instock instock);
+	//新配件添加到配件表
+	void insertpartsInfo(Instock instock);
+	//旧配件更新配件表
+	void updateoldpartsinfo(Instock instock);
 	
 	
 	
