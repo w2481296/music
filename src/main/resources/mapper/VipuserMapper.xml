@@ -39,8 +39,49 @@
             #{id}
         </foreach>)
 	</delete>
+	<insert parameterType="cn.tedu.store.bean.vipuser" id="addvipinfo">
+		insert into
+		w_vip
+		(vip_name,vip_gender,vip_age,vip_phone,vip_updatetime)
+		values(#{vipName},#{vipGender},#{vipAge},#{vipPhone},now())
+	</insert>
 	
-	
+	<select id="queryvipById" resultType="java.util.Map" parameterType="java.lang.Integer"
+	useCache="false" flushCache="true">
+		select
+			id as id,
+			vip_name as vipName,
+			vip_gender as vipGender,
+			vip_age as vipAge,
+			vip_phone as vipPhone,
+			vip_integral as vipIntegral,
+			date_format(vip_createtime,'%Y-%c-%d %H:%i:%S') AS vipCreatetime,
+			date_format(vip_updatetime,'%Y-%c-%d %H:%i:%S') AS vipUpdatetime
+		from
+			w_vip
+		where
+			id=#{ids2}
+	</select>
+	<update id="updatevipinfo" parameterType="cn.tedu.store.bean.vipuser">
+		update
+			w_vip
+		<set>
+				vip_name =#{vipName},
+				vip_gender=#{vipGender},
+			<if test="vipAge!=null||vipAge!=''">
+				vip_age =#{vipAge},
+			</if>
+			<if test="vipPhone!=null||vipPhone!=''">
+				vip_phone =#{vipPhone},
+			</if>			
+			<if test="vipIntegral!=null||vipIntegral!=''">
+				vip_integral =#{vipIntegral},
+			</if>
+				vip_updatetime=now()
+		</set>
+		where
+			id=#{id}
+	</update>
 </mapper>
 
 		

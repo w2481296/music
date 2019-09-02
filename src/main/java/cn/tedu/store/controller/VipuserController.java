@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.tedu.store.bean.Instruments;
 import cn.tedu.store.bean.vipuser;
 import cn.tedu.store.mapper.VipuserMapper;
 
@@ -54,6 +55,43 @@ public class VipuserController {
 		}
 		vipuserMapper.delvipsByIds(ids2);
 		return "success";
+	}
+	//添加会员
+	@RequestMapping("/addvipinfo.do")
+	@ResponseBody
+	public void addvipinfo(vipuser vipuser) {
+		vipuserMapper.addvipinfo(vipuser);
+	}
+	/**
+	 * <pre>
+	 * queryvipById(通过vip Id 查询会员相关信息)    
+	 * &#64;param id
+	 * &#64;param response
+	 * &#64;return
+	 * </pre>
+	 */
+	@RequestMapping("/queryvipById.do")
+	@ResponseBody
+	public List<Map<String, Object>> queryvipById(String ids, HttpServletResponse response) {
+		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
+		Integer ids2 = Integer.parseInt(ids);
+		machiningList = vipuserMapper.queryvipById(ids2);
+		System.out.println(machiningList);
+		return machiningList;
+	}
+
+	/**
+	 * <pre>
+	 * updatevipinfo(修改会员相关信息)    
+	 * &#64;
+	 * &#64;param response
+	 * &#64;return
+	 * </pre>
+	 */
+	@RequestMapping("/updatevipinfo.do")
+	@ResponseBody
+	public void updatevipinfo(vipuser vipuser) {
+		vipuserMapper.updatevipinfo(vipuser);
 	}
 
 }

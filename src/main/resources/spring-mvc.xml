@@ -59,6 +59,9 @@
 			<mvc:exclude-mapping path="/vip/selectVipInfo.do"/>
 			<mvc:exclude-mapping path="/vip/delvipById.do"/>
 			<mvc:exclude-mapping path="/vip/delvipsByIds.do"/>
+			<mvc:exclude-mapping path="/vip/addvipinfo.do"/>
+			<mvc:exclude-mapping path="/vip/queryvipById.do"/>
+			<mvc:exclude-mapping path="/vip/updatevipinfo.do"/>
 			<!--实例化拦截器  -->
 			<bean class="cn.tedu.store.interceptor.LoginInterceptor"/>
 		</mvc:interceptor>

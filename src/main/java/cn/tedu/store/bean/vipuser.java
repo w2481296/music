@@ -1,7 +1,6 @@
 package cn.tedu.store.bean;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class vipuser implements Serializable{
 	/**

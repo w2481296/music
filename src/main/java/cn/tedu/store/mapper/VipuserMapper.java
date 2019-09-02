@@ -5,7 +5,9 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import cn.tedu.store.bean.Instruments;
 import cn.tedu.store.bean.User;
+import cn.tedu.store.bean.vipuser;
 /**
  * 哪个工程中的类和接口。 
  * @author 名字
@@ -19,5 +21,11 @@ public interface VipuserMapper {
 	void delMainInsById(@Param("vipid2")Integer vipid2);
 
 	void delvipsByIds(@Param("ids2")Integer[] ids2);
+
+	void addvipinfo(vipuser vipuser);
+
+	List<Map<String, Object>> queryvipById(Integer ids2);
+
+	void updatevipinfo(vipuser vipuser);
 
 }

@@ -28,36 +28,36 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
+				<input type="text" class="input-text" style="width:210px;" id="vipName" name="vipName">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
 			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 				<div class="radio-box">
-					<input name="sex" type="radio" id="sex-1" checked>
+					<input name="vipGender" type="radio" value="男" id="sex-1" checked>
 					<label for="sex-1">男</label>
 				</div>
 				<div class="radio-box">
-					<input type="radio" id="sex-2" name="sex">
+					<input type="radio" id="sex-2" value="女" name="vipGender">
 					<label for="sex-2">女</label>
 				</div>
 				<div class="radio-box">
-					<input type="radio" id="sex-3" name="sex">
+					<input type="radio" id="sex-3" value="保密" name="vipGender">
 					<label for="sex-3">保密</label>
 				</div>
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>年龄：</label>
+			<label class="form-label col-xs-4 col-sm-3"></span>年龄：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text"  name="age" id="age">
+				<input type="text" class="input-text" style="width: 210px;" name="vipAge" id="age">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="mobile" name="mobile">
+				<input type="text" class="input-text" style="width: 210px;" id="mobile" name="vipPhone">
 			</div>
 		</div>
 		<div class="row cl">
@@ -98,21 +98,23 @@ $(function(){
 			mobile:{
 				required:true,
 				isMobile:true,
-			},
-			email:{
-				required:true,
-				email:true,
-			},
-			uploadfile:{
-				required:true,
-			},
-			
+			},			
 		},
 		onkeyup:false,
 		focusCleanup:true,
 		success:"valid",
 		submitHandler:function(form){
-			$(form).ajaxSubmit();
+				$.ajax({
+					url :"../vip/addvipinfo.do",
+					type:"post",
+					async:false,
+					data:$("#form-member-add").serializeArray(),
+					success : function(result) {
+						alert("添加会员成功！");
+						parent.location.reload();
+						layer_close();
+					},
+				});
 			var index = parent.layer.getFrameIndex(window.name);
 			parent.$('.btn-refresh').click();
 			parent.layer.close(index);
