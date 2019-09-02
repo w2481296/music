@@ -85,11 +85,11 @@
 <script type="text/javascript">
 $(function(){
 	//清空表单
-	if(localStorage.getItem("MainaddeditId")==null){
+	if(localStorage.getItem("parteditId")==null){
 		layer_close();
 	}
 	//document.getElementById("form-article-add").reset(); 
-	var vipeditId=localStorage.getItem("MainaddeditId");
+	var vipeditId=localStorage.getItem("parteditId");
 	var params={
 			ids:vipeditId
 	};

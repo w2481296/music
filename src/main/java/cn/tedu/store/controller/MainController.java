@@ -94,11 +94,21 @@ public class MainController {
 	// 跳转主乐器添加页面
 	@RequestMapping("/showIndex17.do")
 	public String showIndex17() {
-		return "Mainmusic2-add";
+		return "Parts-add";
 	}
 	// 跳转主乐器编辑页面
 	@RequestMapping("/showIndex18.do")
 	public String showIndex18() {
+		return "Parts-show";
+	}
+	// 跳转入库乐器添加页面
+	@RequestMapping("/showIndex19.do")
+	public String showIndex19() {
+		return "Mainmusic2-add";
+	}
+	// 跳转入库乐器编辑页面
+	@RequestMapping("/showIndex20.do")
+	public String showIndex20() {
 		return "Mainmusic-show";
 	}
 }

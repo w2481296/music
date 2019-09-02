@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import cn.tedu.store.bean.Instock;
 import cn.tedu.store.bean.Instruments;
 
 public interface InstrumentsMapper {

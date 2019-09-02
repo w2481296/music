@@ -36,20 +36,23 @@
 				<button type="submit" class="btn btn-success radius" id="search" name=""><i class="Hui-iconfont">&#xe665;</i> 查询</button>
 				<button type="submit" class="btn btn-success radius" id="clean" name="" style="width:70px">清空</button>
 			</div>
-			<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除乐器</a> <a class="btn btn-primary radius" data-title="入库乐器" _href="" onclick="member_show('入库乐器','../main/showIndex17.do','','400','500')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 入库乐器</a></span> <span class="r">共有数据：<span id="num2"></span> 条</span> </div>
+			<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除乐器</a> <a class="btn btn-primary radius" data-title="入库乐器" _href="" onclick="member_show('入库乐器','../main/showIndex19.do','','400','500')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 入库乐器</a></span> <span class="r">共有数据：<span id="num2"></span> 条</span> </div>
 			<div class="mt-20">
 				<table class="table table-border table-bordered table-hover table-bg table-sort" id="DataTables_Table_0">
 					<thead>
 						<tr class="text-c">
 							<th style="width:10px"><input type="checkbox" name="" value=""></th>
 							<th style="width:50px">ID</th>
-							<th style="width:80px">名字</th>
-							<th style="width:50px">性别</th>
-							<th style="width:50px">年龄</th>
-							<th style="width:100px">电话</th>
-							<th style="width:80px">积分</th>
+							<th style="width:50px">名称</th>
+							<th style="width:50px">类型</th>
+							<th style="width:50px">规格</th>
+							<th style="width:50px">成本</th>
+							<th style="width:80px">定价</th>
+							<th style="width:50px">入库数量</th>
+							<th style="width:50px">配件</th>
+							<th style="width:100px">工厂</th>
 							<th style="width:150px">更新时间</th>
-							<th style="width:150px">注册时间</th>
+							<th style="width:150px">入库时间</th>
 							<th style="width:50px">操作</th>
 						</tr>
 					</thead>
@@ -74,7 +77,7 @@
 $(function(){
 	$("#table-data").html(''); 
 	$.ajax({
-		url :"../vip/selectVipInfo.do",
+		url :"../in/selectinstockByName.do",
 		type:"post",
 		dataType : "json",
 		contentType : "application/json;charset=utf-8",
@@ -92,24 +95,30 @@ $(function(){
  			}
  			for(var i =0;i<allNum;i++){
  				var id= result[i].id;
- 				var vipName = result[i].vipName;
- 				var vipGender = result[i].vipGender!=null?result[i].vipGender:"";
- 				var vipAge = result[i].vipAge!=null?result[i].vipAge:"";
- 				var vipPhone = result[i].vipPhone!=null?result[i].vipPhone:"";
- 				var vipIntegral = result[i].vipIntegral!=null?result[i].vipIntegral:"";
- 				var vipUpdatetime = result[i].vipUpdatetime!=null?result[i].vipUpdatetime:"";
- 				var vipCreatetime = result[i].vipCreatetime!=null?result[i].vipCreatetime:"";
+ 				var inName = result[i].inName;
+ 				var inType = result[i].inType!=null?result[i].inType:"";
+ 				var inSpecifications = result[i].inSpecifications!=null?result[i].inSpecifications:"";
+ 				var inCost = result[i].inCost!=null?result[i].inCost:"";
+ 				var inPricing = result[i].inPricing!=null?result[i].inPricing:"";
+ 				var inQty = result[i].inQty!=null?result[i].inQty:"";
+ 				var inPart = result[i].inPart!=null?result[i].inPart:"";
+ 				var inManufacturers = result[i].inManufacturers!=null?result[i].inManufacturers:"";
+ 				var inUpdatetime = result[i].inUpdatetime!=null?result[i].inUpdatetime:"";
+ 				var inCreatetime = result[i].inCreatetime!=null?result[i].inCreatetime:"";
  			 	htmlStr='<tr class="text-c odd" role="row">'+
  				'<td><input type="checkbox" value="'+id+'" name=""></td>'+
 				'<td>'+id+'</td>'+
-				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show('+"'"+vipName+"'"+','+"'../main/showIndex13.do',"+"'"+id+"'"+','+"'360',"+"'400'"+')">'+vipName+'</u></div></td>'+
-				'<td>'+vipGender+'</td>'+
-				'<td>'+vipAge+'</td>'+
-				'<td>'+vipPhone+'</td>'+
-				'<td>'+vipIntegral+'</td>'+
-				'<td>'+vipUpdatetime+'</td>'+
-				'<td>'+vipCreatetime+'</td>'+
-				'<td class="td-manage"><a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex18.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
+				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show('+"'"+inName+"'"+','+"'../main/showIndex13.do',"+"'"+id+"'"+','+"'360',"+"'400'"+')">'+inName+'</u></div></td>'+
+				'<td>'+inType+'</td>'+
+				'<td>'+inSpecifications+'</td>'+
+				'<td>'+inCost+'</td>'+
+				'<td>'+inPricing+'</td>'+
+				'<td>'+inQty+'</td>'+
+				'<td>'+inPart+'</td>'+
+				'<td>'+inManufacturers+'</td>'+
+				'<td>'+inUpdatetime+'</td>'+
+				'<td>'+inCreatetime+'</td>'+
+				'<td class="td-manage"><a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex20.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
 			'</tr>';
  				$("#table-data").append(htmlStr); 
  			}
@@ -135,12 +144,12 @@ $("#search").click(function(){
 	var datemax=$("#datemax").val();
 	console.log("=="+insname);
 	var params={
-			vipName:insname,
-			vipTime1:datemin,
-			vipTime2:datemax
+			inName:insname,
+			inTime1:datemin,
+			inTime2:datemax
 	};
 	$.ajax({
-		url :"../vip/selectVipInfo.do",
+		url :"../in/selectinstockByName.do",
 		data : params,
 		type:"post",
 		async : false,
@@ -157,27 +166,34 @@ $("#search").click(function(){
  			}
  			for(var i =0;i<allNum;i++){
  				var id= result[i].id;
- 				var vipName = result[i].vipName;
- 				var vipGender = result[i].vipGender!=null?result[i].vipGender:"";
- 				var vipAge = result[i].vipAge!=null?result[i].vipAge:"";
- 				var vipPhone = result[i].vipPhone!=null?result[i].vipPhone:"";
- 				var vipIntegral = result[i].vipIntegral!=null?result[i].vipIntegral:"";
- 				var vipUpdatetime = result[i].vipUpdatetime!=null?result[i].vipUpdatetime:"";
- 				var vipCreatetime = result[i].vipCreatetime!=null?result[i].vipCreatetime:"";
+ 				var inName = result[i].inName;
+ 				var inType = result[i].inType!=null?result[i].inType:"";
+ 				var inSpecifications = result[i].inSpecifications!=null?result[i].inSpecifications:"";
+ 				var inCost = result[i].inCost!=null?result[i].inCost:"";
+ 				var inPricing = result[i].inPricing!=null?result[i].inPricing:"";
+ 				var inQty = result[i].inQty!=null?result[i].inQty:"";
+ 				var inPart = result[i].inPart!=null?result[i].inPart:"";
+ 				var inManufacturers = result[i].inManufacturers!=null?result[i].inManufacturers:"";
+ 				var inUpdatetime = result[i].inUpdatetime!=null?result[i].inUpdatetime:"";
+ 				var inCreatetime = result[i].inCreatetime!=null?result[i].inCreatetime:"";
  			 	htmlStr='<tr class="text-c odd" role="row">'+
  				'<td><input type="checkbox" value="'+id+'" name=""></td>'+
 				'<td>'+id+'</td>'+
-				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show('+"'"+vipName+"'"+','+"'../main/showIndex13.do',"+"'"+id+"'"+','+"'360',"+"'400'"+')">'+vipName+'</u></div></td>'+
-				'<td>'+vipGender+'</td>'+
-				'<td>'+vipAge+'</td>'+
-				'<td>'+vipPhone+'</td>'+
-				'<td>'+vipIntegral+'</td>'+
-				'<td>'+vipUpdatetime+'</td>'+
-				'<td>'+vipCreatetime+'</td>'+
-				'<td class="td-manage"><a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex18.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
+				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show('+"'"+inName+"'"+','+"'../main/showIndex13.do',"+"'"+id+"'"+','+"'360',"+"'400'"+')">'+inName+'</u></div></td>'+
+				'<td>'+inType+'</td>'+
+				'<td>'+inSpecifications+'</td>'+
+				'<td>'+inCost+'</td>'+
+				'<td>'+inPricing+'</td>'+
+				'<td>'+inQty+'</td>'+
+				'<td>'+inPart+'</td>'+
+				'<td>'+inManufacturers+'</td>'+
+				'<td>'+inUpdatetime+'</td>'+
+				'<td>'+inCreatetime+'</td>'+
+				'<td class="td-manage"><a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex20.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
 			'</tr>';
  				$("#table-data").append(htmlStr); 
  			}
+
 		}
 	});
 	
@@ -190,10 +206,10 @@ function member_del(obj,id){
 		btn: ['确定', '取消']
 	  },function(index){
 			var params={
-					vipid:id
+					insid:id
 			};
 			$.ajax({
-				url :"../vip/delvipById.do",
+				url :"../in/delMainInstockById.do",
 				data : params,
 				type:"post",
 				async : false,
@@ -235,7 +251,7 @@ function datadel(){
 	     if(confirm("您确定要删除次会员或者多条会员记录吗？删除后无法恢复,请谨慎操作！")){
 	         $.ajax({
 	             type : "post",
-	             url : "../vip/delvipsByIds.do",
+	             url : "../in/delMainInsstockById.do",
 	             data : { "ids" : ptag_ids.toString() },  //数组.toString();转成字符串，号隔开的
 	             success : function(data) {
 	                 console.info(data);
@@ -250,9 +266,9 @@ function datadel(){
 	     }
 	}
 
-	/*用户-查看*/
+	/*入库主乐器编辑*/
 	function member_show(title,url,id,w,h){
-		localStorage.setItem("vipeditId",id);
+		localStorage.setItem("MainaddeditId",id);
 		layer_show(title,url,w,h);
 	}
 </script>
