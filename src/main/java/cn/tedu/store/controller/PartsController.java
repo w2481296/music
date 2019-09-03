@@ -36,7 +36,6 @@ public class PartsController {
 			HttpServletResponse response) {
 		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
 		machiningList = partsMapper.selinstruByName(insName, insTime1, insTime2);// ¶©µ¥id
-		System.out.println(machiningList);
 		return machiningList;
 	}
 
@@ -51,7 +50,6 @@ public class PartsController {
 	@RequestMapping("/delpartsById.do")
 	@ResponseBody
 	public String delMainInsById(String insid, HttpServletResponse response) {
-		System.out.println("É¾³ýÀÖÆ÷id==" + insid);
 		Integer insid2 = Integer.valueOf(insid);
 		partsMapper.delMainInsById(insid2);
 		return "success";

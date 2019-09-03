@@ -76,7 +76,6 @@ public class VipuserController {
 		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
 		Integer ids2 = Integer.parseInt(ids);
 		machiningList = vipuserMapper.queryvipById(ids2);
-		System.out.println(machiningList);
 		return machiningList;
 	}
 
