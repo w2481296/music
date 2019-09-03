@@ -64,7 +64,6 @@
 				<input   id="insParts"  name="insParts"  style="display:none;">
 				<input type="text"  id="insPartsname"   name=""  class="input-text">
 				<img alt="查看更多" src="../images/waiting.png" onclick="member_show('挑选配件','../main/showIndex21.do','','500','500')" style="margin-left: 332px;width: 20px; height: 23px;margin-top: -27px;"> 
-				
 			</div>
 		</div>
 		<div class="row cl">
@@ -127,7 +126,7 @@ $(function(){
 			document.getElementById("insSpecifications").value=result[0].insSpecifications!=null?result[0].insSpecifications:"";
 			document.getElementById("insPricing").value=result[0].insPricing!=null?result[0].insPricing:"";
 			document.getElementById("insManufacturers").value=result[0].insManufacturers!=null?result[0].insManufacturers:"";
-			document.getElementById("insParts").value=result[0].insParts!=null?result[0].insParts:"";
+			document.getElementById("insPartsname").value=result[0].insParts!=null?result[0].insParts:"";
 			document.getElementById("insCost").value=result[0].insCost!=null?result[0].insCost:"";
 			document.getElementById("insQty").value=result[0].insQty!=null?result[0].insQty:"";
 			$("#insRemake").val(result[0].insRemake!=null?result[0].insRemake:"");

@@ -22,49 +22,54 @@
 		<div class="row cl" style="display:none">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>ID：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" style="width:210px;" id="id" name="id">
+				<input type="text" class="input-text" style="width: 80%;margin-left: -72px;" id="id" name="id">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>名字：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" style="width:210px;" id="inName" name="inName">
+				<input type="text" class="input-text" style="width: 80%;margin-left: -72px;" id="inName" name="inName">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>规格：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" style="width:210px;" id="inSpecifications" name="inSpecifications">
+				<input type="text" class="input-text" style="width: 80%;margin-left: -72px;" id="inSpecifications" name="inSpecifications">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>成本：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" style="width:210px;" id="inCost" name="inCost">
+				<input type="text" class="input-text" style="width: 80%;margin-left: -72px;" id="inCost" name="inCost">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"></span>定价：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" style="width: 210px;" name="inPricing" id="inPricing">
+				<input type="text" class="input-text" style="width: 80%;margin-left: -72px;" name="inPricing" id="inPricing">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>数量：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" style="width: 210px;" id="inQty" name="inQty">
+				<input type="text" class="input-text" style="width: 80%;margin-left: -72px;" id="inQty" name="inQty">
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">配件：</label>
+			<label class="form-label col-xs-4 col-sm-2">配件：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" style="width: 210px;" id="inPart" name="inPart">
+				<input   id="inPart"  name="inPart"  style="display:none;">
+				<input type="text"  id="insPartsname"   style="width: 80%;margin-left: -72px;" name=""  class="input-text">
+				<img alt="查看更多" src="../images/waiting.png" onclick="member_show('挑选配件','../main/showIndex21.do','','500','500')" style="    margin-left: -27px;
+    width: 20px;
+    height: 23px;
+    margin-top: -4px;"> 
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>工厂：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" style="width: 210px;" id="inManufacturers" name="inManufacturers">
+				<input type="text" class="input-text" style="width: 80%;margin-left: -72px;" id="inManufacturers" name="inManufacturers">
 			</div>
 		</div>
 		<div class="row cl">
@@ -106,10 +111,8 @@ $(function(){
 			document.getElementById("inCost").value=result[0].inCost!=null?result[0].inCost:"";
 			document.getElementById("inPricing").value=result[0].inPricing!=null?result[0].inPricing:"";
 			document.getElementById("inQty").value=result[0].inQty!=null?result[0].inQty:"";
-			document.getElementById("inPart").value=result[0].inPart!=null?result[0].inPart:"";
+			document.getElementById("insPartsname").value=result[0].inPart!=null?result[0].inPart:"";
 			document.getElementById("inManufacturers").value=result[0].inManufacturers!=null?result[0].inManufacturers:"";
-			document.getElementById("inCreatetime").value=result[0].inCreatetime!=null?result[0].inCreatetime:"";
-			document.getElementById("inUpdatetime").value=result[0].inUpdatetime!=null?result[0].inUpdatetime:"";
 		}
 	});
 
@@ -126,6 +129,15 @@ function article_save_submit(){
 		},
 	});
 	parent.location.reload();
+}
+/*用户-查看*/
+function member_show(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+//从子页面传值
+function CallMoney(id,partname){
+    $("#inPart").val(id);
+    $("#insPartsname").val(partname);
 }
 </script>
 </body>

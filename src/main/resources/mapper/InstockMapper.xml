@@ -171,6 +171,9 @@
 			w_instrument_information
 		set
 			ins_qty =#{inQty},
+			ins_cost=#{insCost},
+			ins_parts=#{insParts},
+			ins_pricing=#{insPricing},
 			ins_updatetime=now()
 		where
 			ins_name=#{inName}
@@ -180,6 +183,8 @@
 			w_parts
 		set
 			parts_qty =#{inQty},
+			parts_cost=#{inCost},
+			parts_pricing=#{inPricing},
 			parts_updatetime=now()
 		where
 			parts_name=#{inName}
