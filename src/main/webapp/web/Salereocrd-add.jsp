@@ -28,45 +28,56 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2" style="margin-left: 80px;">商品选择：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input   id="insParts"  name="insParts"  style="display:none;">
-				<input type="text"  id="insPartsname"   style="width: 80%;margin-left: -72px;"  class="input-text">
+				<input type="text"  id="outName"  name="outName"  style="width: 80%;margin-left: -72px;"  class="input-text">
 				<img alt="查看更多" src="../images/waiting.png" onclick="member_show('商品选择','../main/showIndex23.do','','500','500')" style="margin-left: 268px;width: 20px;height: 23px;margin-top: -54px;"> 
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3" style="margin-left: 80px;"></span>类型：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" readonly="true" style="width: 80%;margin-left: -72px;" name="inPricing" id="inPricing">
+				<input type="text" class="input-text" readonly="true" style="width: 80%;margin-left: -72px;" name="outType" id="outType">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3" style="margin-left: 80px;">规格：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" readonly="true" style="width: 80%;margin-left: -72px;" id="inSpecifications" name="inSpecifications">
+				<input type="text" class="input-text" readonly="true" style="width: 80%;margin-left: -72px;" id="outSpecifications" name="outSpecifications">
 			</div>
 		</div>
 			<div class="row cl">
 				<label class="form-label col-xs-4 col-sm-3" style="margin-left: 80px;"></span>售价：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" readonly="true" style="width: 80%;margin-left: -72px;" name="inPricing" id="inPricing">
+					<input type="text" class="input-text" readonly="true" style="width: 80%;margin-left: -72px;" name="outPricing" id="outPricing">
+				</div>
+			</div>
+			<div class="row cl" style="display:none">
+				<label class="form-label col-xs-4 col-sm-3" style="margin-left: 80px;"></span>定价：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" readonly="true" style="width: 80%;margin-left: -72px;" name="outCost" id="outCost">
 				</div>
 			</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3" style="margin-left: 80px;">库存数量：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" readonly="true" style="width: 80%;margin-left: -72px;" id="inQty" name="inQty">
+				<input type="text" class="input-text" readonly="true" style="width: 80%;margin-left: -72px;" id="outRemain" name="outRemain">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3" style="margin-left: 80px;"><span class="c-red">*</span>数量：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" style="width: 80%;margin-left: -72px;" id="inQty" name="inQty">
+				<input type="text" class="input-text" style="width: 80%;margin-left: -72px;" id="outQty" name="outQty">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3" style="margin-left: 80px;">工厂：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" readonly="true" style="width: 80%;margin-left: -72px;" id="inManufacturers" name="inManufacturers">
+				<input type="text" class="input-text" readonly="true" style="width: 80%;margin-left: -72px;" id="outManufacturers" name="outManufacturers">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3" style="margin-left: 80px;">会员：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text"  style="width: 80%;margin-left: -72px;" id="outVip" name="outVip">
 			</div>
 		</div>
 		<div class="row cl">
@@ -96,33 +107,24 @@ $(function(){
 	
 	$("#form-member-add").validate({
 		rules:{
-			inName:{
-				required:true,
-			},
-			inSpecifications:{
-				required:true,
-			},
-			inCost:{
+			outQty:{
 				required:true,
 			},			
-			inQty:{
-				required:true,
-			},			
-			inManufacturers:{
-				required:true,
-			},			
+		},
+		messages:{
+				outQty:"数量不能为空",
 		},
 		onkeyup:false,
 		focusCleanup:true,
 		success:"valid",
 		submitHandler:function(form){
 				$.ajax({
-					url :"../in/addinstock.do",
+					url :"../out/addoutstock.do",
 					type:"post",
 					async:false,
 					data:$("#form-member-add").serializeArray(),
 					success : function(result) {
-						alert("入库成功！");
+						alert("出库成功！");
 						parent.location.reload();
 						layer_close();
 					},
@@ -138,9 +140,14 @@ function member_show(title,url,id,w,h){
 	layer_show(title,url,w,h);
 }
 //从子页面传值
-function CallMoney(id,partname){
-    $("#insParts").val(id);
-    $("#insPartsname").val(partname);
+function CallMoney(outCost,outName,outType,outSpecifications,outPricing,outQty,outManufacturers){
+	$("#outName").val(outName);
+    $("#outType").val(outType);
+    $("#outSpecifications").val(outSpecifications);
+    $("#outPricing").val(outPricing);
+    $("#outRemain").val(outQty);
+    $("#outManufacturers").val(outManufacturers);
+    $("#outCost").val(outCost);
 }
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->

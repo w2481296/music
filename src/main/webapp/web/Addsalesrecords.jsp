@@ -46,10 +46,11 @@
 							<th style="width:50px">名称</th>
 							<th style="width:50px">类型</th>
 							<th style="width:50px">规格</th>
-							<th style="width:80px">定价</th>
+							<th style="width:80px">售价</th>
 							<th style="width:50px">销售数量</th>
-							<th style="width:50px">配件</th>
+							<th style="width:50px">库存剩余</th>
 							<th style="width:100px">工厂</th>
+							<th style="width:80px">会员</th>
 							<th style="width:150px">更新时间</th>
 							<th style="width:150px">销售时间</th>
 							<th style="width:50px">操作</th>
@@ -76,7 +77,7 @@
 $(function(){
 	$("#table-data").html(''); 
 	$.ajax({
-		url :"../out/selectinstockByName.do",
+		url :"../out/selectoutstockByName.do",
 		type:"post",
 		dataType : "json",
 		contentType : "application/json;charset=utf-8",
@@ -94,27 +95,29 @@ $(function(){
  			}
  			for(var i =0;i<allNum;i++){
  				var id= result[i].id;
- 				var inName = result[i].inName;
- 				var inType = result[i].inType!=null?result[i].inType:"";
- 				var inSpecifications = result[i].inSpecifications!=null?result[i].inSpecifications:"";
- 				var inPricing = result[i].inPricing!=null?result[i].inPricing:"";
- 				var inQty = result[i].inQty!=null?result[i].inQty:"";
- 				var inPart = result[i].inPart!=null?result[i].inPart:"";
- 				var inManufacturers = result[i].inManufacturers!=null?result[i].inManufacturers:"";
- 				var inUpdatetime = result[i].inUpdatetime!=null?result[i].inUpdatetime:"";
- 				var inCreatetime = result[i].inCreatetime!=null?result[i].inCreatetime:"";
+ 				var outName = result[i].outName;
+ 				var outType = result[i].outType!=null?result[i].outType:"";
+ 				var outSpecifications = result[i].outSpecifications!=null?result[i].outSpecifications:"";
+ 				var outPricing = result[i].outPricing!=null?result[i].outPricing:"";
+ 				var outQty = result[i].outQty!=null?result[i].outQty:"";
+ 				var outRemain = result[i].outRemain!=null?result[i].outRemain:"";
+ 				var outManufacturers = result[i].outManufacturers!=null?result[i].outManufacturers:"";
+ 				var outVip = result[i].outVip!=null?result[i].outVip:"";
+ 				var outUpdatetime = result[i].outUpdatetime!=null?result[i].outUpdatetime:"";
+ 				var outCreatetime = result[i].outCreatetime!=null?result[i].outCreatetime:"";
  			 	htmlStr='<tr class="text-c odd" role="row">'+
  				'<td><input type="checkbox" value="'+id+'" name=""></td>'+
 				'<td>'+id+'</td>'+
-				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show('+"'"+inName+"'"+','+"'../main/showIndex13.do',"+"'"+id+"'"+','+"'360',"+"'400'"+')">'+inName+'</u></div></td>'+
-				'<td>'+inType+'</td>'+
-				'<td>'+inSpecifications+'</td>'+
-				'<td>'+inPricing+'</td>'+
-				'<td>'+inQty+'</td>'+
-				'<td>'+inPart+'</td>'+
-				'<td>'+inManufacturers+'</td>'+
-				'<td>'+inUpdatetime+'</td>'+
-				'<td>'+inCreatetime+'</td>'+
+				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show('+"'"+outName+"'"+','+"'../main/showIndex13.do',"+"'"+id+"'"+','+"'360',"+"'400'"+')">'+outName+'</u></div></td>'+
+				'<td>'+outType+'</td>'+
+				'<td>'+outSpecifications+'</td>'+
+				'<td>'+outPricing+'</td>'+
+				'<td>'+outQty+'</td>'+
+				'<td>'+outRemain+'</td>'+
+				'<td>'+outManufacturers+'</td>'+
+				'<td>'+outVip+'</td>'+
+				'<td>'+outUpdatetime+'</td>'+
+				'<td>'+outCreatetime+'</td>'+
 				'<td class="td-manage"><a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
 			'</tr>';
  				$("#table-data").append(htmlStr); 
@@ -146,7 +149,7 @@ $("#search").click(function(){
 			inTime2:datemax
 	};
 	$.ajax({
-		url :"../in/selectinstockByName.do",
+		url :"../out/selectoutstockByName.do",
 		data : params,
 		type:"post",
 		async : false,
@@ -163,27 +166,29 @@ $("#search").click(function(){
  			}
  			for(var i =0;i<allNum;i++){
  				var id= result[i].id;
- 				var inName = result[i].inName;
- 				var inType = result[i].inType!=null?result[i].inType:"";
- 				var inSpecifications = result[i].inSpecifications!=null?result[i].inSpecifications:"";
- 				var inPricing = result[i].inPricing!=null?result[i].inPricing:"";
- 				var inQty = result[i].inQty!=null?result[i].inQty:"";
- 				var inPart = result[i].inPart!=null?result[i].inPart:"";
- 				var inManufacturers = result[i].inManufacturers!=null?result[i].inManufacturers:"";
- 				var inUpdatetime = result[i].inUpdatetime!=null?result[i].inUpdatetime:"";
- 				var inCreatetime = result[i].inCreatetime!=null?result[i].inCreatetime:"";
+ 				var outName = result[i].outName;
+ 				var outType = result[i].outType!=null?result[i].outType:"";
+ 				var outSpecifications = result[i].outSpecifications!=null?result[i].outSpecifications:"";
+ 				var outPricing = result[i].outPricing!=null?result[i].outPricing:"";
+ 				var outQty = result[i].outQty!=null?result[i].outQty:"";
+ 				var outRemain = result[i].outRemain!=null?result[i].outRemain:"";
+ 				var outManufacturers = result[i].outManufacturers!=null?result[i].outManufacturers:"";
+ 				var outVip = result[i].outVip!=null?result[i].outVip:"";
+ 				var outUpdatetime = result[i].outUpdatetime!=null?result[i].outUpdatetime:"";
+ 				var outCreatetime = result[i].outCreatetime!=null?result[i].outCreatetime:"";
  			 	htmlStr='<tr class="text-c odd" role="row">'+
  				'<td><input type="checkbox" value="'+id+'" name=""></td>'+
 				'<td>'+id+'</td>'+
-				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show('+"'"+inName+"'"+','+"'../main/showIndex13.do',"+"'"+id+"'"+','+"'360',"+"'400'"+')">'+inName+'</u></div></td>'+
-				'<td>'+inType+'</td>'+
-				'<td>'+inSpecifications+'</td>'+
-				'<td>'+inPricing+'</td>'+
-				'<td>'+inQty+'</td>'+
-				'<td>'+inPart+'</td>'+
-				'<td>'+inManufacturers+'</td>'+
-				'<td>'+inUpdatetime+'</td>'+
-				'<td>'+inCreatetime+'</td>'+
+				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show('+"'"+outName+"'"+','+"'../main/showIndex13.do',"+"'"+id+"'"+','+"'360',"+"'400'"+')">'+outName+'</u></div></td>'+
+				'<td>'+outType+'</td>'+
+				'<td>'+outSpecifications+'</td>'+
+				'<td>'+outPricing+'</td>'+
+				'<td>'+outQty+'</td>'+
+				'<td>'+outRemain+'</td>'+
+				'<td>'+outManufacturers+'</td>'+
+				'<td>'+outVip+'</td>'+
+				'<td>'+outUpdatetime+'</td>'+
+				'<td>'+outCreatetime+'</td>'+
 				'<td class="td-manage"><a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
 			'</tr>';
  				$("#table-data").append(htmlStr); 
@@ -204,7 +209,7 @@ function member_del(obj,id){
 					insid:id
 			};
 			$.ajax({
-				url :"../in/delMainInstockById.do",
+				url :"../out/deloutstockById.do",
 				data : params,
 				type:"post",
 				async : false,
@@ -246,7 +251,7 @@ function datadel(){
 	     if(confirm("您确定要删除该记录或者多条出库记录吗？删除后无法恢复,请谨慎操作！")){
 	         $.ajax({
 	             type : "post",
-	             url : "../in/delMainInsstockById.do",
+	             url : "../out/deloutstockByIds.do",
 	             data : { "ids" : ptag_ids.toString() },  //数组.toString();转成字符串，号隔开的
 	             success : function(data) {
 	                 console.info(data);
@@ -261,11 +266,10 @@ function datadel(){
 	     }
 	}
 
-	/*出库编辑*/
+	/*出库添加*/
 	function member_show(title,url,id,w,h){
-		localStorage.setItem("MainaddeditId",id);
 		layer_show(title,url,w,h);
-	}
+	} 
 </script>
 <!--/请在上方写此页面业务相关的脚本-->
 </body>

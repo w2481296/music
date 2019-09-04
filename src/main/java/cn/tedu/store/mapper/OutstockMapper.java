@@ -7,41 +7,34 @@ import org.apache.ibatis.annotations.Param;
 
 import cn.tedu.store.bean.Instock;
 import cn.tedu.store.bean.Instruments;
+import cn.tedu.store.bean.Outstock;
 
 public interface OutstockMapper {
-	//查询乐器信息
-	List<Map<String, Object>> selectinstockByName(@Param("inName")String inName,@Param("inTime1")String inTime1,@Param("inTime2")String inTime2);
+	//查询出库信息
+	List<Map<String, Object>> selectoutstockByName(@Param("inName")String inName,@Param("inTime1") String inTime1, @Param("inTime2")String inTime2);
+	//出库删除
+	void deloutstockById(@Param("insid2")Integer insid2);
+	//出库批量删除
+	void deloutstockByIds(@Param("ids2")Integer[] ids2);
+	
+	
+	//添加到出库表
+	void addoutstock(Outstock outstock);
+	//查询主乐器信息
+	List<Map<String, Object>> queryByName(Outstock outstock);
 	//查询配件信息
-	List<Map<String, Object>> selectinstockByName1(@Param("inName")String inName,@Param("inTime1")String inTime1,@Param("inTime2")String inTime2);
-	//删除乐器信息
-	void delMainInstockById(@Param("insid2")Integer insid2);
-	//批量删除
-	void delMainInsstockById(@Param("ids2")Integer[] ids2);
-	//查询信息根据id
-	List<Map<String, Object>> queryinstockById(@Param("ids2")Integer ids2);
-	//修改入库信息
-	void updateinstock(Instock instock);
-	//添加入库乐器
-	void addinstock(Instock instock);
-	//判断是否是新乐器
-	List<Map<String, Object>> queryByName(Instock instock);
-	//新乐器添加到乐器表
-	void insertInfo(Instock instock);
-	//旧乐器更新乐器表
-	void updateoldinfo(Instock instock);
-		
-	
-	//添加入库配件
-	void addpartsinstock(Instock instock);
-	//判断是否是新配件
-	List<Map<String, Object>> querypartsByName(Instock instock);
-	//新配件添加到配件表
-	void insertpartsInfo(Instock instock);
-	//旧配件更新配件表
-	void updateoldpartsinfo(Instock instock);
-	
-	
-	
+	List<Map<String, Object>> queryByName1(Outstock outstock);
+	//更新主乐器信息
+	void updatemaininfo(Outstock outstock);
+	//更新配件信息
+	void updatepartinfo(Outstock outstock);
+	//选择商品查询
+	List<Map<String, Object>> selectgoodsorname(@Param("outName")String outName);
+	//给会员添加积分
+	void addvipoutstock(@Param("vipname")String vipname, @Param("fenshu")String fenshu);
+	//查询会员当前积分
+	String queryvipinfo(@Param("vipname")String vipname);
+
 
 	
 }

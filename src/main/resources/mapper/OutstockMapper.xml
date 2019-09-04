@@ -2,193 +2,173 @@
 	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
 		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="cn.tedu.store.mapper.OutstockMapper">
-	<select id="selectinstockByName" resultType="java.util.Map" parameterType="java.lang.String"
-	useCache="false" flushCache="true">
+	<select id="selectoutstockByName" resultType="java.util.Map"
+		parameterType="java.lang.String" useCache="false" flushCache="true">
 		select
-		wi.id as id,
-		wi.in_name as inName,
-		wi.in_type as inType,
-		wi.in_specifications as inSpecifications,
-		wi.in_cost as inCost,
-		wi.in_qty as inQty,
-		wi.in_pricing as inPricing,
-		wi.in_manufacturers as inManufacturers,
-		wp.parts_name as inPart,
-		date_format(wi.in_updatetime,'%Y-%c-%d %H:%i:%S') AS inUpdatetime,
-		date_format(wi.in_createtime,'%Y-%c-%d %H:%i:%S') AS inCreatetime
+		wo.id as id,
+		wo.out_name as outName,
+		wo.out_type as outType,
+		wo.out_specifications as outSpecifications,
+		wo.out_cost as outCost,
+		wo.out_pricing as outPricing,
+		wo.out_qty as outQty,
+		wo.out_remain as
+		outRemain,
+		wo.out_profit as outProfit,
+		wo.out_manufacturers as
+		outManufacturers,
+		wo.out_vip as outVip,
+		date_format(wo.out_updatetime,'%Y-%c-%d %H:%i:%S') AS outUpdatetime,
+		date_format(wo.out_createtime,'%Y-%c-%d %H:%i:%S') AS outCreatetime
 		from
-		w_instock wi
-		left join w_parts wp on wp.id=wi.in_part
-		<where> 1=1
+		w_outstock wo
+		<where>
+			1=1
 			<if test="inName!=null and inName!=''">
-				AND wi.in_name like CONCAT('%',#{inName},'%')
+				AND wo.out_name like CONCAT('%',#{inName},'%')
 			</if>
 			<if test="inTime1!=null and inTime1!=''">
-				AND DATE_FORMAT(wi.in_createtime , '%Y-%m-%d')&gt;=#{inTime1}
+				AND DATE_FORMAT(wo.out_updatetime ,
+				'%Y-%m-%d')&gt;=#{inTime1}
 			</if>
 			<if test="inTime2!=null and inTime2!=''">
-				AND DATE_FORMAT(wi.in_createtime , '%Y-%m-%d')&lt;=#{inTime2}
+				AND DATE_FORMAT(wo.out_updatetime ,
+				'%Y-%m-%d')&lt;=#{inTime2}
 			</if>
-				AND wi.in_type='主乐器'
 		</where>
 		group by id
 	</select>
-	<select id="selectinstockByName1" resultType="java.util.Map" parameterType="java.lang.String"
-	useCache="false" flushCache="true">
-		select
-		wi.id as id,
-		wi.in_name as inName,
-		wi.in_type as inType,
-		wi.in_specifications as inSpecifications,
-		wi.in_cost as inCost,
-		wi.in_qty as inQty,
-		wi.in_pricing as inPricing,
-		wi.in_manufacturers as inManufacturers,
-		wp.parts_name as inPart,
-		date_format(wi.in_updatetime,'%Y-%c-%d %H:%i:%S') AS inUpdatetime,
-		date_format(wi.in_createtime,'%Y-%c-%d %H:%i:%S') AS inCreatetime
-		from
-		w_instock wi
-		left join w_parts wp on wp.id=wi.in_part
-		<where> 1=1
-			<if test="inName!=null and inName!=''">
-				AND wi.in_name like CONCAT('%',#{inName},'%')
-			</if>
-			<if test="inTime1!=null and inTime1!=''">
-				AND DATE_FORMAT(wi.in_createtime , '%Y-%m-%d')&gt;=#{inTime1}
-			</if>
-			<if test="inTime2!=null and inTime2!=''">
-				AND DATE_FORMAT(wi.in_createtime , '%Y-%m-%d')&lt;=#{inTime2}
-			</if>
-				AND wi.in_type='配件'
-		</where>
-		group by id
-	</select>
-	<!-- 删除乐器 -->  
-	<delete id="delMainInstockById" parameterType="cn.tedu.store.bean.Instock">  
-		delete from w_instock  where id= #{insid2}
-	</delete> 
-	<!-- 批量删除 -->
-	<delete id="delMainInsstockById"  parameterType="java.util.List">
-         delete from w_instock where id in ( 
-         <foreach collection="ids2" item="id" separator=",">
-            #{id}
-        </foreach>)
+	<!-- 删除销售记录 -->
+	<delete id="deloutstockById" parameterType="cn.tedu.store.bean.Outstock">
+		delete from w_outstock where id= #{insid2}
 	</delete>
-	<select id="queryinstockById" resultType="java.util.Map" parameterType="java.lang.Integer"
-	useCache="false" flushCache="true">
-		select
-		wi.id as id,
-		wi.in_name as inName,
-		wi.in_specifications as inSpecifications,
-		wi.in_cost as inCost,
-		wi.in_qty as inQty,
-		wi.in_pricing as inPricing,
-		wi.in_manufacturers as inManufacturers,
-		wp.parts_name as inPart
-		from
-		w_instock wi
-		left join w_parts wp on wp.id=wi.in_part
-		where
-		wi.id=#{ids2}
-	</select>
-	<update id="updateinstock" parameterType="cn.tedu.store.bean.Instock">
-		update
-			w_instock
-		set
-			in_name =#{inName},
-			in_specifications=#{inSpecifications},
-			in_cost =#{inCost},
-			in_qty =#{inQty},
-			in_pricing =#{inPricing},
-			in_manufacturers =#{inManufacturers},
-			in_part =#{inPart},
-			in_updatetime=now()
-		where
-			id=#{id}
-	</update>
-	<insert parameterType="cn.tedu.store.bean.Instock" id="addinstock">
-		insert into
-		w_instock
-		(in_name,in_type,in_specifications,in_cost,in_pricing,
-		in_qty,in_part,in_manufacturers,in_updatetime,in_createtime
+	<!-- 批量删除记录 -->
+	<delete id="deloutstockByIds" parameterType="java.util.List">
+		delete from w_outstock where id in (
+		<foreach collection="ids2" item="id" separator=",">
+			#{id}
+		</foreach>
 		)
-		values(#{inName},'主乐器',#{inSpecifications},
-		#{inCost},#{inPricing},#{inQty},#{inPart},#{inManufacturers},
-		now(),now())
-	</insert>
-	<insert parameterType="cn.tedu.store.bean.Instock" id="addpartsinstock">
+	</delete>
+
+	<!-- 存到出库表 -->
+	<insert id="addoutstock" parameterType="cn.tedu.store.bean.Outstock">
 		insert into
-		w_instock
-		(in_name,in_type,in_specifications,in_cost,in_pricing,
-		in_qty,in_manufacturers,in_updatetime,in_createtime
+		w_outstock
+		(out_name,out_type,out_specifications,out_cost,out_pricing,
+		out_qty,out_remain,out_profit,out_manufacturers,out_vip,out_updatetime,
+		out_createtime
 		)
-		values(#{inName},'配件',#{inSpecifications},
-		#{inCost},#{inPricing},#{inQty},#{inManufacturers},now(),now())
+		values(#{outName},#{outType},#{outSpecifications},#{outCost},#{outPricing},
+		#{outQty},#{outRemain},#{outProfit},
+		#{outManufacturers},#{outVip},now(),now())
 	</insert>
-	<select id="queryByName" parameterType="cn.tedu.store.bean.Instock" resultType="java.util.Map">
+	<select id="queryByName" parameterType="cn.tedu.store.bean.Outstock"
+		resultType="java.util.Map">
 		select
 		id as id,
-		ins_name as inName,
-		ins_qty as inQty
+		ins_qty as insQty,
+		ins_cost as insCost
 		from
 		w_instrument_information
 		where
-		ins_name=#{inName} and ins_specifications=#{inSpecifications} and ins_manufacturers=#{inManufacturers}
+		ins_name=#{outName} and
+		ins_specifications=#{outSpecifications} and
+		ins_manufacturers=#{outManufacturers}
 	</select>
-	<select id="querypartsByName" parameterType="cn.tedu.store.bean.Instock" resultType="java.util.Map">
+	<select id="queryByName1" parameterType="cn.tedu.store.bean.Outstock"
+		resultType="java.util.Map">
 		select
 		id as id,
-		parts_name as inName,
-		parts_qty as inQty
+		parts_qty as insQty,
+		parts_cost as insCost
 		from
 		w_parts
 		where
-		parts_name=#{inName} and parts_specifications=#{inSpecifications} and parts_manufacturers=#{inManufacturers}
+		parts_name=#{outName} and
+		parts_specifications=#{outSpecifications} and
+		parts_manufacturers=#{outManufacturers}
 	</select>
-	<insert parameterType="cn.tedu.store.bean.Instock" id="insertInfo">
-		insert into
+	<update id="updatemaininfo" parameterType="cn.tedu.store.bean.Outstock">
+		update
 		w_instrument_information
-		(ins_name,ins_type,ins_specifications,ins_cost,ins_pricing,
-		ins_qty,ins_parts,ins_manufacturers,ins_updatetime,ins_createtime
-		)
-		values(#{inName},'主乐器',#{inSpecifications},
-		#{inCost},#{inPricing},#{inQty},#{inPart},#{inManufacturers},
-		now(),now())
-	</insert>
-	<insert parameterType="cn.tedu.store.bean.Instock" id="insertpartsInfo">
-		insert into
+		set
+		ins_qty =#{OutRemain},
+		ins_updatetime=now()
+		where
+		ins_name=#{outName}
+	</update>
+	<update id="updatepartinfo" parameterType="cn.tedu.store.bean.Outstock">
+		update
 		w_parts
-		(parts_name,parts_type,parts_specifications,parts_cost,parts_pricing,
-		parts_qty,parts_manufacturers,parts_updatetime,parts_createtime
-		)
-		values(#{inName},'配件',#{inSpecifications},
-		#{inCost},#{inPricing},#{inQty},#{inManufacturers},
-		now(),now())
-	</insert>
-	<update id="updateoldinfo" parameterType="cn.tedu.store.bean.Instock">
-		update
-			w_instrument_information
 		set
-			ins_qty =#{inQty},
-			ins_cost=#{insCost},
-			ins_parts=#{insParts},
-			ins_pricing=#{insPricing},
-			ins_updatetime=now()
+		parts_qty =#{OutRemain},
+		parts_updatetime=now()
 		where
-			ins_name=#{inName}
+		parts_name=#{outName}
 	</update>
-	<update id="updateoldpartsinfo" parameterType="cn.tedu.store.bean.Instock">
+	
+	
+	
+	<select id="queryvipinfo" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		select
+		vip_integral as integral
+		from
+		w_vip
+		where
+		vip_name=#{vipname} 
+	</select>
+	<update id="addvipoutstock" parameterType="java.lang.String">
 		update
-			w_parts
+		w_vip
 		set
-			parts_qty =#{inQty},
-			parts_cost=#{inCost},
-			parts_pricing=#{inPricing},
-			parts_updatetime=now()
+		vip_integral =#{fenshu},
+		vip_updatetime=now()
 		where
-			parts_name=#{inName}
+		vip_name=#{vipname}
 	</update>
+
+	<select id="selectgoodsorname" parameterType="java.lang.String"
+		resultType="java.util.Map">
+		SELECT
+		wii.id AS id,
+		wii.ins_name AS outName,
+		wii.ins_type AS outType,
+		wii.ins_specifications AS outSpecifications,
+		wii.ins_pricing AS outPricing,
+		wii.ins_qty AS outQty,
+		wii.ins_cost AS outCost,
+		wii.ins_Manufacturers AS outManufacturers
+		FROM
+		w_instrument_information wii
+		<where>
+			1=1
+			<if test="outName!=null and outName!=''">
+				AND wii.ins_name  like CONCAT('%',#{outName},'%')
+			</if>
+		</where>
+	
+		UNION ALL
+		
+		SELECT
+		wp.id AS id,
+		wp.parts_name AS outName,
+		wp.parts_type AS outType,
+		wp.parts_specifications AS outSpecifications,
+		wp.parts_pricing AS outPricing,
+		wp.parts_qty AS outQty,
+		wp.parts_cost AS outCost,
+		wp.parts_Manufacturers AS outManufacturers
+		FROM
+		w_parts wp
+		<where>
+			1=1
+			<if test="outName!=null and outName!=''">
+				AND wp.parts_name  like CONCAT('%',#{outName},'%')
+			</if>
+		</where>
+	</select>
 </mapper>
 
 		

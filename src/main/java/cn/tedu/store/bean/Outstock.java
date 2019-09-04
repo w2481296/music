@@ -6,7 +6,7 @@ public class Outstock implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -8732232972207645670L;
+	private static final long serialVersionUID = -1466835101794253159L;
 	private Integer id;
 	private String OutName;// 商品名称
 	private String OutType;// 商品类型
@@ -15,11 +15,11 @@ public class Outstock implements Serializable{
 	private String OutPricing;// 商品定价
 	private String OutQty;// 商品数量
 	private String OutRemain;// 商品剩余
-	private String outProfit;// 商品剩余
+	private String OutProfit;// 商品利润
 	private String OutManufacturers;// 商品厂商
 	private String OutUpdatetime;// 更新时间
 	private String OutCreatetime;// 出库时间
-	private String outVip;// 会员姓名
+	private String OutVip;// 会员姓名
 	public Integer getId() {
 		return id;
 	}
@@ -69,10 +69,10 @@ public class Outstock implements Serializable{
 		OutRemain = outRemain;
 	}
 	public String getOutProfit() {
-		return outProfit;
+		return OutProfit;
 	}
 	public void setOutProfit(String outProfit) {
-		this.outProfit = outProfit;
+		OutProfit = outProfit;
 	}
 	public String getOutManufacturers() {
 		return OutManufacturers;
@@ -93,10 +93,13 @@ public class Outstock implements Serializable{
 		OutCreatetime = outCreatetime;
 	}
 	public String getOutVip() {
-		return outVip;
+		return OutVip;
 	}
 	public void setOutVip(String outVip) {
-		this.outVip = outVip;
+		OutVip = outVip;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 	@Override
 	public int hashCode() {
@@ -107,14 +110,14 @@ public class Outstock implements Serializable{
 		result = prime * result + ((OutManufacturers == null) ? 0 : OutManufacturers.hashCode());
 		result = prime * result + ((OutName == null) ? 0 : OutName.hashCode());
 		result = prime * result + ((OutPricing == null) ? 0 : OutPricing.hashCode());
+		result = prime * result + ((OutProfit == null) ? 0 : OutProfit.hashCode());
 		result = prime * result + ((OutQty == null) ? 0 : OutQty.hashCode());
 		result = prime * result + ((OutRemain == null) ? 0 : OutRemain.hashCode());
 		result = prime * result + ((OutSpecifications == null) ? 0 : OutSpecifications.hashCode());
 		result = prime * result + ((OutType == null) ? 0 : OutType.hashCode());
 		result = prime * result + ((OutUpdatetime == null) ? 0 : OutUpdatetime.hashCode());
+		result = prime * result + ((OutVip == null) ? 0 : OutVip.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((outProfit == null) ? 0 : outProfit.hashCode());
-		result = prime * result + ((outVip == null) ? 0 : outVip.hashCode());
 		return result;
 	}
 	@Override
@@ -151,6 +154,11 @@ public class Outstock implements Serializable{
 				return false;
 		} else if (!OutPricing.equals(other.OutPricing))
 			return false;
+		if (OutProfit == null) {
+			if (other.OutProfit != null)
+				return false;
+		} else if (!OutProfit.equals(other.OutProfit))
+			return false;
 		if (OutQty == null) {
 			if (other.OutQty != null)
 				return false;
@@ -176,20 +184,15 @@ public class Outstock implements Serializable{
 				return false;
 		} else if (!OutUpdatetime.equals(other.OutUpdatetime))
 			return false;
+		if (OutVip == null) {
+			if (other.OutVip != null)
+				return false;
+		} else if (!OutVip.equals(other.OutVip))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
-			return false;
-		if (outProfit == null) {
-			if (other.outProfit != null)
-				return false;
-		} else if (!outProfit.equals(other.outProfit))
-			return false;
-		if (outVip == null) {
-			if (other.outVip != null)
-				return false;
-		} else if (!outVip.equals(other.outVip))
 			return false;
 		return true;
 	}
@@ -197,9 +200,8 @@ public class Outstock implements Serializable{
 	public String toString() {
 		return "Outstock [id=" + id + ", OutName=" + OutName + ", OutType=" + OutType + ", OutSpecifications="
 				+ OutSpecifications + ", OutCost=" + OutCost + ", OutPricing=" + OutPricing + ", OutQty=" + OutQty
-				+ ", OutRemain=" + OutRemain + ", outProfit=" + outProfit + ", OutManufacturers=" + OutManufacturers
-				+ ", OutUpdatetime=" + OutUpdatetime + ", OutCreatetime=" + OutCreatetime + ", outVip=" + outVip + "]";
+				+ ", OutRemain=" + OutRemain + ", OutProfit=" + OutProfit + ", OutManufacturers=" + OutManufacturers
+				+ ", OutUpdatetime=" + OutUpdatetime + ", OutCreatetime=" + OutCreatetime + ", OutVip=" + OutVip + "]";
 	}
-	
 	
 }

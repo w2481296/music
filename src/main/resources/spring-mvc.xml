@@ -74,7 +74,11 @@
 			<mvc:exclude-mapping path="/in/addinstock.do"/>
 			<mvc:exclude-mapping path="/in/addpartsinstock.do"/>
 			<!-- 出库 -->
-			<mvc:exclude-mapping path="/out/addpartsinstock.do"/>
+			<mvc:exclude-mapping path="/out/selectoutstockByName.do"/>
+			<mvc:exclude-mapping path="/out/deloutstockById.do"/>
+			<mvc:exclude-mapping path="/out/deloutstockByIds.do"/>
+			<mvc:exclude-mapping path="/out/addoutstock.do"/>
+			<mvc:exclude-mapping path="/out/selectgoodsorname.do"/>
 			<!--实例化拦截器  -->
 			<bean class="cn.tedu.store.interceptor.LoginInterceptor"/>
 		</mvc:interceptor>
