@@ -55,7 +55,7 @@
 				if(i==0){
 						navData+="<li><a  href='javascript:;' _link='showIndex1.do'><span>主乐器管理</span></a></li><li><a  href='javascript:;' _link='showIndex2.do'><span>配件管理</span></a></li>";
 				}else if(i==1){
-						navData+="<li><a  href='javascript:;' _link='showIndex3.do'><span>乐器添加</span></a></li><li><a  href='javascript:;' _link='showIndex4.do'><span>配件添加</span></a></li>";
+						navData+="<li><a  href='javascript:;' _link='showIndex3.do'><span>入库乐器</span></a></li><li><a  href='javascript:;' _link='showIndex4.do'><span>入库配件</span></a></li>";
 				}else if(i==2){
 						navData+="<li><a  href='javascript:;' _link='showIndex6.do'><span>销售记录</span></a></li>";
 				}else if(i==3){

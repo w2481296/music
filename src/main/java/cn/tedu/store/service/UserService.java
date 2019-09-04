@@ -20,8 +20,7 @@ public class UserService implements IUserService {
 
 	@Resource
 	private UserMapper userMapper;
-	@Value("#{config.salt}")
-	private String salt;
+
 
 	public void addUser(User user) {
 		// 1.调用持久层的方法selectByUsername(user.getUsername());返回user1对象

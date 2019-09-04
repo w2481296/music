@@ -21,6 +21,4 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 	<!-- 完成注解扫描 -->
 	<context:component-scan base-package="cn.tedu.store.service"></context:component-scan>
-	<!--完成加载属性文件  -->
-	<util:properties id="config" location="classpath:conf.properties"></util:properties>
 </beans>
