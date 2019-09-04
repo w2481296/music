@@ -116,4 +116,14 @@ public class MainController {
 	public String showIndex21() {
 		return "partconnect";
 	}
+	// 跳转销售添加页面
+	@RequestMapping("/showIndex22.do")
+	public String showIndex22() {
+		return "Salereocrd-add";
+	}
+	// 跳转销售商品选择页面
+	@RequestMapping("/showIndex23.do")
+	public String showIndex23() {
+		return "goodsselect";
+	}
 }

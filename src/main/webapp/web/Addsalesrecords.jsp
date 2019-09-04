@@ -36,7 +36,7 @@
 				<button type="submit" class="btn btn-success radius" id="search" name=""><i class="Hui-iconfont">&#xe665;</i> 查询</button>
 				<button type="submit" class="btn btn-success radius" id="clean" name="" style="width:70px">清空</button>
 			</div>
-			<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除记录</a> <a class="btn btn-primary radius" data-title="销售商品" _href="" onclick="member_show('销售商品','../main/showIndex19.do','','700','550')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 销售商品</a></span> <span class="r">共有数据：<span id="num2"></span> 条</span> </div>
+			<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除记录</a> <a class="btn btn-primary radius" data-title="销售商品" _href="" onclick="member_show('销售商品','../main/showIndex22.do','','700','550')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 销售商品</a></span> <span class="r">共有数据：<span id="num2"></span> 条</span> </div>
 			<div class="mt-20">
 				<table class="table table-border table-bordered table-hover table-bg table-sort" id="DataTables_Table_0">
 					<thead>
@@ -76,7 +76,7 @@
 $(function(){
 	$("#table-data").html(''); 
 	$.ajax({
-		url :"../in/selectinstockByName.do",
+		url :"../out/selectinstockByName.do",
 		type:"post",
 		dataType : "json",
 		contentType : "application/json;charset=utf-8",
@@ -115,7 +115,7 @@ $(function(){
 				'<td>'+inManufacturers+'</td>'+
 				'<td>'+inUpdatetime+'</td>'+
 				'<td>'+inCreatetime+'</td>'+
-				'<td class="td-manage"><a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex20.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
+				'<td class="td-manage"><a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
 			'</tr>';
  				$("#table-data").append(htmlStr); 
  			}
@@ -184,7 +184,7 @@ $("#search").click(function(){
 				'<td>'+inManufacturers+'</td>'+
 				'<td>'+inUpdatetime+'</td>'+
 				'<td>'+inCreatetime+'</td>'+
-				'<td class="td-manage"><a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex20.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
+				'<td class="td-manage"><a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
 			'</tr>';
  				$("#table-data").append(htmlStr); 
  			}

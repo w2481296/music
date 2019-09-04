@@ -31,7 +31,7 @@
 </head>
 <body>
 		<div name="Bquery" id="Bquery" style="float:left;">
-	     <label style="margin-left: 77px; font-weight: bold;width: 172px;">配件查询</label>
+	     <label style="margin-left: 77px; font-weight: bold;width: 172px;">商品查询</label>
 			<input type="text" name="search" id="search" value=""/>
 			<input type="button" name="query" id="query" style="    margin-left: 10px;
     background: indianred;
@@ -49,9 +49,13 @@
     border: 1px solid #eee;"/>
 	    <table id="sparepartBom" border="1">
 	    	<tr>
-	    		<th>配件id</th>
-	    		<th>配件名称</th>
-	    		<th>配件规格</th>
+	    		<th style="display:none">商品id</th>
+	    		<th>商品名称</th>
+	    		<th>商品类型</th>
+	    		<th>商品规格</th>
+	    		<th>商品售价</th>
+	    		<th>商品库存</th>
+	    		<th>商品厂家</th>
 	    	</tr>
 		</table>
 
@@ -70,7 +74,7 @@ $(document).ready(function() {
 });
 function selBomSparepart(){ 
 	 $.ajax({
-		url :"../parts/selectpartByName.do",
+		url :"../out/selectgoodsorname.do",
 		type:"post",
 		dataType : "json",
 		contentType : "application/json;charset=utf-8",
@@ -82,6 +86,7 @@ function selBomSparepart(){
 	 			var insSpecifications = result[i].insSpecifications!=null?result[i].insSpecifications:"";
 	 			htmlStr='<tr ondblclick ="setCustomerNumber(this)">'+
 				'<td>'+id+'</td>'+
+				'<td>'+insName+'</td>'+
 				'<td>'+insName+'</td>'+
 				'<td>'+insSpecifications+'</td>'+'</tr>';
 	 			$("#sparepartBom").append(htmlStr);
@@ -119,7 +124,6 @@ $("#query").click(function(){
 })
  //返回逻辑
   $("#back").click(function(){
-	  
 	  layer_close();
   })
   /**
