@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.tedu.store.bean.Instruments;
+import cn.tedu.store.bean.PageQueryBean;
 import cn.tedu.store.bean.parts;
 import cn.tedu.store.mapper.InstrumentsMapper;
 import cn.tedu.store.mapper.partsMapper;
@@ -32,13 +33,24 @@ public class PartsController {
 	 */
 	@RequestMapping("/selectpartByName.do")
 	@ResponseBody
-	public List<Map<String, Object>> selectinstruByName(String insName, String insTime1, String insTime2,
+	public PageQueryBean selectinstruByName(String insName, String insTime1, String insTime2,
+			HttpServletResponse response) {
+		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
+		machiningList = partsMapper.selinstruByName(insName, insTime1, insTime2);// 订单id
+		PageQueryBean pageQueryBean = new PageQueryBean();
+		pageQueryBean.setItems(machiningList);
+		pageQueryBean.setTotalRows(machiningList.size());
+		return pageQueryBean;
+	}
+	//配件连接
+	@RequestMapping("/selectpartByName2.do")
+	@ResponseBody
+	public List<Map<String, Object>> selectpartByName2(String insName, String insTime1, String insTime2,
 			HttpServletResponse response) {
 		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
 		machiningList = partsMapper.selinstruByName(insName, insTime1, insTime2);// 订单id
 		return machiningList;
 	}
-
 	/**
 	 * <pre>
 	 * delpartById(通过乐器Id 删除乐器相关信息)    

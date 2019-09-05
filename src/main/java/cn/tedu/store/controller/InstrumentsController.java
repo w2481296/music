@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.tedu.store.bean.Instruments;
+import cn.tedu.store.bean.PageQueryBean;
 import cn.tedu.store.mapper.InstrumentsMapper;
 
 @Controller
@@ -31,13 +32,15 @@ public class InstrumentsController {
 	 */
 	@RequestMapping("/selectinstruByName.do")
 	@ResponseBody
-	public List<Map<String, Object>> selectinstruByName(String insName, String insTime1, String insTime2,
+	public PageQueryBean selectinstruByName(String insName, String insTime1, String insTime2,
 			HttpServletResponse response) {
 		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
 		machiningList = instrumentsMapper.selinstruByName(insName, insTime1, insTime2);// 订单id
-		return machiningList;
+		PageQueryBean pageQueryBean = new PageQueryBean();
+		pageQueryBean.setItems(machiningList);
+		pageQueryBean.setTotalRows(machiningList.size());
+		return pageQueryBean;
 	}
-
 	/**
 	 * <pre>
 	 * selectinstruByName(通过乐器Id 删除乐器相关信息)    

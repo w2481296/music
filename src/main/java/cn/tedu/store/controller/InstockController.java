@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.tedu.store.bean.Instock;
 import cn.tedu.store.bean.Instruments;
+import cn.tedu.store.bean.PageQueryBean;
 import cn.tedu.store.bean.vipuser;
 import cn.tedu.store.mapper.InstockMapper;
 import cn.tedu.store.mapper.InstrumentsMapper;
@@ -33,19 +34,26 @@ public class InstockController extends BaseController {
 	 */
 	@RequestMapping("/selectinstockByName.do")
 	@ResponseBody
-	public List<Map<String, Object>> selectinstockByName(String inName, String inTime1, String inTime2,
+	public PageQueryBean selectinstockByName(String inName, String inTime1, String inTime2,
 			HttpServletResponse response) {
 		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
 		machiningList = instockMapper.selectinstockByName(inName, inTime1, inTime2);// ¶©µ¥id
-		return machiningList;
+		PageQueryBean pageQueryBean = new PageQueryBean();
+		pageQueryBean.setItems(machiningList);
+		pageQueryBean.setTotalRows(machiningList.size());
+		return pageQueryBean;
 	}
+	
 	@RequestMapping("/selectinstockByName1.do")
 	@ResponseBody
-	public List<Map<String, Object>> selectinstockByName1(String inName, String inTime1, String inTime2,
+	public PageQueryBean selectinstockByName1(String inName, String inTime1, String inTime2,
 			HttpServletResponse response) {
 		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
 		machiningList = instockMapper.selectinstockByName1(inName, inTime1, inTime2);// ¶©µ¥id
-		return machiningList;
+		PageQueryBean pageQueryBean = new PageQueryBean();
+		pageQueryBean.setItems(machiningList);
+		pageQueryBean.setTotalRows(machiningList.size());
+		return pageQueryBean;
 	}
 
 	/**

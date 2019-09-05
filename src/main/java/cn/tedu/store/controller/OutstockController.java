@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.tedu.store.bean.Instock;
 import cn.tedu.store.bean.Instruments;
 import cn.tedu.store.bean.Outstock;
+import cn.tedu.store.bean.PageQueryBean;
 import cn.tedu.store.bean.vipuser;
 import cn.tedu.store.mapper.InstockMapper;
 import cn.tedu.store.mapper.InstrumentsMapper;
@@ -35,13 +36,15 @@ public class OutstockController extends BaseController {
 	 */
 	@RequestMapping("/selectoutstockByName.do")
 	@ResponseBody
-	public List<Map<String, Object>> selectoutstockByName(String inName, String inTime1, String inTime2,
+	public PageQueryBean selectoutstockByName(String inName, String inTime1, String inTime2,
 			HttpServletResponse response) {
 		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
 		machiningList = outstockMapper.selectoutstockByName(inName, inTime1, inTime2);// 订单id
-		return machiningList;
+		PageQueryBean pageQueryBean = new PageQueryBean();
+		pageQueryBean.setItems(machiningList);
+		pageQueryBean.setTotalRows(machiningList.size());
+		return pageQueryBean;
 	}
-
 	/**
 	 * <pre>
 	 * selectinstruByName(通过商品Id 删除出库相关信息)    

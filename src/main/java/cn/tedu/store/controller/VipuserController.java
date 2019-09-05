@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.tedu.store.bean.Instruments;
+import cn.tedu.store.bean.PageQueryBean;
 import cn.tedu.store.bean.vipuser;
 import cn.tedu.store.mapper.VipuserMapper;
 
@@ -30,11 +31,14 @@ public class VipuserController {
 	 */
 	@RequestMapping("/selectVipInfo.do")
 	@ResponseBody
-	public List<Map<String, Object>> selectVipInfo(String vipName, String vipTime1, String vipTime2,
+	public PageQueryBean selectVipInfo(String vipName, String vipTime1, String vipTime2,
 			HttpServletResponse response) {
 		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
 		machiningList = vipuserMapper.selectVipInfo(vipName, vipTime1, vipTime2);// 订单id
-		return machiningList;
+		PageQueryBean pageQueryBean = new PageQueryBean();
+		pageQueryBean.setItems(machiningList);
+		pageQueryBean.setTotalRows(machiningList.size());
+		return pageQueryBean;
 	}
 	//删除单个会员
 	@RequestMapping("/delvipById.do")

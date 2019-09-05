@@ -33,7 +33,6 @@
 				<button type="submit" class="btn btn-success radius" id="search" name=""><i class="Hui-iconfont">&#xe665;</i> 查询</button>
 				<button type="submit" class="btn btn-success radius" id="clean" name="" style="width:70px">清空</button>
 			</div>
-			<div class="cl pd-5 bg-1 bk-gray mt-20"><span class="r">共有数据：<span id="num2"></span> 条</span> </div>
 			<div class="mt-20">
 				<table class="table table-border table-bordered table-hover table-bg table-sort" id="DataTables_Table_0">
 					<thead>
@@ -52,9 +51,6 @@
 					<tbody id="table-data">
 					</tbody>
 				</table>
-				<div id="mes" style="float:left;display:none">
-					当前没有数据
-				</div>
 			</div>
 		</article>
 	</div>
@@ -69,114 +65,113 @@
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
-$(function(){
-	$("#table-data").html(''); 
-	$.ajax({
-		url :"../total/queryallmoney.do",
-		type:"post",
-		dataType : "json",
-		contentType : "application/json;charset=utf-8",
-		async : false,
-		success : function(result) {
- 			var allNum=result.length;
- 			if(allNum==0){
- 				document.getElementById("mes").style.display="block";
- 				$('#num2').html(allNum);
- 			}else{
- 				$('#show').html(1);
- 				$('#end').html(allNum);
- 				$('#num').html(allNum);
- 				$('#num2').html(allNum);
- 			}
- 			for(var i =0;i<allNum;i++){
- 				var id= result[i].id;
- 				var inKind = result[i].inKind!=null?result[i].inKind:"";
- 				var inName = result[i].inName;
- 				var inType = result[i].inType!=null?result[i].inType:"";
- 				var inSpecifications = result[i].inSpecifications!=null?result[i].inSpecifications:"";
- 				var inQty = result[i].inQty!=null?result[i].inQty:"";
- 				var inProfit = result[i].inProfit!=null?result[i].inProfit:"";
- 				var inManufacturers = result[i].inManufacturers!=null?result[i].inManufacturers:"";
- 				var inCreatetime = result[i].inCreatetime!=null?result[i].inCreatetime:"";
- 			 	htmlStr='<tr class="text-c odd" role="row">'+
-				'<td>'+id+'</td>'+
-				'<td>'+inKind+'</td>'+
-				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show('+"'"+inName+"'"+','+"'showindex1.do',"+"'10001',"+"'360',"+"'400'"+')">'+inName+'</u></div></td>'+
-				'<td>'+inType+'</td>'+
-				'<td>'+inSpecifications+'</td>'+
-				'<td>'+inQty+'</td>'+
-				'<td>'+inProfit+'</td>'+
-				'<td>'+inManufacturers+'</td>'+
-				'<td>'+inCreatetime+'</td>'+
-			'</tr>';
- 				$("#table-data").append(htmlStr); 
- 			}
- 			
-		}
-	});
-	
-}); 
-
+$(document).ready(function () {
+    $('#DataTables_Table_0').DataTable({
+        serverSide: false, //启用服务器端分页
+        searching: false, //禁用原生搜索
+        pagingType: "simple_numbers", //分页样式：simple,simple_numbers,full,full_numbers
+        ajax: function (data, callback, settings) { 
+	        //封装请求参数
+	        var param = {};
+            param.pageSize = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
+            param.start = data.start;//开始的记录序号
+            param.currentPage = (data.start / data.length) + 1;//当前页码
+            $.ajax({
+                type: "post",
+                url :"../total/queryallmoney.do",
+                cache: false, //禁用缓存
+                data:param,
+                dataType: "json",
+                success: function (result) {
+                    var returnData = {};
+                    returnData.draw = data.startRow;//这里直接自行返回了draw计数器,应该由后台返回
+                    returnData.recordsTotal = result.totalRows;//返回数据全部记录
+                    returnData.recordsFiltered = result.totalRows;//后台不实现过滤功能，每次查询均视作全部结果
+                    returnData.data = result.items;//返回的数据列表
+                    //此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
+                    callback(returnData);
+                }
+            });
+        },
+        "columns": [   
+            {'data': 'id'},
+            {'data': 'inKind'},
+            {'data': 'inName'},
+            {'data': 'inType'},
+            {'data': 'inSpecifications'},
+            {'data': 'inQty'},
+            {'data': 'inProfit'},
+            {'data': 'inManufacturers'},
+            {'data': 'inCreatetime'},
+        ],
+        "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull)            {                    //列样式处理
+        }
+    })
+});
 /*-查询功能*/
 $("#search").click(function(){
-	$("#table-data").html(''); 
-	document.getElementById("mes").style.display="none";
-	var html = $('#datacount').children(); 
-	$('#datacount').html(html); 
-	var insname=$("#insname").val();
-	var datemin=$("#datemin").val();
-	var datemax=$("#datemax").val();
-	console.log("=="+insname);
-	var params={
-			insName:insname,
-			insTime1:datemin,
-			insTime2:datemax
-	};
-	$.ajax({
-		url :"../total/queryallmoney.do",
-		data : params,
-		type:"post",
-		async : false,
-		success : function(result) {
- 			var allNum=result.length;
- 			if(allNum==0){
- 				document.getElementById("mes").style.display="block";
- 				$('#num2').html(allNum);
- 			}else{
- 				$('#show').html(1);
- 				$('#end').html(allNum);
- 				$('#num').html(allNum);
- 				$('#num2').html(allNum);
- 			}
- 			for(var i =0;i<allNum;i++){
- 				var id= result[i].id;
- 				var inKind = result[i].inKind!=null?result[i].inKind:"";
- 				var inName = result[i].inName;
- 				var inType = result[i].inType!=null?result[i].inType:"";
- 				var inSpecifications = result[i].inSpecifications!=null?result[i].inSpecifications:"";
- 				var inQty = result[i].inQty!=null?result[i].inQty:"";
- 				var inProfit = result[i].inProfit!=null?result[i].inProfit:"";
- 				var inManufacturers = result[i].inManufacturers!=null?result[i].inManufacturers:"";
- 				var inCreatetime = result[i].inCreatetime!=null?result[i].inCreatetime:"";
- 			 	htmlStr='<tr class="text-c odd" role="row">'+
-				'<td>'+id+'</td>'+
-				'<td>'+inKind+'</td>'+
-				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show('+"'"+inName+"'"+','+"'showindex1.do',"+"'10001',"+"'360',"+"'400'"+')">'+inName+'</u></div></td>'+
-				'<td>'+inType+'</td>'+
-				'<td>'+inSpecifications+'</td>'+
-				'<td>'+inQty+'</td>'+
-				'<td>'+inProfit+'</td>'+
-				'<td>'+inManufacturers+'</td>'+
-				'<td>'+inCreatetime+'</td>'+
-			'</tr>';
- 				$("#table-data").append(htmlStr); 
- 			}
-		}
-	});
+	var datatable = $("#DataTables_Table_0").dataTable();
+	        if (datatable) {  
+	         datatable.fnClearTable();    //清空数据
+	         datatable.fnDestroy();         //销毁datatable
+	 } 
+	var tablebody = $('.DataTables_Table_0').find('tbody');
+	tablebody.children().remove();
 	
+	 $('#DataTables_Table_0').DataTable({
+	        serverSide: false, //启用服务器端分页
+	        searching: false, //禁用原生搜索
+	        pagingType: "simple_numbers", //分页样式：simple,simple_numbers,full,full_numbers
+	        ajax: function (data, callback, settings) { 
+		        //封装请求参数
+		        var insname=$("#insname").val();
+		    	var datemin=$("#datemin").val();
+		    	var datemax=$("#datemax").val();
+		    	console.log("=="+insname);
+		    	var param={
+		    			insName:insname,
+		    			insTime1:datemin,
+		    			insTime2:datemax
+		    	};
+	            param.pageSize = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
+	            param.start = data.start;//开始的记录序号
+	            param.currentPage = (data.start / data.length) + 1;//当前页码
+	            $.ajax({
+	                type: "post",
+	                url :"../total/queryallmoney.do",
+	                cache: false, //禁用缓存
+	                data:param,
+	                dataType: "json",
+	                success: function (result) {
+	                    var returnData = {};
+	                    returnData.draw = data.startRow;//这里直接自行返回了draw计数器,应该由后台返回
+	                    returnData.recordsTotal = result.totalRows;//返回数据全部记录
+	                    returnData.recordsFiltered = result.totalRows;//后台不实现过滤功能，每次查询均视作全部结果
+	                    returnData.data = result.items;//返回的数据列表
+	                    //此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
+	                    callback(returnData);
+	                }
+	            });
+	        },
+	        "columns": [   
+	                    {'data': 'id'},
+	                    {'data': 'inKind'},
+	                    {'data': 'inName'},
+	                    {'data': 'inType'},
+	                    {'data': 'inSpecifications'},
+	                    {'data': 'inQty'},
+	                    {'data': 'inProfit'},
+	                    {'data': 'inManufacturers'},
+	                    {'data': 'inCreatetime'},
+	                ],
+	        "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull)            {                    //列样式处理
+	        }
+	    })
 	
-});
+});	
+
 /* 清空按钮 */
 $("#clean").click(function(){
 	$("#datemin").val("");

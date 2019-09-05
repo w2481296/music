@@ -93,7 +93,7 @@ $(document).ready(function() {
 });
 function selBomSparepart(){ 
 	 $.ajax({
-		url :"../parts/selectpartByName.do",
+		url :"../parts/selectpartByName2.do",
 		type:"post",
 		dataType : "json",
 		contentType : "application/json;charset=utf-8",
