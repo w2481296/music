@@ -37,6 +37,7 @@
 			<mvc:mapping path="/vip/*"/>
 			<mvc:mapping path="/in/*"/>
 			<mvc:mapping path="/out/*"/>
+			<mvc:mapping path="/total/*"/>
 			<mvc:exclude-mapping path="/user/showRegister.do"/>
 			<mvc:exclude-mapping path="/user/checkUsername.do"/>
 			<mvc:exclude-mapping path="/user/checkPhone.do"/>

@@ -59,7 +59,7 @@
 				}else if(i==2){
 						navData+="<li><a  href='javascript:;' _link='showIndex6.do'><span>销售记录</span></a></li>";
 				}else if(i==3){
-						navData+="<li><a  href='javascript:;' _link='showIndex7.do'><span>总入库</span></a></li><li><a  href='javascript:;' _link='showIndex8.do'><span>总出库</span></a></li><li><a href='javascript:;' _link='showIndex9.do'><span>销售记录</span></a></li><li><a  href='javascript:;' _link='showIndex10.do'><span>账务情况</span></a></li>";
+						navData+="<li><a  href='javascript:;' _link='showIndex7.do'><span>总入库</span></a></li><li><a  href='javascript:;' _link='showIndex8.do'><span>总出库</span></a></li><li><a href='javascript:;' _link='showIndex9.do'><span>总仓记录</span></a></li><li><a  href='javascript:;' _link='showIndex10.do'><span>账务情况</span></a></li>";
 				}
 				else if(i==4){
 						navData+="<li><a  href='javascript:;' _link='showIndex11.do'><span>会员信息</span></a></li>";

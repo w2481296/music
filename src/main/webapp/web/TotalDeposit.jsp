@@ -29,25 +29,26 @@
 				<input type="text" onfocus="WdatePicker({skin:'whyGreen',maxDate: '%y-%M-%d'})" id="datemin" class="input-text Wdate" style="width:120px;">
 				-
 				<input type="text" onfocus="WdatePicker({skin:'whyGreen',maxDate: '%y-%M-%d' })" id="datemax" class="input-text Wdate" style="width:120px;">
-				<input type="text" class="input-text" style="width:250px" placeholder="输入配件关键词" id="insname" name="">
+				<input type="text" class="input-text" style="width:250px" placeholder="输入商品关键词" id="insname" name="">
 				<button type="submit" class="btn btn-success radius" id="search" name=""><i class="Hui-iconfont">&#xe665;</i> 查询</button>
 				<button type="submit" class="btn btn-success radius" id="clean" name="" style="width:70px">清空</button>
 			</div>
-			<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> </span> <span class="r">共有数据：<span id="num2"></span> 条</span> </div>
+			<div class="cl pd-5 bg-1 bk-gray mt-20"><span class="r">共有数据：<span id="num2"></span> 条</span> </div>
 			<div class="mt-20">
 				<table class="table table-border table-bordered table-hover table-bg table-sort" id="DataTables_Table_0">
 					<thead>
 						<tr class="text-c">
-							<th style="width:10px"><input type="checkbox" name="" value=""></th>
 							<th style="width:50px">ID</th>
 							<th style="width:80px">名称</th>
-							<th style="width:80px">规格</th>
 							<th style="width:80px">类型</th>
+							<th style="width:80px">规格</th>
 							<th style="width:70px">定价</th>
+							<th style="width:70px">售价</th>
+							<th style="width:70px">数量</th>
+							<th style="width:70px">利润</th>
+							<th style="width:70px">会员</th>
 							<th style="width:100px">厂商</th>
-							<th style="width:100px">备注</th>
-							<th style="width:150px">更新时间</th>
-							<th style="width:50px">操作</th>
+							<th style="width:150px">出库时间</th>
 						</tr>
 					</thead>
 					<tbody id="table-data">
@@ -71,54 +72,6 @@
 <script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
-$(function(){
-	$("#table-data").html(''); 
-	$.ajax({
-		url :"../parts/selectpartByName.do",
-		type:"post",
-		dataType : "json",
-		contentType : "application/json;charset=utf-8",
-		async : false,
-		success : function(result) {
- 			var allNum=result.length;
- 			if(allNum==0){
- 				document.getElementById("mes").style.display="block";
- 				$('#num2').html(allNum);
- 			}else{
- 				$('#show').html(1);
- 				$('#end').html(allNum);
- 				$('#num').html(allNum);
- 				$('#num2').html(allNum);
- 			}
- 			for(var i =0;i<allNum;i++){
- 				var id= result[i].id;
- 				var insName = result[i].insName;
- 				var insType = result[i].insType!=null?result[i].insType:"";
- 				var insSpecifications = result[i].insSpecifications!=null?result[i].insSpecifications:"";
- 				var insPricing = result[i].insPricing!=null?result[i].insPricing:"";
- 				var insManufacturers = result[i].insManufacturers!=null?result[i].insManufacturers:"";
- 				var insRemake = result[i].insRemake!=null?result[i].insRemake:"";
- 				var insTime = result[i].insTime!=null?result[i].insTime:"";
- 			 	htmlStr='<tr class="text-c odd" role="row">'+
- 				'<td><input type="checkbox" value="'+id+'" name=""></td>'+
-				'<td>'+id+'</td>'+
-				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show('+"'"+insName+"'"+','+"'member-show.jsp',"+"'10001',"+"'360',"+"'400'"+')">'+insName+'</u></div></td>'+
-				'<td>'+insType+'</td>'+
-				'<td>'+insSpecifications+'</td>'+
-				'<td>'+insPricing+'</td>'+
-				'<td>'+insManufacturers+'</td>'+
-				'<td>'+insRemake+'</td>'+
-				'<td>'+insTime+'</td>'+
-				'<td class="td-manage"><a title='+"'编辑'"+' href="javascript:;" onclick="member_edit('+"'编辑',"+"'member-show.jsp',"+"'4',"+"'',"+"'510'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
-			'</tr>';
- 				$("#table-data").append(htmlStr); 
- 			}
- 			
-		}
-	});
-	
-});
-
 /*-查询功能*/
 $("#search").click(function(){
 	$("#table-data").html(''); 
@@ -130,12 +83,12 @@ $("#search").click(function(){
 	var datemax=$("#datemax").val();
 	console.log("=="+insname);
 	var params={
-			insName:insname,
-			insTime1:datemin,
-			insTime2:datemax
+			inName:insname,
+			inTime1:datemin,
+			inTime2:datemax
 	};
 	$.ajax({
-		url :"../parts/selectpartByName.do",
+		url :"../total/queryalloutstock.do",
 		data : params,
 		type:"post",
 		async : false,
@@ -152,24 +105,28 @@ $("#search").click(function(){
  			}
  			for(var i =0;i<allNum;i++){
  				var id= result[i].id;
- 				var insName = result[i].insName;
- 				var insType = result[i].insType!=null?result[i].insType:"";
- 				var insSpecifications = result[i].insSpecifications!=null?result[i].insSpecifications:"";
- 				var insPricing = result[i].insPricing!=null?result[i].insPricing:"";
- 				var insManufacturers = result[i].insManufacturers!=null?result[i].insManufacturers:"";
- 				var insRemake = result[i].insRemake!=null?result[i].insRemake:"";
- 				var insTime = result[i].insTime!=null?result[i].insTime:"";
+ 				var outName = result[i].outName;
+ 				var outType = result[i].outType!=null?result[i].outType:"";
+ 				var outSpecifications = result[i].outSpecifications!=null?result[i].outSpecifications:"";
+ 				var outCost = result[i].outCost!=null?result[i].outCost:"";
+ 				var outPricing = result[i].outPricing!=null?result[i].outPricing:"";
+ 				var outQty = result[i].outQty!=null?result[i].outQty:"";
+ 				var outProfit = result[i].outProfit!=null?result[i].outProfit:"";
+ 				var outVip = result[i].outVip!=null?result[i].outVip:"";
+ 				var outManufacturers = result[i].outManufacturers!=null?result[i].outManufacturers:"";
+ 				var outCreatetime = result[i].outCreatetime!=null?result[i].outCreatetime:"";
  			 	htmlStr='<tr class="text-c odd" role="row">'+
- 				'<td><input type="checkbox" value="'+id+'" name=""></td>'+
 				'<td>'+id+'</td>'+
-				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show('+"'"+insName+"'"+','+"'showindex1.do',"+"'10001',"+"'360',"+"'400'"+')">'+insName+'</u></div></td>'+
-				'<td>'+insType+'</td>'+
-				'<td>'+insSpecifications+'</td>'+
-				'<td>'+insPricing+'</td>'+
-				'<td>'+insManufacturers+'</td>'+
-				'<td>'+insRemake+'</td>'+
-				'<td>'+insTime+'</td>'+
-				'<td class="td-manage"><a title='+"'编辑'"+' href="javascript:;" onclick="member_edit('+"'编辑',"+"'showindex1.do',"+"'4',"+"'',"+"'510'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
+				'<td>'+outName+'</td>'+
+				'<td>'+outType+'</td>'+
+				'<td>'+outSpecifications+'</td>'+
+				'<td>'+outCost+'</td>'+
+				'<td>'+outPricing+'</td>'+
+				'<td>'+outQty+'</td>'+
+				'<td>'+outProfit+'</td>'+
+				'<td>'+outVip+'</td>'+
+				'<td>'+outManufacturers+'</td>'+
+				'<td>'+outCreatetime+'</td>'+
 			'</tr>';
  				$("#table-data").append(htmlStr); 
  			}
@@ -184,84 +141,12 @@ $("#clean").click(function(){
 	$("#datemax").val("");
 	$("#insname").val("");
 });
-/*用户-添加*/
-function member_add(title,url,w,h){
-	layer_show(title,url,w,h);
-}
 
 /*用户-查看*/
 function member_show(title,url,id,w,h){
 	layer_show(title,url,w,h);
 }
-/*用户-编辑*/
-function member_edit(title,url,id,w,h){
-	layer_show(title,url,w,h);
-}
-/*用户-删除*/
-function member_del(obj,id){
-	layer.confirm('确认要删除吗？',{
-		btn: ['确定', '取消']
-	  },function(index){
-			var params={
-					insid:id
-			};
-			$.ajax({
-				url :"../parts/delpartsById.do",
-				data : params,
-				type:"post",
-				async : false,
-				success : function(result) {
-					if(result=="success"){
-						$(obj).parents("tr").remove();
-					}else{
-						alert("删除失败");
-					}
-				}
-			});
-			layer.closeAll('dialog'); 
-	},function(){
-		layer.closeAll('dialog'); 
-	});
-}
-/*用户-批量删除*/
-function datadel(){
-	console.log("批量删除");
-	var ptag_ids = new Array(); //定义一个数组存储id
-	     // 循环获取选中的checkbox
-	    $("#table-data input[type='checkbox']:checked").each(function() {
-	        if (!isNaN($(this).val())) {
-	            ptag_ids.push($(this).val()); // 把值push进入数组里面
-	        }
-	    });
-	    if(ptag_ids.length ==0){
-	        alert('请选择至少一条记录删除');
-	        return false;
-	    }
-		console.log("选择得id"+ptag_ids);
-	     //调用删除函数
-	    deletePtag(ptag_ids);
-	}
 
-	 
-
-	function deletePtag(ptag_ids){
-	     if(confirm("您确定要删除单条或者多条标签记录吗？删除后无法恢复,请谨慎操作！")){
-	         $.ajax({
-	             type : "post",
-	             url : "../parts/delsById.do",
-	             data : { "ids" : ptag_ids.toString() },  //数组.toString();转成字符串，号隔开的
-	             success : function(data) {
-	                 console.info(data);
-	                 if(data=="success"){
-	                     $("#btn-danger").prop("checked", false);//成功后把全选按钮设置成不选中，其他下面刷新了，要不要都可以的
-	                     location.reload();
-	                 }else{
-	                     alert(data.msg);
-	                 }
-	             }
-	         });
-	     }
-	}
 
 </script>
 <!--/请在上方写此页面业务相关的脚本-->
