@@ -22,7 +22,7 @@
 <body>
 <section class="Hui-article-box">
 	<nav class="breadcrumb">
-	<i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 综合统计 <span class="c-gray en">&gt;</span>总入库<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+	<i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 综合统计 <span class="c-gray en">&gt;</span>出库汇总<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 	<div class="Hui-article">
 		<article class="cl pd-20">
 			<div class="text-c"> 日期范围：
@@ -42,10 +42,10 @@
 							<th style="width:80px">名称</th>
 							<th style="width:80px">类型</th>
 							<th style="width:80px">规格</th>
-							<th style="width:70px">定价</th>
-							<th style="width:70px">售价</th>
-							<th style="width:70px">数量</th>
-							<th style="width:70px">利润</th>
+							<th style="width:70px">定价(元)</th>
+							<th style="width:70px">售价(元)</th>
+							<th style="width:70px">数量(件)</th>
+							<th style="width:70px">利润(元)</th>
 							<th style="width:70px">会员</th>
 							<th style="width:100px">厂商</th>
 							<th style="width:150px">出库时间</th>
@@ -72,6 +72,54 @@
 <script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
+$(function(){
+	$("#table-data").html(''); 
+	$.ajax({
+		url :"../total/queryalloutstock.do",
+		type:"post",
+		async : false,
+		success : function(result) {
+ 			var allNum=result.length;
+ 			if(allNum==0){
+ 				document.getElementById("mes").style.display="block";
+ 				$('#num2').html(allNum);
+ 			}else{
+ 				$('#show').html(1);
+ 				$('#end').html(allNum);
+ 				$('#num').html(allNum);
+ 				$('#num2').html(allNum);
+ 			}
+ 			for(var i =0;i<allNum;i++){
+ 				var id= result[i].id;
+ 				var outName = result[i].outName;
+ 				var outType = result[i].outType!=null?result[i].outType:"";
+ 				var outSpecifications = result[i].outSpecifications!=null?result[i].outSpecifications:"";
+ 				var outCost = result[i].outCost!=null?result[i].outCost:"";
+ 				var outPricing = result[i].outPricing!=null?result[i].outPricing:"";
+ 				var outQty = result[i].outQty!=null?result[i].outQty:"";
+ 				var outProfit = result[i].outProfit!=null?result[i].outProfit:"";
+ 				var outVip = result[i].outVip!=null?result[i].outVip:"";
+ 				var outManufacturers = result[i].outManufacturers!=null?result[i].outManufacturers:"";
+ 				var outCreatetime = result[i].outCreatetime!=null?result[i].outCreatetime:"";
+ 			 	htmlStr='<tr class="text-c odd" role="row">'+
+				'<td>'+id+'</td>'+
+				'<td>'+outName+'</td>'+
+				'<td>'+outType+'</td>'+
+				'<td>'+outSpecifications+'</td>'+
+				'<td>'+outCost+'</td>'+
+				'<td>'+outPricing+'</td>'+
+				'<td>'+outQty+'</td>'+
+				'<td>'+outProfit+'</td>'+
+				'<td>'+outVip+'</td>'+
+				'<td>'+outManufacturers+'</td>'+
+				'<td>'+outCreatetime+'</td>'+
+			'</tr>';
+ 				$("#table-data").append(htmlStr); 
+ 			}
+		}
+	});
+	
+}); 
 /*-查询功能*/
 $("#search").click(function(){
 	$("#table-data").html(''); 

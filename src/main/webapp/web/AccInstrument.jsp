@@ -43,8 +43,8 @@
 							<th style="width:80px">名称</th>
 							<th style="width:80px">所属乐器</th>
 							<th style="width:80px">规格</th>
-							<th style="width:70px">定价</th>
-							<th style="width:70px">库存数量</th>
+							<th style="width:70px">定价(元)</th>
+							<th style="width:70px">库存数量(件)</th>
 							<th style="width:100px">厂商</th>
 							<th style="width:100px">备注</th>
 							<th style="width:150px">更新时间</th>

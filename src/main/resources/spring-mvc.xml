@@ -80,6 +80,11 @@
 			<mvc:exclude-mapping path="/out/deloutstockByIds.do"/>
 			<mvc:exclude-mapping path="/out/addoutstock.do"/>
 			<mvc:exclude-mapping path="/out/selectgoodsorname.do"/>
+			<!-- 汇总 -->
+			<mvc:exclude-mapping path="/total/queryallinstock.do"/>
+			<mvc:exclude-mapping path="/total/queryalloutstock.do"/>
+			<mvc:exclude-mapping path="/total/queryallstock.do"/>
+			<mvc:exclude-mapping path="/total/queryallmoney.do"/>
 			<!--实例化拦截器  -->
 			<bean class="cn.tedu.store.interceptor.LoginInterceptor"/>
 		</mvc:interceptor>

@@ -22,7 +22,7 @@
 <body>
 <section class="Hui-article-box">
 	<nav class="breadcrumb">
-	<i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 综合统计 <span class="c-gray en">&gt;</span>总入库<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+	<i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 综合统计 <span class="c-gray en">&gt;</span>入库汇总<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 	<div class="Hui-article">
 		<article class="cl pd-20">
 			<div class="text-c"> 日期范围：
@@ -42,8 +42,8 @@
 							<th style="width:80px">名称</th>
 							<th style="width:80px">规格</th>
 							<th style="width:80px">类型</th>
-							<th style="width:70px">定价</th>
-							<th style="width:70px">数量</th>
+							<th style="width:70px">定价(元)</th>
+							<th style="width:70px">数量(件)</th>
 							<th style="width:100px">厂商</th>
 							<th style="width:150px">入库时间</th>
 						</tr>
@@ -69,13 +69,11 @@
 <script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
-/* $(function(){
+$(function(){
 	$("#table-data").html(''); 
 	$.ajax({
-		url :"../total/selecttotal.do",
+		url :"../total/queryallinstock.do",
 		type:"post",
-		dataType : "json",
-		contentType : "application/json;charset=utf-8",
 		async : false,
 		success : function(result) {
  			var allNum=result.length;
@@ -90,31 +88,29 @@
  			}
  			for(var i =0;i<allNum;i++){
  				var id= result[i].id;
- 				var insName = result[i].insName;
- 				var insType = result[i].insType!=null?result[i].insType:"";
- 				var insSpecifications = result[i].insSpecifications!=null?result[i].insSpecifications:"";
- 				var insPricing = result[i].insPricing!=null?result[i].insPricing:"";
- 				var insManufacturers = result[i].insManufacturers!=null?result[i].insManufacturers:"";
- 				var insRemake = result[i].insRemake!=null?result[i].insRemake:"";
- 				var insTime = result[i].insTime!=null?result[i].insTime:"";
+ 				var inName = result[i].inName;
+ 				var inType = result[i].inType!=null?result[i].inType:"";
+ 				var inSpecifications = result[i].inSpecifications!=null?result[i].inSpecifications:"";
+ 				var inPricing = result[i].inPricing!=null?result[i].inPricing:"";
+ 				var inQty = result[i].inQty!=null?result[i].inQty:"";
+ 				var inManufacturers = result[i].inManufacturers!=null?result[i].inManufacturers:"";
+ 				var inCreatetime = result[i].inCreatetime!=null?result[i].inCreatetime:"";
  			 	htmlStr='<tr class="text-c odd" role="row">'+
- 				'<td><input type="checkbox" value="'+id+'" name=""></td>'+
 				'<td>'+id+'</td>'+
-				'<td><div class="c-999 f-12"><u style="cursor:pointer" class="text-primary" onclick="member_show('+"'"+insName+"'"+','+"'member-show.jsp',"+"'10001',"+"'360',"+"'400'"+')">'+insName+'</u></div></td>'+
-				'<td>'+insType+'</td>'+
-				'<td>'+insSpecifications+'</td>'+
-				'<td>'+insPricing+'</td>'+
-				'<td>'+insManufacturers+'</td>'+
-				'<td>'+insRemake+'</td>'+
-				'<td>'+insTime+'</td>'+
+				'<td>'+inName+'</td>'+
+				'<td>'+inType+'</td>'+
+				'<td>'+inSpecifications+'</td>'+
+				'<td>'+inPricing+'</td>'+
+				'<td>'+inQty+'</td>'+
+				'<td>'+inManufacturers+'</td>'+
+				'<td>'+inCreatetime+'</td>'+
 			'</tr>';
  				$("#table-data").append(htmlStr); 
  			}
- 			
 		}
 	});
 	
-}); */
+}); 
 
 /*-查询功能*/
 $("#search").click(function(){

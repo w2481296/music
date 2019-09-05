@@ -44,9 +44,9 @@
 							<th style="width:50px">名称</th>
 							<th style="width:50px">类型</th>
 							<th style="width:50px">规格</th>
-							<th style="width:80px">售价</th>
-							<th style="width:50px">销售数量</th>
-							<th style="width:50px">库存剩余</th>
+							<th style="width:80px">售价(元)</th>
+							<th style="width:50px">销售数量(元)</th>
+							<th style="width:50px">库存剩余(件)</th>
 							<th style="width:100px">工厂</th>
 							<th style="width:80px">会员</th>
 							<th style="width:150px">更新时间</th>

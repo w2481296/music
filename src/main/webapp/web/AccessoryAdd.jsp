@@ -44,9 +44,9 @@
 							<th style="width:50px">名称</th>
 							<th style="width:50px">类型</th>
 							<th style="width:50px">规格</th>
-							<th style="width:50px">成本</th>
-							<th style="width:80px">定价</th>
-							<th style="width:50px">入库数量</th>
+							<th style="width:50px">成本(元)</th>
+							<th style="width:80px">定价(元)</th>
+							<th style="width:50px">入库数量(件)</th>
 							<th style="width:100px">工厂</th>
 							<th style="width:150px">更新时间</th>
 							<th style="width:150px">入库时间</th>

@@ -41,17 +41,17 @@ public class MainController {
 	public String showIndex6() {
 		return "Addsalesrecords";
 	}
-	// 定义总入库页面
+	// 定义入库汇总页面
 	@RequestMapping("/showIndex7.do")
 	public String showIndex7() {
 		return "Totalstorage";
 	}
-	// 定义总出库页面
+	// 定义出库汇总页面
 	@RequestMapping("/showIndex8.do")
 	public String showIndex8() {
 		return "TotalDeposit";
 	}
-	// 定义销售记录页面
+	// 定义汇总记录页面
 	@RequestMapping("/showIndex9.do")
 	public String showIndex9() {
 		return "Salesrecords";
