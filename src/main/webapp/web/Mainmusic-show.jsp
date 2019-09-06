@@ -112,6 +112,7 @@ $(function(){
 			document.getElementById("inPricing").value=result[0].inPricing!=null?result[0].inPricing:"";
 			document.getElementById("inQty").value=result[0].inQty!=null?result[0].inQty:"";
 			document.getElementById("insPartsname").value=result[0].inPart!=null?result[0].inPart:"";
+			document.getElementById("inPart").value=result[0].inPartCode!=null?result[0].inPartCode:"";
 			document.getElementById("inManufacturers").value=result[0].inManufacturers!=null?result[0].inManufacturers:"";
 		}
 	});

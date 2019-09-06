@@ -125,26 +125,48 @@ public class InstockController extends BaseController {
 	@ResponseBody
 	public void updateinstock(Instock instock) {
 		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
+		//原来入库数
+		Integer num=instockMapper.querypartsqty(instock.getId());
 		//修改库存表
 		instockMapper.updateinstock(instock);
 		machiningList=instockMapper.queryByName(instock);
 		//修改相关商品表
 		Integer a=Integer.valueOf(machiningList.get(0).get("inQty").toString());
-		if(a!=Integer.valueOf(instock.getInQty())){
+		Integer num2=Integer.valueOf(instock.getInQty());
+		if(num!=num2){
+			if(num>num2){
+				a=a-num+num2;
+				instock.setInQty(String.valueOf(a));
+			}else{
+				a+=num2-num;
+				instock.setInQty(String.valueOf(a));
+			}
 				instockMapper.updateoldinfo(instock);
 		}
 	}
+	
 	/*修改配件入库并修改配件表*/
 	@RequestMapping("/updateinstock2.do")
 	@ResponseBody
 	public void updateinstock2(Instock instock) {
 		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
+		//原来入库数
+		Integer num=instockMapper.querypartsqty(instock.getId());
 		//修改库存表
 		instockMapper.updateinstock(instock);
 		machiningList=instockMapper.querypartsByName(instock);
 		//修改相关商品表
 		Integer a=Integer.valueOf(machiningList.get(0).get("inQty").toString());
-		if(a!=Integer.valueOf(instock.getInQty())){
+		
+		Integer num2=Integer.valueOf(instock.getInQty());
+		if(num!=num2){
+			if(num>num2){
+				a=a-num+num2;
+				instock.setInQty(String.valueOf(a));
+			}else{
+				a+=num2-num;
+				instock.setInQty(String.valueOf(a));
+			}
 				instockMapper.updateoldpartsinfo(instock);
 		}
 	}

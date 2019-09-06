@@ -39,6 +39,8 @@ public interface InstockMapper {
 	void insertpartsInfo(Instock instock);
 	//旧配件更新配件表
 	void updateoldpartsinfo(Instock instock);
+	//根据入库表id查询数量
+	Integer querypartsqty(@Param("id")Integer id);
 	
 	
 	

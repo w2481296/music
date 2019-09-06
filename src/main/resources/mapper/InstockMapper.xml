@@ -85,6 +85,7 @@
 		wi.in_qty as inQty,
 		wi.in_pricing as inPricing,
 		wi.in_manufacturers as inManufacturers,
+		wi.in_part as inPartCode,
 		wp.parts_name as inPart
 		from
 		w_instock wi
@@ -189,6 +190,14 @@
 		where
 			parts_name=#{inName}
 	</update>
+	<select id="querypartsqty" parameterType="cn.tedu.store.bean.Instock" resultType="java.lang.Integer">
+		select
+		in_qty as inQty
+		from
+		w_instock
+		where
+		id=#{id} 
+	</select>
 </mapper>
 
 		
