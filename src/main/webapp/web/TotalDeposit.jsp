@@ -33,6 +33,7 @@
 				<input type="text" class="input-text" style="width:250px" placeholder="输入商品关键词" id="insname" name="">
 				<button type="submit" class="btn btn-success radius" id="search" name=""><i class="Hui-iconfont">&#xe665;</i> 查询</button>
 				<button type="submit" class="btn btn-success radius" id="clean" name="" style="width:70px">清空</button>
+				<button type="submit" class="btn btn-success radius" id="export" name="" style="width:70px">导出</button>
 			</div>
 			<div class="mt-20">
 				<table class="table table-border table-bordered table-hover table-bg table-sort" id="DataTables_Table_0">
@@ -42,7 +43,7 @@
 							<th style="width:80px">名称</th>
 							<th style="width:80px">类型</th>
 							<th style="width:80px">规格</th>
-							<th style="width:70px">定价(元)</th>
+							<th style="width:70px">成本(元)</th>
 							<th style="width:70px">售价(元)</th>
 							<th style="width:70px">数量(件)</th>
 							<th style="width:70px">利润(元)</th>
@@ -68,7 +69,7 @@
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
-<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../js/export.js"></script>
 <script type="text/javascript">
 $(document).ready(function () {
     $('#DataTables_Table_0').DataTable({
@@ -185,12 +186,19 @@ $("#clean").click(function(){
 	$("#datemax").val("");
 	$("#insname").val("");
 });
-
 /*用户-查看*/
 function member_show(title,url,id,w,h){
 	layer_show(title,url,w,h);
 }
-
+//导出
+$("#export").click(function(){
+	var table = $('#DataTables_Table_0').DataTable();
+	var filename="出库汇总表"
+	var title=['ID','名称','类型','规格','成本(元)','售价(元)','数量(件)','利润(元)','会员','厂商','出库时间'];
+	var title1=['id','outName','outType','outSpecifications','outCost','outPricing','outQty','outProfit','outVip','outManufacturers','outCreatetime'];
+	var JSONData=table.data();
+	exportExcel(JSONData, filename,title,title1);
+});
 
 </script>
 </body>

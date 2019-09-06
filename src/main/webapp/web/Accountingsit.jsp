@@ -32,6 +32,7 @@
 				<input type="text" class="input-text" style="width:250px" placeholder="输入配件关键词" id="insname" name="">
 				<button type="submit" class="btn btn-success radius" id="search" name=""><i class="Hui-iconfont">&#xe665;</i> 查询</button>
 				<button type="submit" class="btn btn-success radius" id="clean" name="" style="width:70px">清空</button>
+				<button type="submit" class="btn btn-success radius" id="export" name="" style="width:70px">导出</button>
 			</div>
 			<div class="mt-20">
 				<table class="table table-border table-bordered table-hover table-bg table-sort" id="DataTables_Table_0">
@@ -63,6 +64,7 @@
 <script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.page.js"></script> 
 <!--/_footer /作为公共模版分离出去-->
 <!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../js/export.js"></script>
 <script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
@@ -183,7 +185,15 @@ $("#clean").click(function(){
 function member_show(title,url,id,w,h){
 	layer_show(title,url,w,h);
 }
-
+//导出
+$("#export").click(function(){
+	var table = $('#DataTables_Table_0').DataTable();
+	var filename="账务汇总表";
+	var title=['ID','类型(支出/收入','名称','乐器种类','参数','数量(件)','费用(元)','厂商','时间'];
+	var title1=['id','inKind','inName','inType','inSpecifications','inQty','inProfit','inManufacturers','inCreatetime'];
+	var JSONData=table.data();
+	exportExcel(JSONData, filename,title,title1);
+});
 </script>
 <!--/请在上方写此页面业务相关的脚本-->
 </body>
