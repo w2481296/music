@@ -96,7 +96,7 @@ public class MainController {
 	public String showIndex17() {
 		return "Parts-add";
 	}
-	// 跳转主乐器编辑页面
+	// 跳转配件编辑页面
 	@RequestMapping("/showIndex18.do")
 	public String showIndex18() {
 		return "Parts-show";

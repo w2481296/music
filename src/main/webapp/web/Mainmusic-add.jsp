@@ -29,57 +29,57 @@
 		<div class="row cl" style="margin-top: 0px;">
 			<label class="form-label col-xs-4 col-sm-2">乐器名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" id="insName" name="insName">
+				<input type="text" class="input-text" id="inName" name="inName">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">类型：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text"  readonly="readonly" id="insType" name="insType">
+				<input type="text" class="input-text"  readonly="readonly" id="inType" name="inType">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">规格：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text"  id="insSpecifications" name="insSpecifications">
+				<input type="text" class="input-text"  id="inSpecifications" name="inSpecifications">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">库存数量：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text"  id="insQty" name="insQty">
+				<input type="text" class="input-text"  id="inQty" name="inQty">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">厂商：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text"  id="insManufacturers"  name="insManufacturers" class="input-text">
+				<input type="text"  id="inManufacturers"  name="inManufacturers" class="input-text">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">配件：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input   id="insParts"  name="insParts"  style="display:none;">
-				<input type="text"  id="insPartsname"   name=""  class="input-text">
+				<input   id="inPart"  name="inPart"  style="display:none;">
+				<input type="text"  id="inPartsname"   name=""  class="input-text">
 				<img alt="查看更多" src="../images/waiting.png" onclick="member_show('挑选配件','../main/showIndex21.do','','500','500')" style="margin-left: 332px;width: 20px; height: 23px;margin-top: -27px;"> 
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">乐器展示价格：</label>
 			<div class="formControls col-xs-8 col-sm-9" style="width:240px;">
-				<input type="text" id="insPricing"  name="insPricing" class="input-text" style="width:90%">
+				<input type="text" id="inPricing"  name="inPricing" class="input-text" style="width:90%">
 				元</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">成本价格：</label>
 			<div class="formControls col-xs-8 col-sm-9" style="width:240px;">
-				<input type="text"  id="insCost" name="insCost" class="input-text" style="width:90%">
+				<input type="text"  id="inCost" name="inCost" class="input-text" style="width:90%">
 				元</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">乐器备注：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<textarea id="insRemake" class="textarea"  placeholder="说点什么..." name="insRemake" datatype="*10-100" ></textarea>
+				<textarea id="inRemake" class="textarea"  placeholder="说点什么..." name="inRemake" datatype="*10-100" ></textarea>
 				<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
 			</div>
 		</div>
@@ -119,15 +119,15 @@ $(function(){
 		success : function(result) {
 			localStorage.clear();
 			document.getElementById("id").value=result[0].id!=null?result[0].id:"";
-			document.getElementById("insType").value="主乐器";
-			document.getElementById("insName").value=result[0].insName!=null?result[0].insName:"";
-			document.getElementById("insSpecifications").value=result[0].insSpecifications!=null?result[0].insSpecifications:"";
-			document.getElementById("insPricing").value=result[0].insPricing!=null?result[0].insPricing:"";
-			document.getElementById("insManufacturers").value=result[0].insManufacturers!=null?result[0].insManufacturers:"";
-			document.getElementById("insPartsname").value=result[0].insParts!=null?result[0].insParts:"";
-			document.getElementById("insCost").value=result[0].insCost!=null?result[0].insCost:"";
-			document.getElementById("insQty").value=result[0].insQty!=null?result[0].insQty:"";
-			$("#insRemake").val(result[0].insRemake!=null?result[0].insRemake:"");
+			document.getElementById("inType").value="主乐器";
+			document.getElementById("inName").value=result[0].insName!=null?result[0].insName:"";
+			document.getElementById("inSpecifications").value=result[0].insSpecifications!=null?result[0].insSpecifications:"";
+			document.getElementById("inPricing").value=result[0].insPricing!=null?result[0].insPricing:"";
+			document.getElementById("inManufacturers").value=result[0].insManufacturers!=null?result[0].insManufacturers:"";
+			document.getElementById("inPartsname").value=result[0].insParts!=null?result[0].insParts:"";
+			document.getElementById("inCost").value=result[0].insCost!=null?result[0].insCost:"";
+			document.getElementById("inQty").value=result[0].insQty!=null?result[0].insQty:"";
+			$("#inRemake").val(result[0].insRemake!=null?result[0].insRemake:"");
 		}
 	});
 
@@ -151,8 +151,8 @@ function member_show(title,url,id,w,h){
 }
 //从子页面传值
 function CallMoney(id,partname){
-    $("#insParts").val(id);
-    $("#insPartsname").val(partname);
+    $("#inPart").val(id);
+    $("#inPartsname").val(partname);
 }
 </script>
 <!--/请在上方写此页面业务相关的脚本-->

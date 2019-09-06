@@ -171,9 +171,9 @@
 			w_instrument_information
 		set
 			ins_qty =#{inQty},
-			ins_cost=#{insCost},
-			ins_parts=#{insParts},
-			ins_pricing=#{insPricing},
+			ins_cost=#{inCost},
+			ins_parts=#{inPart},
+			ins_pricing=#{inPricing},
 			ins_updatetime=now()
 		where
 			ins_name=#{inName}

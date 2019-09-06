@@ -115,7 +115,7 @@ public class InstockController extends BaseController {
 
 	/**
 	 * <pre>
-	 * updateinstruById(修改入库相关信息)    
+	 * updateinstruById(修改主乐器入库相关信息)    
 	 * &#64;
 	 * &#64;param response
 	 * &#64;return
@@ -124,9 +124,29 @@ public class InstockController extends BaseController {
 	@RequestMapping("/updateinstock.do")
 	@ResponseBody
 	public void updateinstock(Instock instock) {
+		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
 		//修改库存表
 		instockMapper.updateinstock(instock);
-		//修改乐器表
+		machiningList=instockMapper.queryByName(instock);
+		//修改相关商品表
+		Integer a=Integer.valueOf(machiningList.get(0).get("inQty").toString());
+		if(a!=Integer.valueOf(instock.getInQty())){
+				instockMapper.updateoldinfo(instock);
+		}
+	}
+	/*修改配件入库并修改配件表*/
+	@RequestMapping("/updateinstock2.do")
+	@ResponseBody
+	public void updateinstock2(Instock instock) {
+		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
+		//修改库存表
+		instockMapper.updateinstock(instock);
+		machiningList=instockMapper.querypartsByName(instock);
+		//修改相关商品表
+		Integer a=Integer.valueOf(machiningList.get(0).get("inQty").toString());
+		if(a!=Integer.valueOf(instock.getInQty())){
+				instockMapper.updateoldpartsinfo(instock);
+		}
 	}
 
 	// 主乐器添加入库

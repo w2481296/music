@@ -26,39 +26,39 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>名字：</label>
+			<label class="form-label col-xs-4 col-sm-3">名字：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" style="width:210px;" id="partsName" name="partsName">
+				<input type="text" class="input-text" readonly="true" style="width:210px;" id="inName" name="inName">
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>规格：</label>
+			<label class="form-label col-xs-4 col-sm-3">规格：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" style="width:210px;" id="partsSpecifications" name="partsSpecifications">
+				<input type="text" class="input-text" readonly="true" style="width:210px;" id="inSpecifications" name="inSpecifications">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>成本：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" style="width:210px;" id="partsCost" name="partsCost">
+				<input type="text" class="input-text" style="width:210px;" id="inCost" name="inCost">
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"></span>定价：</label>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>定价：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" style="width: 210px;" name="partsPricing" id="partsPricing">
+				<input type="text" class="input-text" style="width: 210px;" name="inPricing" id="inPricing">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>数量：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" style="width: 210px;" id="partsQty" name="partsQty">
+				<input type="text" class="input-text" style="width: 210px;" id="inQty" name="inQty">
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>工厂：</label>
+			<label class="form-label col-xs-4 col-sm-3">工厂：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" style="width: 210px;" id="partsManufacturers" name="partsManufacturers">
+				<input type="text" class="input-text" readonly="true" style="width: 210px;" id="inManufacturers" name="inManufacturers">
 			</div>
 		</div>
 		<div class="row cl">
@@ -93,6 +93,7 @@ $(function(){
 		data:params,
 		async : false,
 		success : function(result) {
+			console.log("=="+result[0]);
 			localStorage.clear();
 			document.getElementById("id").value=result[0].id!=null?result[0].id:"";
 			document.getElementById("inName").value=result[0].inName!=null?result[0].inName:"";
@@ -107,7 +108,7 @@ $(function(){
 });
 function article_save_submit(){
 	$.ajax({
-		url :"../in/updateinstock.do",
+		url :"../in/updateinstock2.do",
 		type:"post",
 		data:$("#form-member-add").serializeArray(),
 		success : function(result) {

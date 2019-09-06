@@ -56,9 +56,6 @@
 					<tbody id="table-data">
 					</tbody>
 				</table>
-				<div id="mes" style="float:left;display:none">
-					当前没有数据
-				</div>
 			</div>
 		</article>
 	</div>
@@ -99,7 +96,6 @@ $(document).ready(function () {
                 }
             });
         },
-        
         "columns": [ 
         			{'data': 'null'}, 
                     {'data': 'id'},
@@ -109,14 +105,13 @@ $(document).ready(function () {
                     {'data': 'inCost'},
                     {'data': 'inPricing'},
                     {'data': 'inQty'},
-                    {'data': 'inPart'},
                     {'data': 'inManufacturers'},
                     {'data': 'inUpdatetime'},
                     {'data': 'inCreatetime'},
                     {'data': 'null'}, 
                 ],
                 "columnDefs" : [ {
-                	"targets" : 12,//操作按钮目标列
+                	"targets" : 11,//操作按钮目标列
                 	"data" : null,
                 	"render" : function(data, type,row) {
                 	var id = row.id;
@@ -128,7 +123,7 @@ $(document).ready(function () {
                     	"data" : null,
                     	"render" : function(data, type,row) {
                     	var id =row.id;
-                    	var html = '<input type="checkbox" value="'+id+'" name="">';
+                    	var html = '<input type="checkbox" value="'+id+'">';
                     	return html;
                     	}
                     	}
@@ -137,8 +132,7 @@ $(document).ready(function () {
         }
     })
 });
-
-
+/*-查询功能*/
 $("#search").click(function(){
 	var datatable = $("#DataTables_Table_0").dataTable();
 	        if (datatable) {  
@@ -198,7 +192,7 @@ $("#search").click(function(){
 	                    {'data': 'null'}, 
 	                ],
 	                "columnDefs" : [ {
-	                	"targets" : 12,//操作按钮目标列
+	                	"targets" : 11,//操作按钮目标列
 	                	"data" : null,
 	                	"render" : function(data, type,row) {
 	                	var id = row.id;
@@ -218,6 +212,7 @@ $("#search").click(function(){
 	        "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull)            {                    //列样式处理
 	        }
 	    })
+	
 });	
 
 /* 清空按钮 */
