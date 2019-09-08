@@ -14,6 +14,8 @@
 <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
 <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="../lib/nprogress/0.2.0/nprogress.css"/>
+
 
 <!--/meta 作为公共模版分离出去-->
 <meta name="keywords" content="H-ui.admin v3.0">
@@ -68,6 +70,8 @@
 <script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../lib/nprogress/0.2.0/nprogress.js"></script>
+
 <script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.page.js"></script>
 <script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script>

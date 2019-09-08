@@ -14,6 +14,7 @@ function listenEnd() {// 定时监听
  * js生成excel方法
  */
 function exportExcel(JSONData, filename,title,title1) {// 整个表格拷贝到EXCEL中  
+	NProgress.start();
 	/*change=true;
 		$.messager.progress({
 	      title: '提示',
@@ -88,5 +89,6 @@ function createTable(arrData,title,title1) {
       
    	}  
   excel += "</table>";
+  NProgress.done();
   return  excel;
 }
