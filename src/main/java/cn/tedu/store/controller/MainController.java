@@ -16,6 +16,10 @@ public class MainController {
 	public String showIndex() {
 		return "index";
 	}
+	@RequestMapping("/showIndexx.do")
+	public String showIndexx() {
+		return "indexx";
+	}
 	// 定义主乐器页面
 	@RequestMapping("/showIndex1.do")
 	public String showIndex1() {
@@ -125,5 +129,20 @@ public class MainController {
 	@RequestMapping("/showIndex23.do")
 	public String showIndex23() {
 		return "goodsselect";
+	}
+	//汇总记录总页面跳转视图
+	@RequestMapping("/showIndex24.do")
+	public String showIndex24() {
+		return "view1";
+	}
+	//账务记录总页面跳转视图
+	@RequestMapping("/showIndex25.do")
+	public String showIndex25() {
+		return "view2";
+	}
+	//账务记录总页面跳转视图
+	@RequestMapping("/showIndex26.do")
+	public String showIndex26() {
+		return "logincord";
 	}
 }

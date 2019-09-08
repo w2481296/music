@@ -14,6 +14,7 @@ import cn.tedu.store.ex.PasswordNotMatchException;
 import cn.tedu.store.ex.UserNotFoundException;
 import cn.tedu.store.ex.UsernameAlreadyExistException;
 import cn.tedu.store.mapper.UserMapper;
+import cn.tedu.store.mapper.VipuserMapper;
 
 @Service
 public class UserService implements IUserService {
@@ -50,7 +51,7 @@ public class UserService implements IUserService {
 	}
 	
 	// 实现登录功能
-	public User login(String username, String password) {
+	public User login(String username, String password,String cip,String cname) {
 		// 1.调用持久层方法ByUsername;返回user对象
 		// 2.判断对象是否存在，不存在抛出异常
 		// 3.存在判断密码
@@ -58,9 +59,8 @@ public class UserService implements IUserService {
 		if (user == null) {
 			throw new UserNotFoundException("帐号不存在");
 		} else {
-			//获取密码成为密文
-			//String md5pwd=DigestUtils.md5Hex(password+salt);
 			if (user.getPassword().equals(password)) {
+				userMapper.addlogininfo(username,cip,cname);
 				return user;
 			} else {
 				throw new PasswordNotMatchException("密码不匹配");

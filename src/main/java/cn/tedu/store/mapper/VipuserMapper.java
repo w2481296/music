@@ -27,5 +27,8 @@ public interface VipuserMapper {
 	List<Map<String, Object>> queryvipById(Integer ids2);
 
 	void updatevipinfo(vipuser vipuser);
+	//≤È—Øµ«¬Ω»’÷æ
+	List<Map<String, Object>> querylogin(@Param("vipName")String vipName, @Param("vipTime1")String vipTime1, @Param("vipTime2")String vipTime2);
+
 
 }

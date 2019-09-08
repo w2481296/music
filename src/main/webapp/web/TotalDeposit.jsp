@@ -69,16 +69,17 @@
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../js/export.js"></script>
 <script type="text/javascript">
 $(document).ready(function () {
-    $('#DataTables_Table_0').DataTable({
-        serverSide: false, //启用服务器端分页
-        searching: false, //禁用原生搜索
-        pagingType: "simple_numbers", //分页样式：simple,simple_numbers,full,full_numbers
-        ajax: function (data, callback, settings) { 
+	 $('#DataTables_Table_0').DataTable({
+	        serverSide: false, //启用服务器端分页
+	        searching: false, //禁用原生搜索
+	        pagingType: "simple_numbers", //分页样式：simple,simple_numbers,full,full_numbers
+	        ajax: function (data, callback, settings) { 
 	        //封装请求参数
-	        var param = {};
+	  		var param = {};
             param.pageSize = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
             param.start = data.start;//开始的记录序号
             param.currentPage = (data.start / data.length) + 1;//当前页码

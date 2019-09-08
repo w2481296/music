@@ -65,5 +65,31 @@ public class TotalController extends BaseController {
 		pageQueryBean.setTotalRows(machiningList.size());
 		return pageQueryBean;
 	}
+	@RequestMapping("/querystockview.do")
+	@ResponseBody
+	public List<Map<String, Object>> querystockview() {
+		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> machiningList1 = new ArrayList<Map<String, Object>>();
+		machiningList=totalMapper.querystockviewin();//入库数据
+		machiningList1=totalMapper.querystockviewout();//出库数据
+		for(int i=0;i<machiningList1.size();i++){
+			machiningList.add(machiningList1.get(i));
+		}
+		System.out.println(machiningList);
+		return machiningList;
+	}
+	@RequestMapping("/querystockmview.do")
+	@ResponseBody
+	public List<Map<String, Object>> querystockmview() {
+		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> machiningList1 = new ArrayList<Map<String, Object>>();
+		machiningList=totalMapper.querystockmviewin();//入库数据
+		machiningList1=totalMapper.querystockmviewout();//出库数据
+		for(int i=0;i<machiningList1.size();i++){
+			machiningList.add(machiningList1.get(i));
+		}
+		System.out.println(machiningList);
+		return machiningList;
+	}
 
 }

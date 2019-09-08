@@ -1,7 +1,12 @@
 package cn.tedu.store.controller;
 
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -9,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.tedu.store.bean.PageQueryBean;
 import cn.tedu.store.bean.ResponseResult;
 import cn.tedu.store.bean.User;
 import cn.tedu.store.service.IUserService;
@@ -91,11 +97,11 @@ public class UserController extends BaseController {
 	// 实现登录功能
 	@RequestMapping("/login.do")
 	@ResponseBody
-	public ResponseResult<Void> login(String username, String password, HttpSession session) {
+	public ResponseResult<Void> login(String username, String password,String cip,String cname, HttpSession session) {
 		ResponseResult<Void> rr = null;
 		User user = new User();
 		try {
-			user = userService.login(username, password);
+			user = userService.login(username, password,cip,cname);
 			rr = new ResponseResult<>(1, "登录成功");
 			session.setAttribute("user", user);
 
@@ -129,5 +135,5 @@ public class UserController extends BaseController {
 		}
 		return "success";
 	}
-
+	
 }

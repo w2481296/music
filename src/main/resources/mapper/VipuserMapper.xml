@@ -28,6 +28,32 @@
 		</where>
 		group by id
 	</select>
+	<!-- 查询登录日志 -->
+	<select id="querylogin" resultType="java.util.Map" parameterType="java.lang.String"
+	useCache="false" flushCache="true">
+		select
+			id as id,
+			username as username,
+			userip as userip,
+			city as city,
+			remake as remake,
+			date_format(logintime,'%Y-%c-%d %H:%i:%S') AS logintime
+		from
+			w_logininfo
+		<where> 1=1
+			<if test="vipName!=null and vipName!=''">
+				AND username like CONCAT('%',#{vipName},'%')
+			</if>
+			<if test="vipTime1!=null and vipTime1!=''">
+				AND DATE_FORMAT(logintime ,'%Y-%c-%d')&gt;=#{vipTime1}
+			</if>
+			<if test="vipTime2!=null and vipTime2!=''">
+				AND DATE_FORMAT(logintime ,'%Y-%c-%d')&lt;=#{vipTime2}
+			</if>
+		</where>
+		group by id
+	</select>
+	
 	<!-- 删除乐器 -->  
 	<delete id="delMainInsById" parameterType="cn.tedu.store.bean.vipuser">  
 		delete from w_vip  where id= #{vipid2}

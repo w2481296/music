@@ -69,7 +69,7 @@
 		wi.in_specifications as inSpecifications,
 		wi.in_cost as inCost,
 		wi.in_pricing as inPricing,
-		CONCAT('库存:',wi.in_qty) as inQty,
+		CONCAT('入库:',wi.in_qty) as inQty,
 		wi.in_manufacturers as inManufacturers,
 		'入库' as instock,
 		date_format(wi.in_createtime,'%Y-%c-%d %H:%i:%S') AS inCreatetime
@@ -147,7 +147,7 @@
 		wo.out_name as inName,
 		wo.out_type as inType,
 		wo.out_specifications as inSpecifications,
-		CONCAT('入库:',wo.out_qty) as inQty,
+		CONCAT('出库:',wo.out_qty) as inQty,
 		wo.out_qty*wo.out_cost as inProfit,
 		wo.out_manufacturers as inManufacturers,
 		date_format(wo.out_createtime,'%Y-%c-%d %H:%i:%S') AS inCreatetime
@@ -166,6 +166,65 @@
 		</where>
 	</select>
 
+
+
+	<select id="querystockviewout" resultType="java.util.Map" useCache="false" flushCache="true">
+		
+		SELECT
+			'出库' as kind,
+			sum(out_qty) AS qty,
+			substring(out_createtime, 1, 10) AS time
+		FROM
+			w_outstock
+		WHERE
+			out_createtime BETWEEN '2019-09-02'
+		AND '2019-09-14'
+		GROUP BY
+			substring(out_createtime, 1, 10) DESC 
+		LIMIT 0,12
+	</select>
+	<select id="querystockviewin" resultType="java.util.Map" useCache="false" flushCache="true">
+		SELECT	
+			'入库' as kind,
+			sum(in_qty) AS qty,
+			substring(in_createtime, 1, 10) AS time
+		FROM
+			w_instock
+		WHERE
+			in_createtime BETWEEN '2019-09-02'
+		AND '2019-09-14'
+		GROUP BY
+			substring(in_createtime, 1, 10) DESC
+		LIMIT 0,12
+	</select>
+	<select id="querystockmviewin" resultType="java.util.Map" useCache="false" flushCache="true">
+		SELECT
+			'总收入' as kind,
+			sum(out_profit) AS qty,
+			substring(out_createtime, 1, 10) AS time
+		FROM
+			w_outstock
+		WHERE
+			out_createtime BETWEEN '2019-09-02'
+		AND '2019-09-14'
+		GROUP BY
+			substring(out_createtime, 1, 10) DESC 
+		LIMIT 0,12
+	</select>
+	<select id="querystockmviewout" resultType="java.util.Map" useCache="false" flushCache="true">
+		SELECT	
+			'总支出' as kind,
+			sum(in_qty*in_cost) AS qty,
+			substring(in_createtime, 1, 10) AS time
+		FROM
+			w_instock
+		WHERE
+			in_createtime BETWEEN '2019-09-02'
+		AND '2019-09-14'
+		GROUP BY
+			substring(in_createtime, 1, 10) DESC
+		LIMIT 0,12
+	</select>
 </mapper>
 
 		

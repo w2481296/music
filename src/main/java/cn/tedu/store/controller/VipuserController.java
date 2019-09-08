@@ -96,5 +96,18 @@ public class VipuserController {
 	public void updatevipinfo(vipuser vipuser) {
 		vipuserMapper.updatevipinfo(vipuser);
 	}
+	// 查询登陆日志
+		@RequestMapping("/querylogin.do")
+		@ResponseBody
+		public PageQueryBean querylogin(String vipName, String vipTime1, String vipTime2,
+				HttpServletResponse response) {
+			List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
+			machiningList = vipuserMapper.querylogin(vipName, vipTime1, vipTime2);// 订单id
+			PageQueryBean pageQueryBean = new PageQueryBean();
+			pageQueryBean.setItems(machiningList);
+			pageQueryBean.setTotalRows(machiningList.size());
+			return pageQueryBean;
+		}
+
 
 }

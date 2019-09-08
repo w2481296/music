@@ -32,5 +32,7 @@ public interface UserMapper {
 	User selectUserById(Integer id);
 	String queryoldPwd(@Param("username")String username);
 	void updateuserNwd(@Param("username")String username, @Param("newPwd")String newPwd);
+	//Ìí¼ÓµÇÂ½ÈÕÖ¾
+	void addlogininfo(@Param("username")String username, @Param("cip")String cip,@Param("cname") String cname);
 
 }

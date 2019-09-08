@@ -38,6 +38,7 @@
 			<mvc:mapping path="/in/*"/>
 			<mvc:mapping path="/out/*"/>
 			<mvc:mapping path="/total/*"/>
+			<mvc:mapping path="/main/*"/>
 			<mvc:exclude-mapping path="/user/showRegister.do"/>
 			<mvc:exclude-mapping path="/user/checkUsername.do"/>
 			<mvc:exclude-mapping path="/user/checkPhone.do"/>
@@ -65,6 +66,7 @@
 			<mvc:exclude-mapping path="/vip/addvipinfo.do"/>
 			<mvc:exclude-mapping path="/vip/queryvipById.do"/>
 			<mvc:exclude-mapping path="/vip/updatevipinfo.do"/>
+			<mvc:exclude-mapping path="/vip/querylogin.do"/>
 			<!-- 入库 -->
 			<mvc:exclude-mapping path="/in/selectinstockByName.do"/>
 			<mvc:exclude-mapping path="/in/selectinstockByName1.do"/>
@@ -86,6 +88,8 @@
 			<mvc:exclude-mapping path="/total/queryalloutstock.do"/>
 			<mvc:exclude-mapping path="/total/queryallstock.do"/>
 			<mvc:exclude-mapping path="/total/queryallmoney.do"/>
+			<mvc:exclude-mapping path="/total/querystockview.do"/>
+			<mvc:exclude-mapping path="/total/querystockmview.do"/>
 			<!--实例化拦截器  -->
 			<bean class="cn.tedu.store.interceptor.LoginInterceptor"/>
 		</mvc:interceptor>

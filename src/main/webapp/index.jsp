@@ -41,6 +41,7 @@
 <div id="showResult"></div>
 <script src="js/jquery-3.1.1.min.js"></script>
 <script src="jquery/jquery.cookie.js"></script>
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
 <script>
     $("#username").blur(function(){
         var data = $("#username").val();
@@ -54,11 +55,12 @@
 </script>
 <script>
     $('#bt-login').click(function(){
-    	
         $.ajax({
         	url:"user/login.do",
         	data:"username="+$("#username").val()+
-        	      "&password="+$("#password").val(),
+        	      "&password="+$("#password").val()+
+        	      "&cip="+returnCitySN["cip"]+
+        	      "&cname="+returnCitySN["cname"],
         	type:"post",
         	dataType:"json",
         	success:function(obj){

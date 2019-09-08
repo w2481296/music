@@ -20,34 +20,30 @@
 <meta name="description" content="H-ui.admin v3.0">
 </head>
 <body>
+
 <section class="Hui-article-box">
 	<nav class="breadcrumb">
-	<i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 综合统计 <span class="c-gray en">&gt;</span>账务情况<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+	<i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 系统管理 <span class="c-gray en">&gt;</span> 登陆日志 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 	<div class="Hui-article">
 		<article class="cl pd-20">
-			<div class="text-c"> 日期范围：
+			<div class="text-c"> 注册日期范围：
 				<input type="text" onfocus="WdatePicker({skin:'whyGreen',maxDate: '%y-%M-%d'})" id="datemin" class="input-text Wdate" style="width:120px;">
 				-
 				<input type="text" onfocus="WdatePicker({skin:'whyGreen',maxDate: '%y-%M-%d' })" id="datemax" class="input-text Wdate" style="width:120px;">
-				<input type="text" class="input-text" style="width:250px" placeholder="输入配件关键词" id="insname" name="">
+				<input type="text" class="input-text" style="width:250px" placeholder="输入关键字" id="insname" name="">
 				<button type="submit" class="btn btn-success radius" id="search" name=""><i class="Hui-iconfont">&#xe665;</i> 查询</button>
 				<button type="submit" class="btn btn-success radius" id="clean" name="" style="width:70px">清空</button>
-				<button type="submit" class="btn btn-success radius" id="export" name="" style="width:70px">导出</button>
-				<button type="button" class="btn btn-success radius" id="change" name="" style="width:80px">视图模式</button>
 			</div>
 			<div class="mt-20">
 				<table class="table table-border table-bordered table-hover table-bg table-sort" id="DataTables_Table_0">
 					<thead>
 						<tr class="text-c">
 							<th style="width:50px">ID</th>
-							<th style="width:80px">类型(支出/收入)</th>
-							<th style="width:80px">名称</th>
-							<th style="width:80px">乐器种类</th>
-							<th style="width:80px">参数</th>
-							<th style="width:80px">数量(件)</th>
-							<th style="width:80px">费用(元)</th>
-							<th style="width:80px">厂家</th>
-							<th style="width:150px">时间</th>
+							<th style="width:80px">用户名</th>
+							<th style="width:50px">客户端IP</th>
+							<th style="width:50px">登陆城市</th>
+							<th style="width:50px">内容</th>
+							<th style="width:100px">登陆时间</th>
 						</tr>
 					</thead>
 					<tbody id="table-data">
@@ -58,17 +54,13 @@
 	</div>
 </section>
 
-<!--_footer 作为公共模版分离出去-->
-<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script> 
-<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script> 
-<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script> 
-<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.page.js"></script> 
-<!--/_footer /作为公共模版分离出去-->
-<!--请在下方写此页面业务相关的脚本-->
-<script type="text/javascript" src="../js/export.js"></script>
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.page.js"></script>
 <script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script>
-<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
 $(document).ready(function () {
     $('#DataTables_Table_0').DataTable({
@@ -83,9 +75,8 @@ $(document).ready(function () {
             param.currentPage = (data.start / data.length) + 1;//当前页码
             $.ajax({
                 type: "post",
-                url :"../total/queryallmoney.do",
+            	url :"../vip/querylogin.do",
                 cache: false, //禁用缓存
-                data:param,
                 dataType: "json",
                 success: function (result) {
                     var returnData = {};
@@ -98,16 +89,14 @@ $(document).ready(function () {
                 }
             });
         },
-        "columns": [   
-            {'data': 'id'},
-            {'data': 'inKind'},
-            {'data': 'inName'},
-            {'data': 'inType'},
-            {'data': 'inSpecifications'},
-            {'data': 'inQty'},
-            {'data': 'inProfit'},
-            {'data': 'inManufacturers'},
-            {'data': 'inCreatetime'},
+		
+        "columns": [ 
+			{'data': 'id'}, 
+            {'data': 'username'},
+            {'data': 'userip'},
+            {'data': 'city'},
+            {'data': 'remake'},
+            {'data': 'logintime'},
         ],
         "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull)            {                    //列样式处理
         }
@@ -132,18 +121,17 @@ $("#search").click(function(){
 		        var insname=$("#insname").val();
 		    	var datemin=$("#datemin").val();
 		    	var datemax=$("#datemax").val();
-		    	console.log("=="+insname);
 		    	var param={
-		    			insName:insname,
-		    			insTime1:datemin,
-		    			insTime2:datemax
+		    			vipName:insname,
+		    			vipTime1:datemin,
+		    			vipTime2:datemax
 		    	};
 	            param.pageSize = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
 	            param.start = data.start;//开始的记录序号
 	            param.currentPage = (data.start / data.length) + 1;//当前页码
 	            $.ajax({
 	                type: "post",
-	                url :"../total/queryallmoney.do",
+	                url :"../vip/querylogin.do",
 	                cache: false, //禁用缓存
 	                data:param,
 	                dataType: "json",
@@ -158,19 +146,16 @@ $("#search").click(function(){
 	                }
 	            });
 	        },
-	        "columns": [   
-	                    {'data': 'id'},
-	                    {'data': 'inKind'},
-	                    {'data': 'inName'},
-	                    {'data': 'inType'},
-	                    {'data': 'inSpecifications'},
-	                    {'data': 'inQty'},
-	                    {'data': 'inProfit'},
-	                    {'data': 'inManufacturers'},
-	                    {'data': 'inCreatetime'},
+	        "columns": [ 
+	        			{'data': 'id'}, 
+	                    {'data': 'username'},
+	                    {'data': 'userip'},
+	                    {'data': 'city'},
+	                    {'data': 'remake'},
+	                    {'data': 'logintime'},
 	                ],
-	        "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull)            {                    //列样式处理
-	        }
+	                "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull)            {                    //列样式处理
+	                }
 	    })
 	
 });	
@@ -180,23 +165,6 @@ $("#clean").click(function(){
 	$("#datemin").val("");
 	$("#datemax").val("");
 	$("#insname").val("");
-});
-
-/*用户-查看*/
-function member_show(title,url,id,w,h){
-	layer_show(title,url,w,h);
-}
-//导出
-$("#export").click(function(){
-	var table = $('#DataTables_Table_0').DataTable();
-	var filename="账务汇总表";
-	var title=['ID','类型(支出/收入','名称','乐器种类','参数','数量(件)','费用(元)','厂商','时间'];
-	var title1=['id','inKind','inName','inType','inSpecifications','inQty','inProfit','inManufacturers','inCreatetime'];
-	var JSONData=table.data();
-	exportExcel(JSONData, filename,title,title1);
-});
-$("#change").click(function(){
-	window.location.href='../main/showIndex24.do'
 });
 </script>
 <!--/请在上方写此页面业务相关的脚本-->

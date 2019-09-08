@@ -15,4 +15,11 @@ public interface TotalMapper {
 	List<Map<String, Object>> queryallstock(@Param("insName")String insName, @Param("insTime1")String insTime1, @Param("insTime2")String insTime2);
 	//查询总账务
 	List<Map<String, Object>> queryallmoney(@Param("insName")String insName, @Param("insTime1")String insTime1, @Param("insTime2")String insTime2);
+	//查总库视图
+	List<Map<String, Object>> querystockviewin();
+
+	List<Map<String, Object>> querystockviewout();
+	//查总账务图
+	List<Map<String, Object>> querystockmviewin();
+	List<Map<String, Object>> querystockmviewout();
 }

@@ -75,8 +75,12 @@
 		where
 			u_username=#{username}
 	</update>
-	
-	
+	<insert parameterType="java.lang.String" id="addlogininfo">
+		insert into
+		w_logininfo
+		(username,userip,city,remake,logintime)
+		values(#{username},#{cip},#{cname},'登陆成功',now())
+	</insert>
 </mapper>
 
 		

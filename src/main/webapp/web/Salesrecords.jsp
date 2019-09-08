@@ -33,6 +33,7 @@
 				<button type="submit" class="btn btn-success radius" id="search" name=""><i class="Hui-iconfont">&#xe665;</i> 查询</button>
 				<button type="submit" class="btn btn-success radius" id="clean" name="" style="width:70px">清空</button>
 				<button type="submit" class="btn btn-success radius" id="export" name="" style="width:70px">导出</button>
+				<button type="button" class="btn btn-success radius" id="change" name="" style="width:80px">视图模式</button>
 			</div>
 			<div class="mt-20">
 				<table class="table table-border table-bordered table-hover table-bg table-sort" id="DataTables_Table_0">
@@ -198,6 +199,9 @@ $("#export").click(function(){
 	var title1=['id','inName','inType','inSpecifications','inCost','inPricing','inQty','inManufacturers','instock','inCreatetime'];
 	var JSONData=table.data();
 	exportExcel(JSONData, filename,title,title1);
+});
+$("#change").click(function(){
+	window.location.href='../main/showIndex25.do'
 });
 </script>
 <!--/请在上方写此页面业务相关的脚本-->
