@@ -1,6 +1,7 @@
 package cn.tedu.store.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -75,9 +76,9 @@ public class TotalController extends BaseController {
 		for(int i=0;i<machiningList1.size();i++){
 			machiningList.add(machiningList1.get(i));
 		}
-		System.out.println(machiningList);
 		return machiningList;
 	}
+	
 	@RequestMapping("/querystockmview.do")
 	@ResponseBody
 	public List<Map<String, Object>> querystockmview() {
@@ -88,7 +89,25 @@ public class TotalController extends BaseController {
 		for(int i=0;i<machiningList1.size();i++){
 			machiningList.add(machiningList1.get(i));
 		}
-		System.out.println(machiningList);
+		return machiningList;
+	}
+	//计算首页相关数据
+	@RequestMapping("/showindexinfo.do")
+	@ResponseBody
+	public List<Map<String, Object>> showindexinfo() {
+		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> machiningList1 = new ArrayList<Map<String, Object>>();
+		Map<String, Object> map=new HashMap<String, Object>();
+		Map<String, Object> map1=new HashMap<String, Object>();
+		machiningList=totalMapper.instocktop();//入库top5
+		machiningList1=totalMapper.outstocktop();//出库top5
+		map=totalMapper.stockcost();//库存成本，数量
+		map1=totalMapper.daymoney();//当天销售额，销售数量
+		for(int i=0;i<5;i++){
+			machiningList.add(machiningList1.get(i));
+		}
+		machiningList.add(map);
+		machiningList.add(map1);
 		return machiningList;
 	}
 

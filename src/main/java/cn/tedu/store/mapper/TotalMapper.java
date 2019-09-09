@@ -22,4 +22,9 @@ public interface TotalMapper {
 	//查总账务图
 	List<Map<String, Object>> querystockmviewin();
 	List<Map<String, Object>> querystockmviewout();
+	//首页信息
+	List<Map<String, Object>> instocktop();
+	List<Map<String, Object>> outstocktop();
+	Map<String, Object> stockcost();
+	Map<String, Object> daymoney();
 }

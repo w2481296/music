@@ -225,6 +225,51 @@
 			substring(in_createtime, 1, 10) DESC
 		LIMIT 0,12
 	</select>
+	
+	
+	<!-- 首页信息 -->
+	<select id="instocktop" resultType="java.util.Map" useCache="false" flushCache="true">
+		SELECT
+			sum(in_qty) AS ruku,
+			in_name AS runame,
+			in_pricing AS shoujia
+		FROM
+			w_instock
+		GROUP BY
+			in_name
+		ORDER BY
+			ruku DESC
+		LIMIT 5
+	</select>
+	<select id="outstocktop" resultType="java.util.Map" useCache="false" flushCache="true">
+		SELECT
+			sum(out_qty) AS chuku,
+			out_name AS chuname,
+			out_pricing AS shoujia
+		FROM
+			w_outstock
+		GROUP BY
+			out_name
+		ORDER BY
+			chuku DESC
+		LIMIT 5 
+	</select>
+	<select id="stockcost" resultType="java.util.Map" useCache="false" flushCache="true">
+		SELECT
+			sum(in_qty) AS zongshu,
+			sum(in_qty * in_cost) AS chengben
+		FROM
+			w_instock 
+	</select>
+	<select id="daymoney" resultType="java.util.Map" useCache="false" flushCache="true">
+			SELECT
+				sum(out_qty) AS xiaoshou,
+				sum(out_qty * out_pricing) AS money
+			FROM
+				w_outstock
+			WHERE
+			DATE_FORMAT(out_createtime , '%Y-%m-%d')='2019-09-04'
+	</select>
 </mapper>
 
 		
