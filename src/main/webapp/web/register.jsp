@@ -9,7 +9,16 @@
   <link href="../css/animate.css" rel="stylesheet"/>
   <link href="../css/login.css" rel="stylesheet" />
 </head>
-<body>
+<body style="width: 100%;
+    box-sizing: border-box;
+    margin: 0px auto;
+    overflow-x: hidden;
+    height: 560px;
+    background-image: url(../images/regist.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-background-size: cover;
+    background-position: center 0;"> 
 <!-- 页面顶部-->
 <!-- <header id="top">
   <div class="top">
@@ -18,11 +27,11 @@
   </div>
 </header> -->
 <div class="parent">
-  <div class="container">
+  <div class="container1">
     <div class="panel rt">
       <form id="form-register" method="post" action="">
         <div class="txt">
-          <p>新用户注册
+          <p style="font-size: 23px;">新用户注册
             <span>
               <a href="../user/showLogin.do">直接登录</a>
             </span>

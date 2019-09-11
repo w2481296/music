@@ -37,7 +37,7 @@ public class UserController extends BaseController {
 	 */
 	@RequestMapping("/showLogin.do")
 	public String showLogin() {
-		return "login";
+		return "redirect:/index.jsp";
 	}
 
 	// 异步请求，验证用户名
