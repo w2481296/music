@@ -145,4 +145,8 @@ public class MainController {
 	public String showIndex26() {
 		return "logincord";
 	}
+	@RequestMapping("/showIndex27.do")
+	public String showIndex27() {
+		return "user-add";
+	}
 }

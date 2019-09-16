@@ -43,6 +43,7 @@
     border-color: rgb(221, 221, 221);
     line-height: 25px;
     border-radius: 20px;
+    padding-left: 20px;
 }
 
 .verify-change-code {

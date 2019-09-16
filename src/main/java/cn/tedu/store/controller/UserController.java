@@ -43,16 +43,18 @@ public class UserController extends BaseController {
 	// 异步请求，验证用户名
 	@RequestMapping("/checkUsername.do")
 	@ResponseBody
-	public ResponseResult<Void> checkUsername(String username) {
-		ResponseResult<Void> rr = null;
+	public String checkUsername(String username,String phone) {
 		// 1.调用业务层方法
 		boolean b = userService.checkUsername(username);
 		if (b) {
-			rr = new ResponseResult<Void>(0, "用户名不可用");
+			return "0";
 		} else {
-			rr = new ResponseResult<Void>(1, "用户名可以用");
+			if (userService.checkPhone(phone)) {
+				return"1";
+			}else{
+				return"2";
+			}
 		}
-		return rr;
 
 	}
 
@@ -63,7 +65,7 @@ public class UserController extends BaseController {
 		ResponseResult<Void> rr = null;
 		// 1.调用业务层方法
 		if (userService.checkPhone(phone)) {
-			rr = new ResponseResult<Void>(0, "手机不可用");
+			rr = new ResponseResult<Void>(0, "该手机已经注册");
 		} else {
 			rr = new ResponseResult<Void>(1, "手机可以用");
 		}
@@ -73,7 +75,7 @@ public class UserController extends BaseController {
 	// 实现注册按钮功能
 	@RequestMapping("/register.do")
 	@ResponseBody
-	public ResponseResult<Void> register(@RequestParam("uname") String username, @RequestParam("upwd") String password,
+	public ResponseResult<Void> register(@RequestParam("username") String username, @RequestParam("password") String password,
 			@RequestParam("phone") String phone) {
 		// 声明rr对象和user对象
 		ResponseResult<Void> rr = null;
@@ -135,5 +137,5 @@ public class UserController extends BaseController {
 		}
 		return "success";
 	}
-	
+
 }

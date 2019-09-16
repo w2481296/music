@@ -65,7 +65,7 @@
 						navData+="<li><a  href='javascript:;' _link='showIndex11.do'><span>会员信息</span></a></li>";
 				}
 				else if(i==5){
-						navData+="<li><a href='javascript:;' _link='showIndex12.do'><span>修改密码</span></a></li><li><a href='javascript:;' _link='showIndex26.do'><span>登陆日志</span></a></li>";
+						navData+="<li><a href='javascript:;' _link='showIndex12.do'><span>修改密码</span></a></li><li><a href='javascript:;' _link='showIndex26.do'><span>登陆日志</span></a></li><li><a href='javascript:;' _link='showIndex27.do'><span>添加用户</span></a></li>";
 				}
 				navData+="</ul></li>";
 			}
