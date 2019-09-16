@@ -34,6 +34,7 @@
 				<input type="text" class="input-text" style="width:250px" placeholder="输入商品名字" id="insname" name="">
 				<button type="submit" class="btn btn-success radius" id="search" name=""><i class="Hui-iconfont">&#xe665;</i> 查询</button>
 				<button type="submit" class="btn btn-success radius" id="clean" name="" style="width:70px">清空</button>
+				<button type="submit" class="btn btn-success radius" id="export" name="" style="width:70px">导出</button>
 			</div>
 			<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除记录</a> <a class="btn btn-primary radius" data-title="销售商品" _href="" onclick="member_show('销售商品','../main/showIndex22.do','','700','550')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 销售商品</a></span></div>
 			<div class="mt-20">
@@ -46,7 +47,7 @@
 							<th style="width:50px">类型</th>
 							<th style="width:50px">规格</th>
 							<th style="width:80px">售价(元)</th>
-							<th style="width:50px">销售数量(元)</th>
+							<th style="width:50px">销售数量(件)</th>
 							<th style="width:50px">库存剩余(件)</th>
 							<th style="width:100px">工厂</th>
 							<th style="width:80px">会员</th>
@@ -70,7 +71,7 @@
 <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
 <script type="text/javascript" src="../lib/nprogress/0.2.0/nprogress.js"></script>
-
+<script type="text/javascript" src="../js/export.js"></script>
 <script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.page.js"></script>
 <script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
@@ -302,6 +303,15 @@ function datadel(){
 	function member_show(title,url,id,w,h){
 		layer_show(title,url,w,h);
 	} 
+	//导出
+	$("#export").click(function(){
+		var table = $('#DataTables_Table_0').DataTable();
+		var filename="销售记录总表";
+		var title=['ID','名称','类型','规格','售价(元)','销售数量(件)','库存剩余(件)','厂商','会员','更新时间','销售时间'];
+		var title1=['id','outName','outType','outSpecifications','outPricing','outQty','outRemain','outManufacturers','outVip','outUpdatetime','outCreatetime'];
+		var JSONData=table.data();
+		exportExcel(JSONData, filename,title,title1);
+	});
 </script>
 <!--/请在上方写此页面业务相关的脚本-->
 </body>

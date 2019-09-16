@@ -22,10 +22,10 @@
 
 <section class="Hui-article-box">
 	<nav class="breadcrumb">
-	<i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 入库管理 <span class="c-gray en">&gt;</span> 入库配件 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+	<i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 入库管理 <span class="c-gray en">&gt;</span> 采购配件 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 	<div class="Hui-article">
 		<article class="cl pd-20">
-			<div class="text-c"> 配件入库时间：
+			<div class="text-c"> 配件采购时间：
 				<input type="text" onfocus="WdatePicker({skin:'whyGreen',maxDate: '%y-%M-%d'})" id="datemin" class="input-text Wdate" style="width:120px;">
 				-
 				<input type="text" onfocus="WdatePicker({skin:'whyGreen',maxDate: '%y-%M-%d' })" id="datemax" class="input-text Wdate" style="width:120px;">
@@ -33,7 +33,7 @@
 				<button type="submit" class="btn btn-success radius" id="search" name=""><i class="Hui-iconfont">&#xe665;</i> 查询</button>
 				<button type="submit" class="btn btn-success radius" id="clean" name="" style="width:70px">清空</button>
 			</div>
-			<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除配件</a> <a class="btn btn-primary radius" data-title="入库配件" _href="" onclick="member_show('入库配件','../main/showIndex17.do','','400','500')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 入库配件</a></span> <span class="r">共有数据：<span id="num2"></span> 条</span> </div>
+			<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除配件</a> <a class="btn btn-primary radius" data-title="采购配件" _href="" onclick="member_show('采购配件','../main/showIndex17.do','','400','500')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 采购配件</a></span></div>
 			<div class="mt-20">
 				<table class="table table-border table-bordered table-hover table-bg table-sort" id="DataTables_Table_0">
 					<thead>

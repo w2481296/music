@@ -32,9 +32,9 @@
 
 
 					<div class="chose" style="margin-top: 10px;">
-						<input type="checkbox" class="checkbox" id="ck_rmbUser">自动登录
-						<span><a href="user/showRegister.do"
-							style="color: #ffffff;">新用户注册</a></span>
+						<input type="checkbox" class="checkbox" id="ck_rmbUser">记住密码
+					<!-- 	<span><a href="user/showRegister.do"
+							style="color: #ffffff;">新用户注册</a></span> -->
 						<!-- <span>忘记密码？</span> -->
 					</div>
 					<input class="button_login" type="button" value="登录" id="bt-login" />

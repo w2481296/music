@@ -28,7 +28,7 @@
 				<input type="text" onfocus="WdatePicker({skin:'whyGreen',maxDate: '%y-%M-%d'})" id="datemin" class="input-text Wdate" style="width:120px;">
 				-
 				<input type="text" onfocus="WdatePicker({skin:'whyGreen',maxDate: '%y-%M-%d' })" id="datemax" class="input-text Wdate" style="width:120px;">
-				<input type="text" class="input-text" style="width:250px" placeholder="输入配件关键词" id="insname" name="">
+				<input type="text" class="input-text" style="width:250px" placeholder="输入关键词" id="insname" name="">
 				<button type="submit" class="btn btn-success radius" id="search" name=""><i class="Hui-iconfont">&#xe665;</i> 查询</button>
 				<button type="submit" class="btn btn-success radius" id="clean" name="" style="width:70px">清空</button>
 				<button type="submit" class="btn btn-success radius" id="export" name="" style="width:70px">导出</button>
@@ -195,7 +195,7 @@ $("#export").click(function(){
 	exportExcel(JSONData, filename,title,title1);
 });
 $("#change").click(function(){
-	window.location.href='../main/showIndex24.do'
+	window.location.href='../main/showIndex25.do'
 });
 </script>
 <!--/请在上方写此页面业务相关的脚本-->

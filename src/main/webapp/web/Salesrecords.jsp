@@ -204,7 +204,7 @@ $("#export").click(function(){
 	exportExcel(JSONData, filename,title,title1);
 });
 $("#change").click(function(){
-	window.location.href='../main/showIndex25.do'
+	window.location.href='../main/showIndex24.do'
 });
 </script>
 <!--/请在上方写此页面业务相关的脚本-->

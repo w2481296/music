@@ -22,7 +22,7 @@
 
 <section class="Hui-article-box">
 	<nav class="breadcrumb">
-	<i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 入库管理 <span class="c-gray en">&gt;</span> 入库乐器 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+	<i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 入库管理 <span class="c-gray en">&gt;</span> 采购乐器 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 	<div class="Hui-article">
 		<article class="cl pd-20">
 			<div class="text-c"> 乐器入库时间：
@@ -33,7 +33,7 @@
 				<button type="submit" class="btn btn-success radius" id="search" name=""><i class="Hui-iconfont">&#xe665;</i> 查询</button>
 				<button type="submit" class="btn btn-success radius" id="clean" name="" style="width:70px">清空</button>
 			</div>
-			<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除乐器</a> <a class="btn btn-primary radius" data-title="入库乐器" _href="" onclick="member_show('入库乐器','../main/showIndex19.do','','700','550')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 入库乐器</a></span></div>
+			<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除乐器</a> <a class="btn btn-primary radius" data-title="采购乐器" _href="" onclick="member_show('采购乐器','../main/showIndex19.do','','700','550')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 采购乐器</a></span></div>
 			<div class="mt-20">
 				<table class="table table-border table-bordered table-hover table-bg table-sort" id="DataTables_Table_0">
 					<thead>
