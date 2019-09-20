@@ -198,6 +198,17 @@
 		where
 		id=#{id} 
 	</select>
+	<insert id="insertInfoBatch" parameterType="java.util.List">
+        insert into w_instock (in_name,in_type,in_specifications,in_cost,in_pricing,
+		in_qty,in_manufacturers,in_updatetime,in_createtime
+		)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+          (#{inName},'配件',#{inSpecifications},
+		#{inCost},#{inPricing},#{inQty},#{inManufacturers},now(),now())
+        </foreach>
+    </insert>
+		
 </mapper>
 
 		

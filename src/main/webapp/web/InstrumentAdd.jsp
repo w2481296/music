@@ -32,6 +32,7 @@
 				<input type="text" class="input-text" style="width:250px" placeholder="输入乐器名字" id="insname" name="">
 				<button type="submit" class="btn btn-success radius" id="search" name=""><i class="Hui-iconfont">&#xe665;</i> 查询</button>
 				<button type="submit" class="btn btn-success radius" id="clean" name="" style="width:70px">清空</button>
+				<button type="submit" class="btn btn-success radius" id="import" name="" style="width:80px" onclick="importall('批量导入','../main/showIndex28.do','400','300')">批量导入</button>
 			</div>
 			<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除乐器</a> <a class="btn btn-primary radius" data-title="采购乐器" _href="" onclick="member_show('采购乐器','../main/showIndex19.do','','700','550')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 采购乐器</a></span></div>
 			<div class="mt-20">
@@ -224,6 +225,10 @@ $("#clean").click(function(){
 	$("#datemax").val("");
 	$("#insname").val("");
 });
+/*导入按钮*/
+function importall(title,url,w,h){
+	layer_show(title,url,w,h);
+}
 /*用户-删除*/
 function member_del(obj,id){
 	layer.confirm('确认要删除吗？',{
@@ -289,8 +294,6 @@ function datadel(){
 	         });
 	     }
 	}
-
-	/*入库主乐器编辑*/
 	function member_show(title,url,id,w,h){
 		localStorage.setItem("MainaddeditId",id);
 		layer_show(title,url,w,h);

@@ -149,4 +149,12 @@ public class MainController {
 	public String showIndex27() {
 		return "user-add";
 	}
+	@RequestMapping("/showIndex28.do")
+	public String showIndex28() {
+		return "import";
+	}
+	@RequestMapping("/showIndex29.do")
+	public String showIndex29() {
+		return "import2";
+	}
 }
