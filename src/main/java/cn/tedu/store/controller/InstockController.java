@@ -259,12 +259,11 @@ public class InstockController extends BaseController {
 	@ResponseBody
 	public String export(@RequestParam("file") MultipartFile file, @RequestParam("type") String type,
 			HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("==" + type);
 		try {
 			List<Instock> instockList = new ArrayList<Instock>();
 			// @RequestParam("file") MultipartFile file 是用来接收前端传递过来的文件
-			// 1.创建workbook对象，读取整个文档
 			InputStream inputStream = file.getInputStream();
+			// 1.创建workbook对象，读取整个文档
 			Workbook wb = WorkbookFactory.create(inputStream);
 			// 2.读取页脚sheet
 			Sheet sheetAt = wb.getSheetAt(0);
@@ -273,6 +272,7 @@ public class InstockController extends BaseController {
 			}
 			// 遍历行row
 			for (int rowNum = 1; rowNum <= sheetAt.getLastRowNum(); rowNum++) {
+				//第一行是标题不要，从第二行开始
 				// 获取每一行
 				Row row = sheetAt.getRow(rowNum);
 				if (row == null) {
@@ -294,7 +294,6 @@ public class InstockController extends BaseController {
 				} else if (type.equals("配件")) {
 					addpartsinstock(instock);
 				}
-				System.out.println(instock.toString());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

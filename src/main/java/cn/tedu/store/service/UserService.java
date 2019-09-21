@@ -68,10 +68,6 @@ public class UserService implements IUserService {
 		}
 
 	}
-	//刷新页面
-	public User getUserById(Integer id) {
-		return userMapper.selectUserById(id);
-	}
 
 	//查询旧密码根据用户名
 	@Override
@@ -82,6 +78,12 @@ public class UserService implements IUserService {
 	@Override
 	public void updateuserNwd(String username, String newPwd) {
 		userMapper.updateuserNwd(username,newPwd);
+	}
+
+
+	@Override
+	public User getUserByEmail(String email) {
+		return userMapper.queryuser(email);
 	}
 
 }

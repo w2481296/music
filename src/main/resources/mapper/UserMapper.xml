@@ -20,19 +20,6 @@
 		where
 		u_username=#{username}
 	</select>
-	
-	<select id="selectUserById" resultType="cn.tedu.store.bean.User">
-		select
-		id as id,
-		u_username as username,
-		u_password as password,
-		u_phone as phone,
-		u_updatetime as created_user
-		from
-		w_user
-		where
-		id=#{id}
-	</select>
 	<select id="selectByPhone" resultType="java.lang.Integer">
 		select count(*)
 		from
@@ -81,6 +68,18 @@
 		(username,userip,city,remake,logintime)
 		values(#{username},#{cip},#{cname},'登陆成功',now())
 	</insert>
+	<select id="queryuser" parameterType="java.lang.String" resultType="cn.tedu.store.bean.User">
+		select
+		id as id,
+		u_username as username,
+		u_password as password,
+		u_phone as phone,
+		u_email as email
+		from
+		w_user
+		where
+		u_email=#{email}
+	</select>
 </mapper>
 
 		

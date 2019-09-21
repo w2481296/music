@@ -1,14 +1,18 @@
 package cn.tedu.store.controller;
 
-
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.remoting.RemoteTimeoutException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.tedu.store.bean.PageQueryBean;
 import cn.tedu.store.bean.ResponseResult;
+import cn.tedu.store.bean.SendMail;
 import cn.tedu.store.bean.User;
 import cn.tedu.store.service.IUserService;
 
@@ -43,16 +48,16 @@ public class UserController extends BaseController {
 	// 异步请求，验证用户名
 	@RequestMapping("/checkUsername.do")
 	@ResponseBody
-	public String checkUsername(String username,String phone) {
+	public String checkUsername(String username, String phone) {
 		// 1.调用业务层方法
 		boolean b = userService.checkUsername(username);
 		if (b) {
 			return "0";
 		} else {
 			if (userService.checkPhone(phone)) {
-				return"1";
-			}else{
-				return"2";
+				return "1";
+			} else {
+				return "2";
 			}
 		}
 
@@ -75,8 +80,8 @@ public class UserController extends BaseController {
 	// 实现注册按钮功能
 	@RequestMapping("/register.do")
 	@ResponseBody
-	public ResponseResult<Void> register(@RequestParam("username") String username, @RequestParam("password") String password,
-			@RequestParam("phone") String phone) {
+	public ResponseResult<Void> register(@RequestParam("username") String username,
+			@RequestParam("password") String password, @RequestParam("phone") String phone) {
 		// 声明rr对象和user对象
 		ResponseResult<Void> rr = null;
 		try {
@@ -99,11 +104,11 @@ public class UserController extends BaseController {
 	// 实现登录功能
 	@RequestMapping("/login.do")
 	@ResponseBody
-	public ResponseResult<Void> login(String username, String password,String cip,String cname, HttpSession session) {
+	public ResponseResult<Void> login(String username, String password, String cip, String cname, HttpSession session) {
 		ResponseResult<Void> rr = null;
 		User user = new User();
 		try {
-			user = userService.login(username, password,cip,cname);
+			user = userService.login(username, password, cip, cname);
 			rr = new ResponseResult<>(1, "登录成功");
 			session.setAttribute("user", user);
 
@@ -126,16 +131,33 @@ public class UserController extends BaseController {
 	// 修改密码页面
 	@RequestMapping("/updatePassword.do")
 	@ResponseBody
-	public String updatePassword(String username, String newPwd,String oldPwd) {
-		//先查询旧密码是否正确
-		String old=userService.queryoldPwd(username);
-		if(old.equals(oldPwd)){
-			/*密码输入正确时更改密码*/
-			userService.updateuserNwd(username,newPwd);
-		}else{
+	public String updatePassword(String username, String newPwd, String oldPwd) {
+		// 先查询旧密码是否正确
+		String old = userService.queryoldPwd(username);
+		if (old.equals(oldPwd)) {
+			/* 密码输入正确时更改密码 */
+			userService.updateuserNwd(username, newPwd);
+		} else {
 			return "fail";
 		}
 		return "success";
 	}
 
+	@RequestMapping("/RetrievePassword.do")
+	@ResponseBody
+	protected String doPost(String uname,String email,HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// 获取用户的邮箱
+		User user = null;
+		// 实例化一个发送邮件的对象
+		SendMail mySendMail = new SendMail();
+		// 根据邮箱找到该用户信息
+		user = userService.getUserByEmail(email);
+		if (user != null) {
+			mySendMail.sendMail(email, "乐器店管理系统提醒，您的密码为：" + user.getPassword());
+			return "1";
+		}
+		return "2";
+		
+	}
 }

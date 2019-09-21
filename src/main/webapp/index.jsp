@@ -32,12 +32,12 @@
 
 
 					<div class="chose" style="margin-top: 10px;">
-						<input type="checkbox" class="checkbox" id="ck_rmbUser">记住密码
-					<!-- 	<span><a href="user/showRegister.do"
-							style="color: #ffffff;">新用户注册</a></span> -->
+						<!-- <input type="checkbox" class="checkbox" id="ck_rmbUser">记住密码 -->
+						<span><a href="user/showRegister.do"
+							style="color: #ffffff;">忘记密码?</a></span>
 						<!-- <span>忘记密码？</span> -->
 					</div>
-					<input class="button_login" type="button" value="登录" id="bt-login" />
+					<input class="button_login" type="button" value="登录" id="bt-login" style="margin-top: 10px;"/>
 				</div>
 			</form>
 		</div>
@@ -111,35 +111,6 @@
 				$("#password").val($.cookie("password"));
 			}
 		});
-
-		//记住用户名密码
-		function Save() {
-			//prop()表示判断复选框是否被选中。值是 true和false
-			if ($("#ck_rmbUser").prop("checked")) {
-				var str_username = $("#username").val();
-				console.log(str_username);
-				var str_password = $("#password").val();
-				$.cookie("rmbUser", "true", {
-					expires : 7
-				}); //存储一个带7天期限的cookie
-				$.cookie("username", str_username, {
-					expires : 7
-				});
-				$.cookie("password", str_password, {
-					expires : 7
-				});
-			} else {
-				$.cookie("rmbUser", "false", {
-					expire : -1
-				});
-				$.cookie("username", "", {
-					expires : -1
-				});
-				$.cookie("password", "", {
-					expires : -1
-				});
-			}
-		};
 	</script>
 </body>
 </html>

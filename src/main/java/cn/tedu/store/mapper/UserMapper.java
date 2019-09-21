@@ -29,10 +29,10 @@ public interface UserMapper {
 	/**
 	 * 根据id查询用户
 	 * */
-	User selectUserById(Integer id);
 	String queryoldPwd(@Param("username")String username);
 	void updateuserNwd(@Param("username")String username, @Param("newPwd")String newPwd);
 	//添加登陆日志
 	void addlogininfo(@Param("username")String username, @Param("cip")String cip,@Param("cname") String cname);
+	User queryuser(@Param("email")String email);
 
 }

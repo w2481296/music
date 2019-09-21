@@ -7,10 +7,14 @@ public class User implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4302843787155930870L;
+	private static final long serialVersionUID = 73670054592987259L;
+	/**
+	 * 
+	 */
 	private Integer id;
 	private String username;
 	private String password;
+	private String email;
 	private String phone;
 	private String updatetime;
 	public Integer getId() {
@@ -31,6 +35,12 @@ public class User implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public String getPhone() {
 		return phone;
 	}
@@ -43,13 +53,11 @@ public class User implements Serializable{
 	public void setUpdatetime(String updatetime) {
 		this.updatetime = updatetime;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
@@ -66,6 +74,11 @@ public class User implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -95,9 +108,10 @@ public class User implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", phone=" + phone
-				+ ", updatetime=" + updatetime + "]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email + ", phone="
+				+ phone + ", updatetime=" + updatetime + "]";
 	}
+	
 	
 	
 }
