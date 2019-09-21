@@ -93,6 +93,7 @@
 				  success: function(result){
 					  if(result=="1"){
 						  alert('恭喜，找回密码成功,请前往邮箱查看密码');
+						  document.getElementById("form-register").reset();
 					  }else if(result=="2"){
 						  alert('该邮箱尚未注册！请重新输入');
 						  var email = $("#email").val("");

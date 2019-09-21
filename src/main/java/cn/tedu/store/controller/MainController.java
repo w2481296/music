@@ -147,7 +147,7 @@ public class MainController {
 	}
 	@RequestMapping("/showIndex27.do")
 	public String showIndex27() {
-		return "user-add";
+		return "userInfor";
 	}
 	@RequestMapping("/showIndex28.do")
 	public String showIndex28() {
@@ -156,5 +156,10 @@ public class MainController {
 	@RequestMapping("/showIndex29.do")
 	public String showIndex29() {
 		return "import2";
+	}
+	//ÃÌº””√ªß
+	@RequestMapping("/showIndex30.do")
+	public String showIndex30() {
+		return "user-add";
 	}
 }

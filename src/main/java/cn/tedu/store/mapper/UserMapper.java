@@ -34,5 +34,6 @@ public interface UserMapper {
 	//Ìí¼ÓµÇÂ½ÈÕÖ¾
 	void addlogininfo(@Param("username")String username, @Param("cip")String cip,@Param("cname") String cname);
 	User queryuser(@Param("email")String email);
+	Integer  selectEmail(String email);
 
 }

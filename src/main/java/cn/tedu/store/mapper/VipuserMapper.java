@@ -30,5 +30,13 @@ public interface VipuserMapper {
 	//≤È—Øµ«¬Ω»’÷æ
 	List<Map<String, Object>> querylogin(@Param("vipName")String vipName, @Param("vipTime1")String vipTime1, @Param("vipTime2")String vipTime2);
 
+	
+	List<Map<String, Object>> selectUserInfo(@Param("vipName")String vipName, @Param("vipTime1")String vipTime1, @Param("vipTime2")String vipTime2);
+
+	void delMainUserById(@Param("vipid2")Integer vipid2);
+
+	void delUsersByIds(@Param("ids2")Integer[] ids2);
+
+	void addUserinfo(User user);
 
 }

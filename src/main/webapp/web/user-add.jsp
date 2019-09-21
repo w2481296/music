@@ -27,16 +27,6 @@
 <meta name="description" content="H-ui.admin v3.0">
 </head>
 <body>
-	<section class="Hui-article-box">
-		<nav class="breadcrumb">
-			<i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>
-			系统管理 <span class="c-gray en">&gt;</span> 添加用户 <a
-				class="btn btn-success radius r"
-				style="line-height: 1.6em; margin-top: 3px"
-				href="javascript:location.replace(location.href);" title="刷新"><i
-				class="Hui-iconfont">&#xe68f;</i></a>
-		</nav>
-	</section>
 	<article class="cl pd-20">
 		<form action="/" method="post" class="form form-horizontal"
 			id="form-change-password">
@@ -70,6 +60,14 @@
 				<div class="formControls col-xs-8 col-sm-9">
 					<input type="text" class="input-text" autocomplete="off"
 						placeholder="输入手机号" name="phone" id="phone">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span
+					class="c-red">*</span>邮箱：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" autocomplete="off"
+						placeholder="输入邮箱" name="email" id="email">
 				</div>
 			</div>
 			<div class="row cl">
@@ -124,7 +122,11 @@
 						required : true,
 						number : true,
 						isMobile : true,
-					}
+					},
+					email : {
+						isEmail:true,
+						required : true,
+					},
 				},
 				onkeyup : false,
 				focusCleanup : true,
@@ -133,18 +135,22 @@
 					var change=false;
 					var username = $('#username').val();
 					var phone=$('#phone').val();
+					var email=$('#email').val();
 					$.ajax({
 						url : '../user/checkUsername.do',
 						data : {
 							username : username,
-							phone:phone
+							phone:phone,
+							email:email
 						},
 						type : 'post',
 						success : function(obj) {
 							if (obj== 0) {
 								$('#tishi').html("用户名已存在");
 							}else if(obj==1){
-								$('#tishi').html("该手机以注册");
+								$('#tishi').html("该手机已注册");
+							}else if(obj==2){
+								$('#tishi').html("该邮箱已注册");
 							}else{
 								regist();
 							}
@@ -162,6 +168,8 @@
 		    			if(obj.state==1){
 		    				document.getElementById("form-change-password").reset();
 			    			alert("添加成功");
+			    			parent.location.reload();
+							layer_close();
 		    			}
 		    		}
 		    	});

@@ -54,7 +54,7 @@
 		group by id
 	</select>
 	
-	<!-- 删除乐器 -->  
+	<!-- 删除会员 -->  
 	<delete id="delMainInsById" parameterType="cn.tedu.store.bean.vipuser">  
 		delete from w_vip  where id= #{vipid2}
 	</delete> 
@@ -108,6 +108,53 @@
 		where
 			id=#{id}
 	</update>
+	
+	
+	
+	
+	
+	<select id="selectUserInfo" resultType="java.util.Map" parameterType="java.lang.String"
+	useCache="false" flushCache="true">
+		select
+			id as id,
+			u_username as userName,
+			u_password as userPassword,
+			u_email as userEmail,
+			u_phone as userPhone,
+		date_format(u_updatetime,'%Y-%c-%d %H:%i:%S') AS userUpdatetime
+		from
+			w_user
+		<where> 1=1
+			<if test="vipName!=null and vipName!=''">
+				AND u_username like CONCAT('%',#{vipName},'%')
+			</if>
+			<if test="vipTime1!=null and vipTime1!=''">
+				AND DATE_FORMAT(u_updatetime ,'%Y-%c-%d')&gt;=#{vipTime1}
+			</if>
+			<if test="vipTime2!=null and vipTime2!=''">
+				AND DATE_FORMAT(u_updatetime ,'%Y-%c-%d')&lt;=#{vipTime2}
+			</if>
+		</where>
+		group by id
+	</select>
+	<!-- 删除用户-->  
+	<delete id="delMainUserById" parameterType="cn.tedu.store.bean.User">  
+		delete from w_user  where id= #{vipid2}
+	</delete> 
+
+	<!-- 批量删除 -->
+	<delete id="delUsersByIds"  parameterType="java.util.List">
+         delete from w_user where id in ( 
+         <foreach collection="ids2" item="id" separator=",">
+            #{id}
+        </foreach>)
+	</delete>
+	<insert parameterType="cn.tedu.store.bean.User" id="addUserinfo">
+		insert into
+		w_user
+		(u_username,u_password,u_email,u_phone,u_updatetime)
+		values(#{username},#{password},#{email},#{phone},now())
+	</insert>
 </mapper>
 
 		

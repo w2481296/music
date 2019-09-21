@@ -29,12 +29,6 @@ public class UserService implements IUserService {
 		// 不为空，则用户名已存在，抛出异常UsernameAlreadyExistException
 		User user1 = userMapper.selectByUsername(user.getUsername());
 		if (user1 == null) {
-			//获取页面的密码
-			//String pwd=user.getPassword();
-			//生成的密码密文
-			//String md5pwd=DigestUtils.md5Hex(pwd+salt);
-			//把密文设置为user的属性
-			//user.setPassword(pwd);
 			userMapper.insert(user);
 		} else {
 			throw new UsernameAlreadyExistException("用户名已存在！");
@@ -49,7 +43,9 @@ public class UserService implements IUserService {
 	public boolean checkUsername(String name) {
 		return userMapper.selectByUsername(name) != null;
 	}
-	
+	public boolean checkEmail(String email) {
+		return userMapper.selectEmail(email) > 0;
+	}
 	// 实现登录功能
 	public User login(String username, String password,String cip,String cname) {
 		// 1.调用持久层方法ByUsername;返回user对象
@@ -85,5 +81,8 @@ public class UserService implements IUserService {
 	public User getUserByEmail(String email) {
 		return userMapper.queryuser(email);
 	}
+
+
+	
 
 }

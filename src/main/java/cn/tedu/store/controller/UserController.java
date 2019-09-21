@@ -48,18 +48,17 @@ public class UserController extends BaseController {
 	// 异步请求，验证用户名
 	@RequestMapping("/checkUsername.do")
 	@ResponseBody
-	public String checkUsername(String username, String phone) {
+	public String checkUsername(String username, String phone,String email) {
 		// 1.调用业务层方法
 		boolean b = userService.checkUsername(username);
 		if (b) {
 			return "0";
-		} else {
-			if (userService.checkPhone(phone)) {
+		} else if (userService.checkPhone(phone)) {
 				return "1";
-			} else {
+		}else if(userService.checkEmail(email)){
 				return "2";
-			}
 		}
+		return "success";
 
 	}
 
@@ -81,7 +80,7 @@ public class UserController extends BaseController {
 	@RequestMapping("/register.do")
 	@ResponseBody
 	public ResponseResult<Void> register(@RequestParam("username") String username,
-			@RequestParam("password") String password, @RequestParam("phone") String phone) {
+			@RequestParam("password") String password, @RequestParam("phone") String phone, @RequestParam("email") String email) {
 		// 声明rr对象和user对象
 		ResponseResult<Void> rr = null;
 		try {
@@ -90,6 +89,7 @@ public class UserController extends BaseController {
 			user.setUsername(username);
 			user.setPassword(password);
 			user.setPhone(phone);
+			user.setEmail(email);
 			// 调用业务层方法
 			userService.addUser(user);
 			rr = new ResponseResult<Void>(1, "添加成功");

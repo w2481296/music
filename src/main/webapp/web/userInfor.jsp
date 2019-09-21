@@ -22,30 +22,28 @@
 
 <section class="Hui-article-box">
 	<nav class="breadcrumb">
-	<i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 会员管理 <span class="c-gray en">&gt;</span> 会员信息 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+	<i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 系统设置 <span class="c-gray en">&gt;</span> 用户信息 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 	<div class="Hui-article">
 		<article class="cl pd-20">
 			<div class="text-c"> 注册日期范围：
 				<input type="text" onfocus="WdatePicker({skin:'whyGreen',maxDate: '%y-%M-%d'})" id="datemin" class="input-text Wdate" style="width:120px;">
 				-
 				<input type="text" onfocus="WdatePicker({skin:'whyGreen',maxDate: '%y-%M-%d' })" id="datemax" class="input-text Wdate" style="width:120px;">
-				<input type="text" class="input-text" style="width:250px" placeholder="输入会员关键字" id="insname" name="">
+				<input type="text" class="input-text" style="width:250px" placeholder="输入用户关键字" id="insname" name="">
 				<button type="submit" class="btn btn-success radius" id="search" name=""><i class="Hui-iconfont">&#xe665;</i> 查询</button>
 				<button type="submit" class="btn btn-success radius" id="clean" name="" style="width:70px">清空</button>
 			</div>
-			<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除会员</a> <a class="btn btn-primary radius" data-title="新增会员" _href="article-add.html" onclick="member_show('新增会员','../main/showIndex16.do','','400','500')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加会员</a></span></div>
+			<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除用户</a> <a class="btn btn-primary radius" data-title="新增用户" _href="article-add.html" onclick="member_show('新增用户','../main/showIndex30.do','','600','500')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加用户</a></span></div>
 			<div class="mt-20">
 				<table class="table table-border table-bordered table-hover table-bg table-sort" id="DataTables_Table_0">
 					<thead>
 						<tr class="text-c">
 							<th style="width:10px"><input type="checkbox" name="" value=""></th>
-							<th style="width:50px">ID</th>
-							<th style="width:80px">名字</th>
-							<th style="width:50px">性别</th>
-							<th style="width:50px">年龄</th>
-							<th style="width:100px">电话</th>
-							<th style="width:80px">积分</th>
-							<th style="width:150px">更新时间</th>
+							<th style="width:30px">ID</th>
+							<th style="width:80px">用户名</th>
+							<th style="width:50px">密码</th>
+							<th style="width:100px">邮箱</th>
+							<th style="width:100px">手机</th>
 							<th style="width:150px">注册时间</th>
 							<th style="width:50px">操作</th>
 						</tr>
@@ -79,7 +77,7 @@ $(document).ready(function () {
             param.currentPage = (data.start / data.length) + 1;//当前页码
             $.ajax({
                 type: "post",
-            	url :"../vip/selectVipInfo.do",
+            	url :"../vip/selectUserInfo.do",
                 cache: false, //禁用缓存
                 dataType: "json",
                 success: function (result) {
@@ -93,25 +91,22 @@ $(document).ready(function () {
                 }
             });
         },
-		
         "columns": [ 
 			{'data': 'null'}, 
             {'data': 'id'},
-            {'data': 'vipName'},
-            {'data': 'vipGender'},
-            {'data': 'vipAge'},
-            {'data': 'vipPhone'},
-            {'data': 'vipIntegral'},
-            {'data': 'vipUpdatetime'},
-            {'data': 'vipCreatetime'},
+            {'data': 'userName'},
+            {'data': 'null'},
+            {'data': 'userEmail'},
+            {'data': 'userPhone'},
+            {'data': 'userUpdatetime'},
             {'data': 'null'}, 
         ],
         "columnDefs" : [ {
-        	"targets" : 9,//操作按钮目标列
+        	"targets" : 7,//操作按钮目标列
         	"data" : null,
         	"render" : function(data, type,row) {
         	var id = row.id;
-        	var html = '<a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex15.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>';
+        	var html = '<a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>';
         	return html;
       		}},
       		{
@@ -122,7 +117,15 @@ $(document).ready(function () {
             	var html = '<input type="checkbox" value="'+id+'" name="">';
             	return html;
             	}
-            	}
+            	},
+            	{
+                	"targets" : 3,//操作按钮目标列
+                	"data" : null,
+                	"render" : function(data, type,row) {
+                	var html = '**********';
+                	return html;
+                	}
+                	}
         	],
         "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull)            {                    //列样式处理
         }
@@ -158,7 +161,7 @@ $("#search").click(function(){
 	            param.currentPage = (data.start / data.length) + 1;//当前页码
 	            $.ajax({
 	                type: "post",
-	                url :"../vip/selectVipInfo.do",
+	                url :"../vip/selectUserInfo.do",
 	                cache: false, //禁用缓存
 	                data:param,
 	                dataType: "json",
@@ -176,21 +179,19 @@ $("#search").click(function(){
 	        "columns": [ 
 	        			{'data': 'null'}, 
 	                    {'data': 'id'},
-	                    {'data': 'vipName'},
-	                    {'data': 'vipGender'},
-	                    {'data': 'vipAge'},
-	                    {'data': 'vipPhone'},
-	                    {'data': 'vipIntegral'},
-	                    {'data': 'vipUpdatetime'},
-	                    {'data': 'vipCreatetime'},
+	                    {'data': 'userName'},
+	                    {'data': 'null'},
+	                    {'data': 'userEmail'},
+	                    {'data': 'userPhone'},
+	                    {'data': 'userUpdatetime'},
 	                    {'data': 'null'}, 
 	                ],
 	                "columnDefs" : [ {
-	                	"targets" : 9,//操作按钮目标列
+	                	"targets" : 7,//操作按钮目标列
 	                	"data" : null,
 	                	"render" : function(data, type,row) {
 	                	var id = row.id;
-	                	var html = '<a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex15.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>';
+	                	var html = '<a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>';
 	                	return html;
 	              		}},
 	              		{
@@ -201,7 +202,15 @@ $("#search").click(function(){
 	                    	var html = '<input type="checkbox" value="'+id+'" name="">';
 	                    	return html;
 	                    	}
-	                    	}
+	                    	},
+	                    	{
+	                        	"targets" : 3,//操作按钮目标列
+	                        	"data" : null,
+	                        	"render" : function(data, type,row) {
+	                        	var html = '**********';
+	                        	return html;
+	                        	}
+	                        	}
 	                	],
 	                "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull)            {                    //列样式处理
 	                }
@@ -218,7 +227,7 @@ $("#clean").click(function(){
 
 
 /*用户-删除*/
-function member_del(obj,id){
+function member_del(obj,id,userName){
 	layer.confirm('确认要删除吗？',{
 		btn: ['确定', '取消']
 	  },function(index){
@@ -226,7 +235,7 @@ function member_del(obj,id){
 					vipid:id
 			};
 			$.ajax({
-				url :"../vip/delvipById.do",
+				url :"../vip/delUserById.do",
 				data : params,
 				type:"post",
 				async : false,
@@ -265,10 +274,10 @@ function datadel(){
 	 
 
 	function deletePtag(ptag_ids){
-	     if(confirm("您确定要删除次会员或者多条会员记录吗？删除后无法恢复,请谨慎操作！")){
+	     if(confirm("您确定要删除该用户或者多条用户记录吗？删除后无法恢复,请谨慎操作！")){
 	         $.ajax({
 	             type : "post",
-	             url : "../vip/delvipsByIds.do",
+	             url : "../vip/delUsersByIds.do",
 	             data : { "ids" : ptag_ids.toString() },  //数组.toString();转成字符串，号隔开的
 	             success : function(data) {
 	                 console.info(data);
@@ -282,10 +291,8 @@ function datadel(){
 	         });
 	     }
 	}
-
 	/*用户-查看*/
 	function member_show(title,url,id,w,h){
-		localStorage.setItem("vipeditId",id);
 		layer_show(title,url,w,h);
 	}
 </script>

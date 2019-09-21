@@ -5,8 +5,8 @@
 	<insert parameterType="cn.tedu.store.bean.User" id="insert">
 		insert into
 		w_user
-		(u_username,u_password,u_phone,u_updatetime)
-		values(#{username},#{password},#{phone},now())
+		(u_username,u_password,u_phone,u_updatetime,u_email)
+		values(#{username},#{password},#{phone},now(),#{email})
 	</insert>
 	<select id="selectByUsername" resultType="cn.tedu.store.bean.User">
 		select
@@ -27,6 +27,14 @@
 		where
 		u_phone=#{phone}
 	</select>
+	<select id="selectEmail" resultType="java.lang.Integer">
+		select count(*)
+		from
+		w_user
+		where
+		u_email=#{email}
+	</select>
+	
 	<update id="updateUser" parameterType="cn.tedu.store.bean.User">
 		update
 			w_user

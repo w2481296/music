@@ -125,18 +125,24 @@ $(function(){
         var tel = /^(\d{3,4}-?)?\d{7,9}$/g;       
         return this.optional(element) || tel.test(value) || (length==11 && mobile.test(value));   
     }, "请输入正确手机号码或电话号码"); 
- 
+    
+    // 邮箱验证   
+    jQuery.validator.addMethod("isEmail", function(value,element) {   
+        var length = value.length;   
+        return this.optional( element ) || /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test( value );
+    }, "请输入正确邮箱"); 
+    
+
+    
      // 匹配qq      
     jQuery.validator.addMethod("isQq", function(value, element) {       
          return this.optional(element) || /^[1-9]\d{4,12}$/;       
     }, "QQ号码不合法");   
- 
      // 邮政编码验证    
     jQuery.validator.addMethod("isZipCode", function(value, element) {    
       var zip = /^[0-9]{6}$/;    
       return this.optional(element) || (zip.test(value));    
     }, "邮政编码不正确");  
-    
     // 匹配密码，以字母开头，长度在6-16之间，只能包含字符、数字和下划线。      
     jQuery.validator.addMethod("isPwd", function(value, element) {       
          return this.optional(element) || /^[a-zA-Z]\\w{6,16}$/.test(value);       

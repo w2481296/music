@@ -89,7 +89,6 @@
 								} else {
 									//清空错误信息
 									$("#showResult").html("");
-									Save();
 									//显示首页
 									location.href = 'main/showIndex.do';
 								}

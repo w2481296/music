@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.tedu.store.bean.Instruments;
 import cn.tedu.store.bean.PageQueryBean;
+import cn.tedu.store.bean.User;
 import cn.tedu.store.bean.vipuser;
 import cn.tedu.store.mapper.VipuserMapper;
 
@@ -108,6 +109,52 @@ public class VipuserController {
 			pageQueryBean.setTotalRows(machiningList.size());
 			return pageQueryBean;
 		}
-
+		
+		
+		/**
+		 * user使用地方
+		 * @param vipName
+		 * @param vipTime1
+		 * @param vipTime2
+		 * @param response
+		 * @return
+		 */
+		@RequestMapping("/selectUserInfo.do")
+		@ResponseBody
+		public PageQueryBean selectUserInfo(String vipName, String vipTime1, String vipTime2,
+				HttpServletResponse response) {
+			List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
+			machiningList = vipuserMapper.selectUserInfo(vipName, vipTime1, vipTime2);// 订单id
+			PageQueryBean pageQueryBean = new PageQueryBean();
+			pageQueryBean.setItems(machiningList);
+			pageQueryBean.setTotalRows(machiningList.size());
+			return pageQueryBean;
+		}
+		//删除单个会员
+		@RequestMapping("/delUserById.do")
+		@ResponseBody
+		public String delUserById(String vipid, HttpServletResponse response) {
+			Integer vipid2 = Integer.valueOf(vipid);
+			vipuserMapper.delMainUserById(vipid2);
+			return "success";
+		}
+		//删除多个会员
+		@RequestMapping("/delUsersByIds.do")
+		@ResponseBody
+		public String delUsersByIds(String ids, HttpServletResponse response) {
+			String[] aStrings = ids.split(",");
+			Integer[] ids2 = new Integer[aStrings.length];
+			for (int i = 0; i < ids2.length; i++) {
+				ids2[i] = Integer.parseInt(aStrings[i]);
+			}
+			vipuserMapper.delUsersByIds(ids2);
+			return "success";
+		}
+		//添加会员
+		@RequestMapping("/addUserinfo.do")
+		@ResponseBody
+		public void addUserinfo(User user) {
+			vipuserMapper.addUserinfo(user);
+		}
 
 }

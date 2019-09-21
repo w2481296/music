@@ -29,7 +29,7 @@
 				<input type="text" onfocus="WdatePicker({skin:'whyGreen',maxDate: '%y-%M-%d'})" id="datemin" class="input-text Wdate" style="width:120px;">
 				-
 				<input type="text" onfocus="WdatePicker({skin:'whyGreen',maxDate: '%y-%M-%d' })" id="datemax" class="input-text Wdate" style="width:120px;">
-				<input type="text" class="input-text" style="width:250px" placeholder="输入乐器名字" id="insname" name="">
+				<input type="text" class="input-text" style="width:250px" placeholder="输入乐器关键字" id="insname" name="">
 				<button type="submit" class="btn btn-success radius" id="search" name=""><i class="Hui-iconfont">&#xe665;</i> 查询</button>
 				<button type="submit" class="btn btn-success radius" id="clean" name="" style="width:70px">清空</button>
 				<button type="submit" class="btn btn-success radius" id="import" name="" style="width:80px" onclick="importall('批量导入','../main/showIndex28.do','400','300')">批量导入</button>
