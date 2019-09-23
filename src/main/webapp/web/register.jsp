@@ -97,6 +97,9 @@
 					  }else if(result=="2"){
 						  alert('该邮箱尚未注册！请重新输入');
 						  var email = $("#email").val("");
+					  }else if(result=="3"){
+						  alert('请输入正确账号邮箱');
+						  var email = $("#email").val("");
 					  }
 				  },
 			});

@@ -15,7 +15,6 @@ public class Instock implements Serializable{
 	private String inCost;// 入库成本
 	private String inPricing;// 入库乐器定价
 	private String inQty;// 入库乐器数量
-	private String inPart;// 入库乐器配件
 	private String inManufacturers;// 入库乐器厂商
 	private String inUpdatetime;// 更新时间
 	private String inCreatetime;// 入库时间
@@ -61,12 +60,6 @@ public class Instock implements Serializable{
 	public void setInQty(String inQty) {
 		this.inQty = inQty;
 	}
-	public String getInPart() {
-		return inPart;
-	}
-	public void setInPart(String inPart) {
-		this.inPart = inPart;
-	}
 	public String getInManufacturers() {
 		return inManufacturers;
 	}
@@ -94,7 +87,6 @@ public class Instock implements Serializable{
 		result = prime * result + ((inCreatetime == null) ? 0 : inCreatetime.hashCode());
 		result = prime * result + ((inManufacturers == null) ? 0 : inManufacturers.hashCode());
 		result = prime * result + ((inName == null) ? 0 : inName.hashCode());
-		result = prime * result + ((inPart == null) ? 0 : inPart.hashCode());
 		result = prime * result + ((inPricing == null) ? 0 : inPricing.hashCode());
 		result = prime * result + ((inQty == null) ? 0 : inQty.hashCode());
 		result = prime * result + ((inSpecifications == null) ? 0 : inSpecifications.hashCode());
@@ -136,11 +128,6 @@ public class Instock implements Serializable{
 				return false;
 		} else if (!inName.equals(other.inName))
 			return false;
-		if (inPart == null) {
-			if (other.inPart != null)
-				return false;
-		} else if (!inPart.equals(other.inPart))
-			return false;
 		if (inPricing == null) {
 			if (other.inPricing != null)
 				return false;
@@ -172,7 +159,7 @@ public class Instock implements Serializable{
 	public String toString() {
 		return "Instock [id=" + id + ", inName=" + inName + ", inType=" + inType + ", inSpecifications="
 				+ inSpecifications + ", inCost=" + inCost + ", inPricing=" + inPricing + ", inQty=" + inQty
-				+ ", inPart=" + inPart + ", inManufacturers=" + inManufacturers + ", inUpdatetime=" + inUpdatetime
+				+ ", inManufacturers=" + inManufacturers + ", inUpdatetime=" + inUpdatetime
 				+ ", inCreatetime=" + inCreatetime + "]";
 	}
 	

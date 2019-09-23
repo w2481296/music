@@ -44,7 +44,7 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>定价：</label>
+			<label class="form-label col-xs-4 col-sm-3">定价：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text" style="width: 210px;" name="inPricing" id="inPricing">
 			</div>
@@ -63,7 +63,7 @@
 		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-				<button onClick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 修改并提交</button>
+				<button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 修改并提交</button>
 				<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
 			</div>
 		</div>
@@ -106,7 +106,33 @@ $(function(){
 	});
 
 });
-function article_save_submit(){
+$("#form-member-add").validate({
+	rules:{
+		inCost:{
+			required:true,
+		},			
+		inQty:{
+			required:true,
+		},					
+	},
+	onkeyup:false,
+	focusCleanup:true,
+	success:"valid",
+	submitHandler:function(form){
+		$.ajax({
+			url :"../in/updateinstock2.do",
+			type:"post",
+			data:$("#form-member-add").serializeArray(),
+			success : function(result) {
+				alert("修改成功！");
+				parent.location.reload();
+				layer_close();
+			},
+		});
+		parent.location.reload();
+	}
+});
+/* function article_save_submit(){
 	$.ajax({
 		url :"../in/updateinstock2.do",
 		type:"post",
@@ -118,7 +144,7 @@ function article_save_submit(){
 		},
 	});
 	parent.location.reload();
-}
+} */
 </script>
 </body>
 </html>

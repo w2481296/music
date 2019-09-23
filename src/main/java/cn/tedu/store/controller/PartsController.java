@@ -43,13 +43,24 @@ public class PartsController {
 		return pageQueryBean;
 	}
 	//配件连接
-	@RequestMapping("/selectpartByName2.do")
+	/*@RequestMapping("/selectpartByName2.do")
 	@ResponseBody
 	public List<Map<String, Object>> selectpartByName2(String insName, String insTime1, String insTime2,
 			HttpServletResponse response) {
 		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
 		machiningList = partsMapper.selinstruByName(insName, insTime1, insTime2);// 订单id
 		return machiningList;
+	}*/
+	@RequestMapping("/selectpartByName2.do")
+	@ResponseBody
+	public PageQueryBean selectpartByName2(String insName, String insTime1, String insTime2,
+			HttpServletResponse response) {
+		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
+		machiningList = partsMapper.selinstruByName(insName, insTime1, insTime2);// 订单id
+		PageQueryBean pageQueryBean = new PageQueryBean();
+		pageQueryBean.setItems(machiningList);
+		pageQueryBean.setTotalRows(machiningList.size());
+		return pageQueryBean;
 	}
 	/**
 	 * <pre>

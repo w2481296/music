@@ -32,15 +32,15 @@
 				<button type="submit" class="btn btn-success radius" id="search" name=""><i class="Hui-iconfont">&#xe665;</i> 查询</button>
 				<button type="submit" class="btn btn-success radius" id="clean" name="" style="width:70px">清空</button>
 			</div>
-			<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> </span></div>
-			<div class="mt-20">
+<!-- 			<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> </span></div>
+ -->			<div class="mt-20">
 				<table class="table table-border table-bordered table-hover table-bg table-sort" id="DataTables_Table_0">
 					<thead>
 						<tr class="text-c">
 							<th style="width:10px"><input type="checkbox" name="" value=""></th>
 							<th style="width:50px">ID</th>
 							<th style="width:80px">名称</th>
-							<th style="width:80px">所属乐器</th>
+							<th style="width:80px">类型</th>
 							<th style="width:80px">规格</th>
 							<th style="width:70px">定价(元)</th>
 							<th style="width:70px">库存数量(件)</th>
@@ -120,7 +120,8 @@ $(document).ready(function () {
         	"data" : null,
         	"render" : function(data, type,row) {
         	var id = row.id;
-        	var html = '<a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex14.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>';
+        	var html = '<a title='+"'添加备注'"+' href="javascript:;" onclick="member_show('+"'添加备注',"+"'../main/showIndex14.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')" style="text-decoration:none"><u class="Hui-iconfont">添加备注</u></a>';
+        	//var html = '<a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex14.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>';
         	return html;
       		}},
       		{
@@ -201,7 +202,9 @@ $("#search").click(function(){
 	                	"data" : null,
 	                	"render" : function(data, type,row) {
 	                	var id = row.id;
-	                	var html = '<a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex14.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>';
+	                	var html = '<a title='+"'添加备注'"+' href="javascript:;" onclick="member_show('+"'添加备注',"+"'../main/showIndex14.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')" style="text-decoration:none"><u class="Hui-iconfont">添加备注</u></a>';
+
+	                	//var html = '<a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex14.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>';
 	                	return html;
 	              		}},
 	              		{
@@ -235,7 +238,7 @@ function member_show(title,url,id,w,h){
 	layer_show(title,url,w,h);
 }
 /*用户-删除*/
-function member_del(obj,id){
+/* function member_del(obj,id){
 	layer.confirm('确认要删除吗？',{
 		btn: ['确定', '取消']
 	  },function(index){
@@ -261,7 +264,7 @@ function member_del(obj,id){
 	});
 }
 /*用户-批量删除*/
-function datadel(){
+/* function datadel(){
 	console.log("批量删除");
 	var ptag_ids = new Array(); //定义一个数组存储id
 	     // 循环获取选中的checkbox
@@ -277,11 +280,11 @@ function datadel(){
 		console.log("选择得id"+ptag_ids);
 	     //调用删除函数
 	    deletePtag(ptag_ids);
-	}
+	} */
 
 	 
 
-	function deletePtag(ptag_ids){
+	/* function deletePtag(ptag_ids){
 	     if(confirm("您确定要删除单条或者多条标签记录吗？删除后无法恢复,请谨慎操作！")){
 	         $.ajax({
 	             type : "post",
@@ -298,7 +301,7 @@ function datadel(){
 	             }
 	         });
 	     }
-	}
+	} */ 
 
 </script>
 <!--/请在上方写此页面业务相关的脚本-->

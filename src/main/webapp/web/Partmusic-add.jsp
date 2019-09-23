@@ -28,40 +28,40 @@
 		<div class="row cl" style="margin-top: 0px;">
 			<label class="form-label col-xs-4 col-sm-2">配件名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" id="partsName" name="partsName">
+				<input type="text" class="input-text" readonly id="partsName" name="partsName">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">类型：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text"  readonly="readonly" id="partsType" name="partsType">
+				<input type="text" class="input-text" readonly id="partsType" name="partsType">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">规格：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text"  id="partsSpecifications" name="partsSpecifications">
+				<input type="text" class="input-text" readonly id="partsSpecifications" name="partsSpecifications">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">库存数量：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text"  id="partsQty" name="partsQty">
+				<input type="text" class="input-text" readonly id="partsQty" name="partsQty">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">厂商：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text"  id="partsManufacturers"  name="partsManufacturers" class="input-text">
+				<input type="text"  id="partsManufacturers" readonly name="partsManufacturers" class="input-text">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">配件展示价格：</label>
 			<div class="formControls col-xs-8 col-sm-9" style="width:240px;">
-				<input type="text" id="partsPricing"  name="partsPricing" class="input-text" style="width:90%">
+				<input type="text" id="partsPricing"  readonly name="partsPricing" class="input-text" style="width:90%">
 				元</div>
 		</div>
-		<div class="row cl">
+		<div class="row cl" style="display:none">
 			<label class="form-label col-xs-4 col-sm-2">成本价格：</label>
 			<div class="formControls col-xs-8 col-sm-9" style="width:240px;">
 				<input type="text"  id="partsCost" name="partsCost" class="input-text" style="width:90%">

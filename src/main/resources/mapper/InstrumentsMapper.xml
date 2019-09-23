@@ -69,7 +69,6 @@
 		set
 			ins_name =#{insName},
 			ins_specifications=#{insSpecifications},
-			ins_cost =#{insCost},
 			ins_qty =#{insQty},
 			ins_pricing =#{insPricing},
 			ins_parts =#{insParts},

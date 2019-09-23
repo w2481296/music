@@ -153,9 +153,11 @@ public class UserController extends BaseController {
 		SendMail mySendMail = new SendMail();
 		// 根据邮箱找到该用户信息
 		user = userService.getUserByEmail(email);
-		if (user != null) {
+		if (user != null&&user.getUsername().equals(uname)) {
 			mySendMail.sendMail(email, "乐器店管理系统提醒，您的密码为：" + user.getPassword());
 			return "1";
+		}else if(user != null){
+			return "3";
 		}
 		return "2";
 		

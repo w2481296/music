@@ -69,28 +69,116 @@ table tr:nth-child(even) {
     border-radius: 9px;
     width: 57px;
     border: 1px solid #eee;"/>
-	    <table id="sparepartBom" border="1">
-	    	<tr>
-	    		<th>配件id</th>
-	    		<th>配件名称</th>
-	    		<th>配件规格</th>
-	    	</tr>
-		</table>
-
+    <table class="table table-border table-bordered table-hover table-bg table-sort" id="DataTables_Table_0">
+					<thead>
+						<tr onclick="setCustomerNumber(this)">
+				    		<th >id</th>
+				    		<th>配件名称</th>
+				    		<th>配件规格</th>
+				    	</tr>
+					</thead>
+					<tbody id="table-data">
+					</tbody>
+	</table>
 <!--_footer 作为公共模版分离出去-->
 <script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script> 
 <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+
 <script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.page.js"></script>
 <script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
 <script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.js"></script> 
 <script type="text/javascript">
-$(document).ready(function() {
-	 selBomSparepart();
+$(document).ready(function () {
+    $('#DataTables_Table_0').DataTable({
+        serverSide: false, //启用服务器端分页
+        searching: false, //禁用原生搜索
+        pagingType: "simple_numbers", //分页样式：simple,simple_numbers,full,full_numbers
+        ajax: function (data, callback, settings) { 
+	        //封装请求参数
+	        var param = {};
+            param.pageSize = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
+            param.start = data.start;//开始的记录序号
+            param.currentPage = (data.start / data.length) + 1;//当前页码
+            $.ajax({
+                type: "post",
+                url :"../parts/selectpartByName2.do",
+                cache: false, //禁用缓存
+                dataType: "json",
+                success: function (result) {
+                    var returnData = {};
+                    returnData.draw = data.startRow;//这里直接自行返回了draw计数器,应该由后台返回
+                    returnData.recordsTotal = result.totalRows;//返回数据全部记录
+                    returnData.recordsFiltered = result.totalRows;//后台不实现过滤功能，每次查询均视作全部结果
+                    returnData.data = result.items;//返回的数据列表
+                    //此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
+                    callback(returnData);
+                }
+            });
+        },
+        "columns": [ 
+            {'data': 'id'},
+            {'data': 'insName'},
+            {'data': 'insSpecifications'},
+        ],
+        "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull)            {                    //列样式处理
+        }
+    })
 });
-function selBomSparepart(){ 
+/*-查询功能*/
+$("#query").click(function(){
+	var datatable = $("#DataTables_Table_0").dataTable();
+	        if (datatable) {  
+	         datatable.fnClearTable();    //清空数据
+	         datatable.fnDestroy();         //销毁datatable
+	 } 
+	var tablebody = $('.DataTables_Table_0').find('tbody');
+	tablebody.children().remove();
+	
+	 $('#DataTables_Table_0').DataTable({
+	        serverSide: false, //启用服务器端分页
+	        searching: false, //禁用原生搜索
+	        pagingType: "simple_numbers", //分页样式：simple,simple_numbers,full,full_numbers
+	        ajax: function (data, callback, settings) { 
+		        //封装请求参数
+		      	var insName2=document.getElementById('search').value;
+				var param={
+						insName:insName2
+				}
+	            param.pageSize = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
+	            param.start = data.start;//开始的记录序号
+	            param.currentPage = (data.start / data.length) + 1;//当前页码
+	            $.ajax({
+	                type: "post",
+	                url :"../parts/selectpartByName.do",
+	                cache: false, //禁用缓存
+	                data:param,
+	                dataType: "json",
+	                success: function (result) {
+	                    var returnData = {};
+	                    returnData.draw = data.startRow;//这里直接自行返回了draw计数器,应该由后台返回
+	                    returnData.recordsTotal = result.totalRows;//返回数据全部记录
+	                    returnData.recordsFiltered = result.totalRows;//后台不实现过滤功能，每次查询均视作全部结果
+	                    returnData.data = result.items;//返回的数据列表
+	                    //此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
+	                    callback(returnData);
+	                }
+	            });
+	        },
+	        "columns": [ 
+	                    {'data': 'id'},
+	                    {'data': 'insName'},
+	                    {'data': 'insSpecifications'},
+	                ],
+	                "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull)            {                    //列样式处理
+	                }
+	    })
+	
+});	
+/* function selBomSparepart(){ 
 	 $.ajax({
 		url :"../parts/selectpartByName2.do",
 		type:"post",
@@ -110,8 +198,8 @@ function selBomSparepart(){
 		 	}
 		 }
 	});
-}
-$("#query").click(function(){
+} */
+/* $("#query").click(function(){
 	$('#sparepartBom tbody').empty();
 	
 	var insName2=document.getElementById('search').value;
@@ -138,7 +226,7 @@ $("#query").click(function(){
 			 	}
 			 }
 		});
-})
+}) */
  //返回逻辑
   $("#back").click(function(){
 	  

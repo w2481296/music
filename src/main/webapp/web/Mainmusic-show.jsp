@@ -26,15 +26,15 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>名字：</label>
+			<label class="form-label col-xs-4 col-sm-3">名字：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" style="width: 80%;margin-left: -72px;" id="inName" name="inName">
+				<input type="text" class="input-text" readonly="true" style="width: 80%;margin-left: -72px;" id="inName" name="inName">
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>规格：</label>
+			<label class="form-label col-xs-4 col-sm-3">规格：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" style="width: 80%;margin-left: -72px;" id="inSpecifications" name="inSpecifications">
+				<input type="text" class="input-text" readonly="true" style="width: 80%;margin-left: -72px;" id="inSpecifications" name="inSpecifications">
 			</div>
 		</div>
 		<div class="row cl">
@@ -56,25 +56,14 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">配件：</label>
+			<label class="form-label col-xs-4 col-sm-3">工厂：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input   id="inPart"  name="inPart"  style="display:none;">
-				<input type="text"  id="insPartsname"   style="width: 80%;margin-left: -72px;" name=""  class="input-text">
-				<img alt="查看更多" src="../images/waiting.png" onclick="member_show('挑选配件','../main/showIndex21.do','','500','500')" style="    margin-left: -27px;
-    width: 20px;
-    height: 23px;
-    margin-top: -4px;"> 
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>工厂：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" style="width: 80%;margin-left: -72px;" id="inManufacturers" name="inManufacturers">
+				<input type="text" class="input-text" readonly="true" style="width: 80%;margin-left: -72px;" id="inManufacturers" name="inManufacturers">
 			</div>
 		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-				<button onClick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 修改并提交</button>
+				<button  class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 修改并提交</button>
 				<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
 			</div>
 		</div>
@@ -111,14 +100,40 @@ $(function(){
 			document.getElementById("inCost").value=result[0].inCost!=null?result[0].inCost:"";
 			document.getElementById("inPricing").value=result[0].inPricing!=null?result[0].inPricing:"";
 			document.getElementById("inQty").value=result[0].inQty!=null?result[0].inQty:"";
-			document.getElementById("insPartsname").value=result[0].inPart!=null?result[0].inPart:"";
-			document.getElementById("inPart").value=result[0].inPartCode!=null?result[0].inPartCode:"";
+			//document.getElementById("insPartsname").value=result[0].inPart!=null?result[0].inPart:"";
+			//document.getElementById("inPart").value=result[0].inPartCode!=null?result[0].inPartCode:"";
 			document.getElementById("inManufacturers").value=result[0].inManufacturers!=null?result[0].inManufacturers:"";
 		}
 	});
 
 });
-function article_save_submit(){
+$("#form-member-add").validate({
+	rules:{
+		inCost:{
+			required:true,
+		},			
+		inQty:{
+			required:true,
+		},					
+	},
+	onkeyup:false,
+	focusCleanup:true,
+	success:"valid",
+	submitHandler:function(form){
+		$.ajax({
+			url :"../in/updateinstock.do",
+			type:"post",
+			data:$("#form-member-add").serializeArray(),
+			success : function(result) {
+				alert("修改成功！");
+				parent.location.reload();
+				layer_close();
+			},
+		});
+		parent.location.reload();
+	}
+});
+/* function article_save_submit(){
 	$.ajax({
 		url :"../in/updateinstock.do",
 		type:"post",
@@ -130,16 +145,16 @@ function article_save_submit(){
 		},
 	});
 	parent.location.reload();
-}
+} */
 /*用户-查看*/
-function member_show(title,url,id,w,h){
+/* function member_show(title,url,id,w,h){
 	layer_show(title,url,w,h);
-}
+} */
 //从子页面传值
-function CallMoney(id,partname){
+/* function CallMoney(id,partname){
     $("#inPart").val(id);
     $("#insPartsname").val(partname);
-}
+} */
 </script>
 </body>
 </html>

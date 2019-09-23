@@ -47,7 +47,6 @@
 							<th style="width:50px">成本(元)</th>
 							<th style="width:80px">定价(元)</th>
 							<th style="width:50px">入库数量(件)</th>
-							<th style="width:50px">配件</th>
 							<th style="width:100px">工厂</th>
 							<th style="width:150px">更新时间</th>
 							<th style="width:150px">入库时间</th>
@@ -107,18 +106,17 @@ $(document).ready(function () {
                     {'data': 'inCost'},
                     {'data': 'inPricing'},
                     {'data': 'inQty'},
-                    {'data': 'inPart'},
                     {'data': 'inManufacturers'},
                     {'data': 'inUpdatetime'},
                     {'data': 'inCreatetime'},
                     {'data': 'null'}, 
                 ],
                 "columnDefs" : [ {
-                	"targets" : 12,//操作按钮目标列
+                	"targets" : 11,//操作按钮目标列
                 	"data" : null,
                 	"render" : function(data, type,row) {
                 	var id = row.id;
-                	var html = '<a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex20.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>';
+                	var html = '<a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex20.do',"+"'"+id+"'"+','+"'600',"+"'450'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>';
                 	return html;
               		}},
               		{
@@ -190,18 +188,17 @@ $("#search").click(function(){
 	                    {'data': 'inCost'},
 	                    {'data': 'inPricing'},
 	                    {'data': 'inQty'},
-	                    {'data': 'inPart'},
 	                    {'data': 'inManufacturers'},
 	                    {'data': 'inUpdatetime'},
 	                    {'data': 'inCreatetime'},
 	                    {'data': 'null'}, 
 	                ],
 	                "columnDefs" : [ {
-	                	"targets" : 12,//操作按钮目标列
+	                	"targets" : 11,//操作按钮目标列
 	                	"data" : null,
 	                	"render" : function(data, type,row) {
 	                	var id = row.id;
-	                	var html = '<a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex20.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>';
+	                	var html = '<a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex20.do',"+"'"+id+"'"+','+"'600',"+"'450'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>';
 	                	return html;
 	              		}},
 	              		{

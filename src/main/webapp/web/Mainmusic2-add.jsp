@@ -53,14 +53,6 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2" style="margin-left: 80px;">配件：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input   id="insParts"  name="insParts"  style="display:none;">
-				<input type="text"  id="insPartsname"   style="width: 80%;margin-left: -72px;"  class="input-text">
-				<img alt="查看更多" src="../images/waiting.png" onclick="member_show('挑选配件','../main/showIndex21.do','','500','500')" style="margin-left: 268px;width: 20px;height: 23px;margin-top: -54px;"> 
-			</div>
-		</div>
-		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3" style="margin-left: 80px;"><span class="c-red">*</span>工厂：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text" style="width: 80%;margin-left: -72px;" id="inManufacturers" name="inManufacturers">
@@ -133,11 +125,6 @@ $(function(){
 /*用户-查看*/
 function member_show(title,url,id,w,h){
 	layer_show(title,url,w,h);
-}
-//从子页面传值
-function CallMoney(id,partname){
-    $("#insParts").val(id);
-    $("#insPartsname").val(partname);
 }
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->
