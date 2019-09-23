@@ -274,7 +274,7 @@ function datadel(){
 	 
 
 	function deletePtag(ptag_ids){
-	     if(confirm("您确定要删除次会员或者多条会员记录吗？删除后无法恢复,请谨慎操作！")){
+	     if(confirm("您确定要删除主乐器或者多条主乐器记录吗？删除后无法恢复,请谨慎操作！")){
 	         $.ajax({
 	             type : "post",
 	             url : "../in/delMainInsstockById.do",

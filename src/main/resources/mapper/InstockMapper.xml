@@ -60,7 +60,7 @@
 		</where>
 		group by id
 	</select>
-	<!-- 删除乐器 -->  
+	<!-- 删除乐器（库存表） -->  
 	<delete id="delMainInstockById" parameterType="cn.tedu.store.bean.Instock">  
 		delete from w_instock  where id= #{insid2}
 	</delete> 
@@ -86,6 +86,14 @@
 		where
 		wi.id=#{ids2}
 	</select>
+	<update id="updateinstockqty" parameterType="cn.tedu.store.bean.Instock">
+		update
+			w_instock
+		set
+			in_qty =#{inQty}
+		where
+		    id=#{id}
+	</update>
 	<update id="updateinstock" parameterType="cn.tedu.store.bean.Instock">
 		update
 			w_instock
@@ -93,12 +101,11 @@
 			in_name =#{inName},
 			in_specifications=#{inSpecifications},
 			in_cost =#{inCost},
-			in_qty =#{inQty},
 			in_pricing =#{inPricing},
 			in_manufacturers =#{inManufacturers},
 			in_updatetime=now()
 		where
-			id=#{id}
+		    in_manufacturers =#{inManufacturers} and in_specifications =#{inSpecifications}
 	</update>
 	<insert parameterType="cn.tedu.store.bean.Instock" id="addinstock">
 		insert into
@@ -199,7 +206,29 @@
 		#{inCost},#{inPricing},#{inQty},#{inManufacturers},now(),now())
         </foreach>
     </insert>
-		
+    <select id="querypartsbean" parameterType="cn.tedu.store.bean.Instock" resultType="cn.tedu.store.bean.Instock">
+		select
+		wi.id as id,
+		wi.in_name as inName,
+		wi.in_type as inType,
+		wi.in_specifications as inSpecifications,
+		wi.in_cost as inCost,
+		wi.in_qty as inQty,
+		wi.in_pricing as inPricing,
+		wi.in_manufacturers as inManufacturers
+		from
+		w_instock wi
+		where
+		id=#{insid2} 
+	</select>
+    <!-- 删除乐器（乐器表） -->  
+	<delete id="delMain" parameterType="cn.tedu.store.bean.Instock">  
+		delete from w_instrument_information  where ins_name=#{inName} and ins_specifications=#{inSpecifications} and ins_manufacturers=#{inManufacturers}
+	</delete> 
+    <!-- 删除乐器（配件表） -->  
+	<delete id="delPart" parameterType="cn.tedu.store.bean.Instock">  
+		delete from w_parts  where parts_name=#{inName} and parts_specifications=#{inSpecifications} and parts_manufacturers=#{inManufacturers}
+	</delete> 
 </mapper>
 
 		

@@ -43,9 +43,15 @@ public interface InstockMapper {
 	Integer querypartsqty(@Param("id")Integer id);
 	//导入
 	void insertInfoBatch(List<Instock> instockList);
+	//根据id更新当前记录得数量
+	void updateinstockqty(Instock instock);
 	
+	//根据入库表id返回对象
+	Instock querypartsbean(@Param("insid2")Integer insid2);
+	//删除主乐器表信息
+	void delMain(Instock instock);
+	//删除配件表信息
+	void delPart(Instock instock);
 	
-	
-
 	
 }

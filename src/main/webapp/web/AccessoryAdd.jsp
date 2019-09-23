@@ -231,7 +231,7 @@ function member_del(obj,id){
 					insid:id
 			};
 			$.ajax({
-				url :"../in/delMainInstockById.do",
+				url :"../in/delpartInstockById.do",
 				data : params,
 				type:"post",
 				async : false,
@@ -268,7 +268,7 @@ function datadel(){
 	}
 
 	function deletePtag(ptag_ids){
-	     if(confirm("您确定要删除次会员或者多条会员记录吗？删除后无法恢复,请谨慎操作！")){
+	     if(confirm("您确定要删除配件或者多条配件记录吗？删除后无法恢复,请谨慎操作！")){
 	         $.ajax({
 	             type : "post",
 	             url : "../in/delMainInsstockById.do",

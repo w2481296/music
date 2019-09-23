@@ -84,6 +84,8 @@
 			<mvc:exclude-mapping path="/in/updateinstock2.do"/>
 			<mvc:exclude-mapping path="/in/export.do"/>
 			<mvc:exclude-mapping path="/in/downloadExcel.do"/>
+			<mvc:exclude-mapping path="/in/delpartInstockById.do"/>
+			
 			<!-- 出库 -->
 			<mvc:exclude-mapping path="/out/selectoutstockByName.do"/>
 			<mvc:exclude-mapping path="/out/deloutstockById.do"/>

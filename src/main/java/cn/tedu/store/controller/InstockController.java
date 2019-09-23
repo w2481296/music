@@ -71,7 +71,7 @@ public class InstockController extends BaseController {
 
 	/**
 	 * <pre>
-	 * selectinstruByName(通过乐器Id 删除入库相关信息)    
+	 * selectinstruByName(通过乐器Id 删除入库相关信息和更新乐器表数量)    
 	 * &#64;param id
 	 * &#64;param response
 	 * &#64;return
@@ -81,15 +81,51 @@ public class InstockController extends BaseController {
 	@ResponseBody
 	public String delMainInstockById(String insid, HttpServletResponse response) {
 		Integer insid2 = Integer.valueOf(insid);
+		//查询当前记录对象
+		Instock instock=instockMapper.querypartsbean(insid2);
+		Integer num=Integer.valueOf(instock.getInQty());
 		// 删除库存表
 		instockMapper.delMainInstockById(insid2);
-		// 删除主乐器表
+		// 更新主乐器表
+		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
+		machiningList = instockMapper.queryByName(instock);
+		//得到之前主乐器表数量
+		Integer a = Integer.valueOf(machiningList.get(0).get("inQty").toString());
+		instock.setInQty(String.valueOf(a-num));
+		//更新主乐器表信息
+		instockMapper.updateoldinfo(instock);
 		return "success";
 	}
-
 	/**
 	 * <pre>
-	 * selectinstruByName(通过乐器Id 批量删除入库相关信息)    
+	 * selectinstruByName(通过乐器Id 删除入库相关信息和更新乐器表数量)    
+	 * &#64;param id
+	 * &#64;param response
+	 * &#64;return
+	 * </pre>
+	 */
+	@RequestMapping("/delpartInstockById.do")
+	@ResponseBody
+	public String delpartInstockById(String insid, HttpServletResponse response) {
+		Integer insid2 = Integer.valueOf(insid);
+		//查询当前记录对象
+		Instock instock=instockMapper.querypartsbean(insid2);
+		Integer num=Integer.valueOf(instock.getInQty());
+		// 删除库存表
+		instockMapper.delMainInstockById(insid2);
+		// 更新配件表
+		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
+		machiningList = instockMapper.querypartsByName(instock);
+		//得到之前配件表数量
+		Integer a = Integer.valueOf(machiningList.get(0).get("inQty").toString());
+		instock.setInQty(String.valueOf(a-num));
+		//更新配件表信息
+		instockMapper.updateoldpartsinfo(instock);
+		return "success";
+	}
+	/**
+	 * <pre>
+	 * selectinstruByName(通过配件Ids 删除入库相关信息和更新主乐器和配件表数量)    
 	 * &#64;param id
 	 * &#64;param response
 	 * &#64;return
@@ -102,10 +138,41 @@ public class InstockController extends BaseController {
 		Integer[] ids2 = new Integer[aStrings.length];
 		for (int i = 0; i < ids2.length; i++) {
 			ids2[i] = Integer.parseInt(aStrings[i]);
+			Instock instock=instockMapper.querypartsbean(ids2[i]);
+			Integer num=Integer.valueOf(instock.getInQty());
+			// 删除库存表
+			instockMapper.delMainInstockById(ids2[i]);
+			if(instock.getInType().equals("主乐器")){
+				// 更新主乐器表
+				List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
+				machiningList = instockMapper.queryByName(instock);
+				//得到之前主乐器表数量
+				Integer a = Integer.valueOf(machiningList.get(0).get("inQty").toString());
+				if(a-num>0){
+					instock.setInQty(String.valueOf(a-num));
+					//更新主乐器表信息
+					instockMapper.updateoldinfo(instock);
+				}else{
+					//删除
+					instockMapper.delMain(instock);
+				}
+				
+			}else if(instock.getInType().equals("配件")){
+				List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
+				machiningList = instockMapper.querypartsByName(instock);
+				// 修改相关商品表
+				Integer a = Integer.valueOf(machiningList.get(0).get("inQty").toString());
+				if(a-num>0){
+					instock.setInQty(String.valueOf(a-num));
+					//更新配件表信息
+					instockMapper.updateoldpartsinfo(instock);
+				}else{
+					//删除
+					instockMapper.delPart(instock);
+				}
+			}
+			
 		}
-		// 删除库存表
-		instockMapper.delMainInsstockById(ids2);
-		// 删除主乐器表
 		return "success";
 	}
 
@@ -128,8 +195,10 @@ public class InstockController extends BaseController {
 
 	/**
 	 * <pre>
-	 * updateinstruById(修改主乐器入库相关信息)    
-	 * &#64;
+	 * updateinstock(修改主乐器信息（修改乐器表和库存表）)    
+	 * 修改库存所有相同乐器的成本和定价
+	 * 修改当前记录的数量
+	 * 根据数量变多或变少对乐器表进行相关总数修改
 	 * &#64;param response
 	 * &#64;return
 	 * </pre>
@@ -140,7 +209,9 @@ public class InstockController extends BaseController {
 		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
 		// 原来入库数
 		Integer num = instockMapper.querypartsqty(instock.getId());
-		// 修改库存表
+		// 修改库存当前记录得数量
+		instockMapper.updateinstockqty(instock);
+		// 修改库存所有相同乐器的成本和定价
 		instockMapper.updateinstock(instock);
 		machiningList = instockMapper.queryByName(instock);
 		// 修改相关商品表
@@ -154,8 +225,8 @@ public class InstockController extends BaseController {
 				a += num2 - num;
 				instock.setInQty(String.valueOf(a));
 			}
-			instockMapper.updateoldinfo(instock);
 		}
+		instockMapper.updateoldinfo(instock);
 	}
 
 	/* 修改配件入库并修改配件表 */
@@ -165,7 +236,9 @@ public class InstockController extends BaseController {
 		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
 		// 原来入库数
 		Integer num = instockMapper.querypartsqty(instock.getId());
-		// 修改库存表
+		// 修改库存当前记录得数量
+		instockMapper.updateinstockqty(instock);
+		// 修改库存所有相同配件的成本和定价
 		instockMapper.updateinstock(instock);
 		machiningList = instockMapper.querypartsByName(instock);
 		// 修改相关商品表
@@ -180,8 +253,8 @@ public class InstockController extends BaseController {
 				a += num2 - num;
 				instock.setInQty(String.valueOf(a));
 			}
-			instockMapper.updateoldpartsinfo(instock);
 		}
+		instockMapper.updateoldpartsinfo(instock);
 	}
 
 	// 主乐器添加入库
