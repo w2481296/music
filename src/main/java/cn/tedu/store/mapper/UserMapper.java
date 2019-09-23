@@ -1,5 +1,8 @@
 package cn.tedu.store.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 import cn.tedu.store.bean.User;
@@ -35,5 +38,6 @@ public interface UserMapper {
 	void addlogininfo(@Param("username")String username, @Param("cip")String cip,@Param("cname") String cname);
 	User queryuser(@Param("email")String email);
 	Integer  selectEmail(String email);
+	List<Map<String, Object>> selectmenu(@Param("id")Integer id);
 
 }

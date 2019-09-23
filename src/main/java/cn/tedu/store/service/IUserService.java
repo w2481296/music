@@ -1,5 +1,8 @@
 package cn.tedu.store.service;
 
+import java.util.List;
+import java.util.Map;
+
 import cn.tedu.store.bean.User;
 
 public interface IUserService {
@@ -11,5 +14,6 @@ public interface IUserService {
 	String queryoldPwd(String username);
 	void updateuserNwd(String username, String newPwd);
 	User getUserByEmail(String email);
+	List<Map<String, Object>> selectMenu(Integer id);
 	
 }

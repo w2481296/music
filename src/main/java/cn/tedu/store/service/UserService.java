@@ -1,6 +1,9 @@
 package cn.tedu.store.service;
 
 
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -80,6 +83,12 @@ public class UserService implements IUserService {
 	@Override
 	public User getUserByEmail(String email) {
 		return userMapper.queryuser(email);
+	}
+
+
+	@Override
+	public List<Map<String, Object>> selectMenu(Integer id) {
+		return userMapper.selectmenu(id);
 	}
 
 

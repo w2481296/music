@@ -102,7 +102,7 @@
 					}
 				});
 	</script>
-	<script type="text/javascript">
+<!-- 	<script type="text/javascript">
 		$(document).ready(function() {
 			if ($.cookie("rmbUser") == "true") {
 				$("#ck_rmbUser").attr("checked", true);
@@ -110,6 +110,6 @@
 				$("#password").val($.cookie("password"));
 			}
 		});
-	</script>
+	</script> -->
 </body>
 </html>

@@ -44,6 +44,17 @@ public class UserController extends BaseController {
 	public String showLogin() {
 		return "redirect:/index.jsp";
 	}
+	/**
+	 * 权限方法
+	 * 
+	 */
+	@RequestMapping("/selectMenu.do")
+	@ResponseBody
+	public List<Map<String, Object>> selectMenu(Integer id) {
+		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
+		machiningList = userService.selectMenu(id);// 订单id
+		return machiningList;
+	}
 
 	// 异步请求，验证用户名
 	@RequestMapping("/checkUsername.do")

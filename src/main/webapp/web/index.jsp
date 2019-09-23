@@ -28,7 +28,31 @@
 <iframe id="mainContent"  src="showIndexx.do" scrolling="no" width="1350px" height="650px" style="margin-left: 179px;margin-top: 64px;overflow-x:hidden;"></iframe>
 <script src="../js/jquery-3.1.1.min.js"></script>
 <script>
-	$(function(){
+var id=${user.id};
+$.ajax( {
+    url : '../user/selectMenu.do',
+    data:'id='+id,
+    type : 'post',
+    success : function(result) {
+        console.log(result);
+
+        var navData = ''; //定义变量存储
+        var change=false;
+        for(var i=0;i<result.length;i++){
+	         if(result[i].menu_pid == 0&&change!=false){
+	         		 navData+="</ul></li>";
+	         }
+        	 if(result[i].menu_pid == 0){
+        		 navData+= "<li class='nav-item'><a href='javascript:;'><i class='my-icon nav-icon icon_1'></i><span>"+result[i].menu_name+"</span><i class='my-icon nav-more'></i></a><ul>";
+        		continue;
+        	 }
+			 navData+="<li><a  href='javascript:;' _link='"+result[i].menu_url+"'><span>"+result[i].menu_name+"</span></a></li>";
+			 change=true;
+		}
+        $('#aat').html(navData);
+    }
+});
+	/* $(function(){
 		var navList = [
 		  {
 		    "p" : "乐器管理"
@@ -70,7 +94,7 @@
 				navData+="</ul></li>";
 			}
 		$('#aat').html(navData);
-	})
+	}) */
 </script>
 </body>
 </html>

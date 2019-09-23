@@ -48,6 +48,7 @@
 			<mvc:exclude-mapping path="/user/exit.do"/>
 			<mvc:exclude-mapping path="/user/updatePassword.do"/>
 			<mvc:exclude-mapping path="/user/RetrievePassword.do"/>
+			<mvc:exclude-mapping path="/user/selectMenu.do"/>
 			<!-- 主乐器 -->
 			<mvc:exclude-mapping path="/ins/selectinstruByName.do"/>
 			<mvc:exclude-mapping path="/ins/delMainInsById.do"/>

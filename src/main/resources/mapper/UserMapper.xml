@@ -2,6 +2,11 @@
 	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
 		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="cn.tedu.store.mapper.UserMapper">
+	<select id="selectmenu" resultType="java.util.Map"  parameterType="java.lang.Integer">
+		SELECT * FROM menu m WHERE m.id IN(
+            SELECT rm.menu_id  FROM role_menu  rm  WHERE rm.role_id = (
+                  SELECT ur.roleId  FROM user_role ur WHERE ur.userId =#{id} )) order BY id
+	</select>
 	<insert parameterType="cn.tedu.store.bean.User" id="insert">
 		insert into
 		w_user
