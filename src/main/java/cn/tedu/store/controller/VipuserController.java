@@ -136,6 +136,7 @@ public class VipuserController {
 		public String delUserById(String vipid, HttpServletResponse response) {
 			Integer vipid2 = Integer.valueOf(vipid);
 			vipuserMapper.delMainUserById(vipid2);
+			vipuserMapper.delroleUserById(vipid2);
 			return "success";
 		}
 		//删除多个会员
@@ -148,6 +149,7 @@ public class VipuserController {
 				ids2[i] = Integer.parseInt(aStrings[i]);
 			}
 			vipuserMapper.delUsersByIds(ids2);
+			vipuserMapper.delroleUsersByIds(ids2);
 			return "success";
 		}
 		//添加会员
@@ -173,6 +175,12 @@ public class VipuserController {
 		@RequestMapping("/updateroleinfo.do")
 		@ResponseBody
 		public void updateroleinfo(String role,Integer id) {
+			vipuserMapper.updateroleinfo(Integer.valueOf(role),id);
+		}
+		@RequestMapping("/addrole.do")
+		@ResponseBody
+		public void addrole(String role,String username) {
+			Integer id=vipuserMapper.queryuserByname(username);
 			vipuserMapper.updateroleinfo(Integer.valueOf(role),id);
 		}
 		

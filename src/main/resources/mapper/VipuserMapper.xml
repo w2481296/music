@@ -158,14 +158,26 @@
 		</where>
 		group by id
 	</select>
-	<!-- 删除用户 -->
+	<!-- 删除用户(用户表) -->
 	<delete id="delMainUserById" parameterType="cn.tedu.store.bean.User">
 		delete from w_user where id= #{vipid2}
+	</delete>
+	<!-- 删除用户（权限表） -->
+	<delete id="delroleUserById" parameterType="cn.tedu.store.bean.User">
+		delete from user_role where userId= #{vipid2}
 	</delete>
 
 	<!-- 批量删除 -->
 	<delete id="delUsersByIds" parameterType="java.util.List">
 		delete from w_user where id in (
+		<foreach collection="ids2" item="id" separator=",">
+			#{id}
+		</foreach>
+		)
+	</delete>
+	<!-- 批量删除（权限表） -->
+	<delete id="delroleUsersByIds" parameterType="java.util.List">
+		delete from user_role where userId in (
 		<foreach collection="ids2" item="id" separator=",">
 			#{id}
 		</foreach>
@@ -216,14 +228,23 @@
 			id=#{id}
 	</update>
 	
-	<insert parameterType="java.lang.Integer" id="updateroleinfo">
-		insert
-		into
-		user_role
-		(userId,roleId)
-		values(#{id},#{valueOf})
-	</insert>
+	<update parameterType="java.lang.Integer" id="updateroleinfo">
+		update
+			user_role
+		set
+			roleId=#{valueOf}
+		where
+			userId=#{id}
+	</update>
 	
+	<select id="queryuserByname" resultType="java.lang.Integer"
+		parameterType="java.lang.String" useCache="false" flushCache="true">
+		select
+		id
+		from
+		w_user
+		where u_username=#{username} 
+	</select>
 </mapper>
 
 		

@@ -55,6 +55,24 @@
 				</div>
 			</div>
 			<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span
+					class="c-red">*</span>权限：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+				<div class="radio-box">
+					<input name="userrole" type="radio" value="1" id="userrole">
+					<label for="role-1">超级管理员</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="userrole" value="2" name="userrole">
+					<label for="role-2">管理员</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="userrole" value="3" name="userrole">
+					<label for="role-3">售货员</label>
+				</div>
+			</div>
+			</div>
+			<div class="row cl">
 				<label class="form-label col-xs-4 col-sm-3"><span
 					class="c-red">*</span>手机号：</label>
 				<div class="formControls col-xs-8 col-sm-9">
@@ -118,6 +136,9 @@
 						maxlength : 16,
 						equalTo : "#password",
 					},
+					userrole:{
+						required:true,
+					},
 					phone : {
 						required : true,
 						number : true,
@@ -141,7 +162,7 @@
 						data : {
 							username : username,
 							phone:phone,
-							email:email
+							email:email,
 						},
 						type : 'post',
 						success : function(obj) {
@@ -166,10 +187,23 @@
 		    		type:"post",
 		    		success:function(obj){
 		    			if(obj.state==1){
-		    				document.getElementById("form-change-password").reset();
-			    			alert("添加成功");
-			    			parent.location.reload();
-							layer_close();
+		    				var role = $('input[name="userrole"]:checked').val(); 
+		    				var username = $('#username').val();
+		    				var params={
+		    						role:role,
+		    						username:username
+		    				};
+		    				$.ajax({
+		    					url :"../vip/addrole.do",
+		    					type:"post",
+		    					data:params,
+		    					success : function(result) {
+		    						document.getElementById("form-change-password").reset();
+					    			alert("添加成功");
+					    			parent.location.reload();
+									layer_close();
+		    					},
+		    				});
 		    			}
 		    		}
 		    	});

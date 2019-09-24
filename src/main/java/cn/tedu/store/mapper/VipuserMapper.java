@@ -45,4 +45,10 @@ public interface VipuserMapper {
 
 	void updateuserinfo(User user);
 
+	Integer queryuserByname(@Param("username")String username);
+
+	void delroleUserById(@Param("vipid2")Integer vipid2);
+
+	void delroleUsersByIds(@Param("ids2")Integer[] ids2);
+
 }
