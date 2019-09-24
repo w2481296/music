@@ -41,6 +41,7 @@
 							<th style="width:10px"><input type="checkbox" name="" value=""></th>
 							<th style="width:30px">ID</th>
 							<th style="width:80px">用户名</th>
+							<th style="width:80px">权限</th>
 							<th style="width:50px">密码</th>
 							<th style="width:100px">邮箱</th>
 							<th style="width:100px">手机</th>
@@ -95,6 +96,7 @@ $(document).ready(function () {
 			{'data': 'null'}, 
             {'data': 'id'},
             {'data': 'userName'},
+            {'data': 'role'},
             {'data': 'null'},
             {'data': 'userEmail'},
             {'data': 'userPhone'},
@@ -102,11 +104,11 @@ $(document).ready(function () {
             {'data': 'null'}, 
         ],
         "columnDefs" : [ {
-        	"targets" : 7,//操作按钮目标列
+        	"targets" : 8,//操作按钮目标列
         	"data" : null,
         	"render" : function(data, type,row) {
         	var id = row.id;
-        	var html = '<a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>';
+        	var html = '<a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex31.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a><a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>';
         	return html;
       		}},
       		{
@@ -119,7 +121,7 @@ $(document).ready(function () {
             	}
             	},
             	{
-                	"targets" : 3,//操作按钮目标列
+                	"targets" : 4,//操作按钮目标列
                 	"data" : null,
                 	"render" : function(data, type,row) {
                 	var html = '**********';
@@ -180,6 +182,7 @@ $("#search").click(function(){
 	        			{'data': 'null'}, 
 	                    {'data': 'id'},
 	                    {'data': 'userName'},
+	                    {'data': 'role'},
 	                    {'data': 'null'},
 	                    {'data': 'userEmail'},
 	                    {'data': 'userPhone'},
@@ -187,11 +190,11 @@ $("#search").click(function(){
 	                    {'data': 'null'}, 
 	                ],
 	                "columnDefs" : [ {
-	                	"targets" : 7,//操作按钮目标列
+	                	"targets" : 8,//操作按钮目标列
 	                	"data" : null,
 	                	"render" : function(data, type,row) {
 	                	var id = row.id;
-	                	var html = '<a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>';
+	                	var html = '<a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex31.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a><a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>';
 	                	return html;
 	              		}},
 	              		{
@@ -204,7 +207,7 @@ $("#search").click(function(){
 	                    	}
 	                    	},
 	                    	{
-	                        	"targets" : 3,//操作按钮目标列
+	                        	"targets" : 4,//操作按钮目标列
 	                        	"data" : null,
 	                        	"render" : function(data, type,row) {
 	                        	var html = '**********';
@@ -293,6 +296,7 @@ function datadel(){
 	}
 	/*用户-查看*/
 	function member_show(title,url,id,w,h){
+		localStorage.setItem("vipeditId",id);
 		layer_show(title,url,w,h);
 	}
 </script>

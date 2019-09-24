@@ -2,152 +2,174 @@
 	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
 		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="cn.tedu.store.mapper.VipuserMapper">
-	<select id="selectVipInfo" resultType="java.util.Map" parameterType="java.lang.String"
-	useCache="false" flushCache="true">
+	<select id="selectVipInfo" resultType="java.util.Map"
+		parameterType="java.lang.String" useCache="false" flushCache="true">
 		select
-			id as id,
-			vip_name as vipName,
-			vip_gender as vipGender,
-			vip_age as vipAge,
-			vip_phone as vipPhone,
-			vip_integral as vipIntegral,
-		date_format(vip_createtime,'%Y-%c-%d %H:%i:%S') AS vipCreatetime,
-		date_format(vip_updatetime,'%Y-%c-%d %H:%i:%S') AS vipUpdatetime
+		id as id,
+		vip_name as vipName,
+		vip_gender as vipGender,
+		vip_age as vipAge,
+		vip_phone as vipPhone,
+		vip_integral as vipIntegral,
+		date_format(vip_createtime,'%Y-%c-%d %H:%i:%S') AS
+		vipCreatetime,
+		date_format(vip_updatetime,'%Y-%c-%d %H:%i:%S') AS
+		vipUpdatetime
 		from
-			w_vip
-		<where> 1=1
+		w_vip
+		<where>
+			1=1
 			<if test="vipName!=null and vipName!=''">
 				AND vip_name like CONCAT('%',#{vipName},'%')
 			</if>
 			<if test="vipTime1!=null and vipTime1!=''">
-				AND DATE_FORMAT(vip_createtime ,'%Y-%c-%d')&gt;=#{vipTime1}
+				AND DATE_FORMAT(vip_createtime
+				,'%Y-%c-%d')&gt;=#{vipTime1}
 			</if>
 			<if test="vipTime2!=null and vipTime2!=''">
-				AND DATE_FORMAT(vip_createtime ,'%Y-%c-%d')&lt;=#{vipTime2}
+				AND DATE_FORMAT(vip_createtime
+				,'%Y-%c-%d')&lt;=#{vipTime2}
 			</if>
 		</where>
 		group by id
 	</select>
 	<!-- 查询登录日志 -->
-	<select id="querylogin" resultType="java.util.Map" parameterType="java.lang.String"
-	useCache="false" flushCache="true">
+	<select id="querylogin" resultType="java.util.Map"
+		parameterType="java.lang.String" useCache="false" flushCache="true">
 		select
-			id as id,
-			username as username,
-			userip as userip,
-			city as city,
-			remake as remake,
-			date_format(logintime,'%Y-%c-%d %H:%i:%S') AS logintime
+		w.id as id,
+		w.username as username,
+		r.rolename as role,
+		w.userip as userip,
+		w.city as city,
+		w.remake as remake,
+		date_format(w.logintime,'%Y-%c-%d %H:%i:%S') AS logintime
 		from
-			w_logininfo
-		<where> 1=1
+		w_logininfo w
+		LEFT JOIN w_user wu on w.username = wu.u_username
+		left join user_role
+		u on u.userId=wu.id
+		LEFT JOIN role r on r.id=u.roleId
+		<where>
+			1=1
 			<if test="vipName!=null and vipName!=''">
-				AND username like CONCAT('%',#{vipName},'%')
+				AND w.username like CONCAT('%',#{vipName},'%')
 			</if>
 			<if test="vipTime1!=null and vipTime1!=''">
-				AND DATE_FORMAT(logintime ,'%Y-%c-%d')&gt;=#{vipTime1}
+				AND DATE_FORMAT(w.logintime ,'%Y-%c-%d')&gt;=#{vipTime1}
 			</if>
 			<if test="vipTime2!=null and vipTime2!=''">
-				AND DATE_FORMAT(logintime ,'%Y-%c-%d')&lt;=#{vipTime2}
+				AND DATE_FORMAT(w.logintime ,'%Y-%c-%d')&lt;=#{vipTime2}
 			</if>
 		</where>
 		group by id
 	</select>
-	
-	<!-- 删除会员 -->  
-	<delete id="delMainInsById" parameterType="cn.tedu.store.bean.vipuser">  
-		delete from w_vip  where id= #{vipid2}
-	</delete> 
+
+	<!-- 删除会员 -->
+	<delete id="delMainInsById" parameterType="cn.tedu.store.bean.vipuser">
+		delete from w_vip where id= #{vipid2}
+	</delete>
 	<!-- 批量删除 -->
-	<delete id="delvipsByIds"  parameterType="java.util.List">
-         delete from w_vip where id in ( 
-         <foreach collection="ids2" item="id" separator=",">
-            #{id}
-        </foreach>)
+	<delete id="delvipsByIds" parameterType="java.util.List">
+		delete from w_vip where id in (
+		<foreach collection="ids2" item="id" separator=",">
+			#{id}
+		</foreach>
+		)
 	</delete>
 	<insert parameterType="cn.tedu.store.bean.vipuser" id="addvipinfo">
-		insert into
+		insert
+		into
 		w_vip
 		(vip_name,vip_gender,vip_age,vip_phone,vip_updatetime)
 		values(#{vipName},#{vipGender},#{vipAge},#{vipPhone},now())
 	</insert>
-	
-	<select id="queryvipById" resultType="java.util.Map" parameterType="java.lang.Integer"
-	useCache="false" flushCache="true">
+
+	<select id="queryvipById" resultType="java.util.Map"
+		parameterType="java.lang.Integer" useCache="false" flushCache="true">
 		select
-			id as id,
-			vip_name as vipName,
-			vip_gender as vipGender,
-			vip_age as vipAge,
-			vip_phone as vipPhone,
-			vip_integral as vipIntegral,
-			date_format(vip_createtime,'%Y-%c-%d %H:%i:%S') AS vipCreatetime,
-			date_format(vip_updatetime,'%Y-%c-%d %H:%i:%S') AS vipUpdatetime
+		id as id,
+		vip_name as vipName,
+		vip_gender as vipGender,
+		vip_age as vipAge,
+		vip_phone as vipPhone,
+		vip_integral as vipIntegral,
+		date_format(vip_createtime,'%Y-%c-%d %H:%i:%S') AS vipCreatetime,
+		date_format(vip_updatetime,'%Y-%c-%d %H:%i:%S') AS vipUpdatetime
 		from
-			w_vip
+		w_vip
 		where
-			id=#{ids2}
+		id=#{ids2}
 	</select>
 	<update id="updatevipinfo" parameterType="cn.tedu.store.bean.vipuser">
 		update
-			w_vip
+		w_vip
 		<set>
-				vip_name =#{vipName},
-				vip_gender=#{vipGender},
+			vip_name =#{vipName},
+			vip_gender=#{vipGender},
 			<if test="vipAge!=null||vipAge!=''">
 				vip_age =#{vipAge},
 			</if>
 			<if test="vipPhone!=null||vipPhone!=''">
 				vip_phone =#{vipPhone},
-			</if>			
+			</if>
 			<if test="vipIntegral!=null||vipIntegral!=''">
 				vip_integral =#{vipIntegral},
 			</if>
-				vip_updatetime=now()
+			vip_updatetime=now()
 		</set>
 		where
-			id=#{id}
+		id=#{id}
 	</update>
-	
-	
-	
-	
-	
-	<select id="selectUserInfo" resultType="java.util.Map" parameterType="java.lang.String"
-	useCache="false" flushCache="true">
+
+
+
+
+
+	<select id="selectUserInfo" resultType="java.util.Map"
+		parameterType="java.lang.String" useCache="false" flushCache="true">
 		select
-			id as id,
-			u_username as userName,
-			u_password as userPassword,
-			u_email as userEmail,
-			u_phone as userPhone,
-		date_format(u_updatetime,'%Y-%c-%d %H:%i:%S') AS userUpdatetime
+		w.id as id,
+		w.u_username as userName,
+		r.rolename as role,
+		w.u_password as userPassword,
+		w.u_email as userEmail,
+		w.u_phone as userPhone,
+		date_format(u_updatetime,'%Y-%c-%d %H:%i:%S') AS
+		userUpdatetime
 		from
-			w_user
-		<where> 1=1
+		w_user w
+		left join user_role u on u.userId=w.id
+		LEFT JOIN role r on
+		r.id=u.roleId
+		<where>
+			1=1
 			<if test="vipName!=null and vipName!=''">
-				AND u_username like CONCAT('%',#{vipName},'%')
+				AND w.u_username like CONCAT('%',#{vipName},'%')
 			</if>
 			<if test="vipTime1!=null and vipTime1!=''">
-				AND DATE_FORMAT(u_updatetime ,'%Y-%c-%d')&gt;=#{vipTime1}
+				AND DATE_FORMAT(w.u_updatetime
+				,'%Y-%c-%d')&gt;=#{vipTime1}
 			</if>
 			<if test="vipTime2!=null and vipTime2!=''">
-				AND DATE_FORMAT(u_updatetime ,'%Y-%c-%d')&lt;=#{vipTime2}
+				AND DATE_FORMAT(w.u_updatetime
+				,'%Y-%c-%d')&lt;=#{vipTime2}
 			</if>
 		</where>
 		group by id
 	</select>
-	<!-- 删除用户-->  
-	<delete id="delMainUserById" parameterType="cn.tedu.store.bean.User">  
-		delete from w_user  where id= #{vipid2}
-	</delete> 
+	<!-- 删除用户 -->
+	<delete id="delMainUserById" parameterType="cn.tedu.store.bean.User">
+		delete from w_user where id= #{vipid2}
+	</delete>
 
 	<!-- 批量删除 -->
-	<delete id="delUsersByIds"  parameterType="java.util.List">
-         delete from w_user where id in ( 
-         <foreach collection="ids2" item="id" separator=",">
-            #{id}
-        </foreach>)
+	<delete id="delUsersByIds" parameterType="java.util.List">
+		delete from w_user where id in (
+		<foreach collection="ids2" item="id" separator=",">
+			#{id}
+		</foreach>
+		)
 	</delete>
 	<insert parameterType="cn.tedu.store.bean.User" id="addUserinfo">
 		insert into
@@ -155,6 +177,53 @@
 		(u_username,u_password,u_email,u_phone,u_updatetime)
 		values(#{username},#{password},#{email},#{phone},now())
 	</insert>
+
+	<select id="queryuserById" resultType="java.util.Map"
+		parameterType="java.lang.Integer" useCache="false" flushCache="true">
+		SELECT
+		w.id AS id,
+		w.u_username AS username,
+		r.rolename AS role,
+		w.u_password AS PASSWORD,
+		w.u_email AS email,
+		w.u_phone AS phone,
+		date_format(
+		u_updatetime,
+		'%Y-%c-%d %H:%i:%S'
+		) AS updatetime
+		FROM
+		w_user w
+		LEFT JOIN user_role u ON u.userId = w.id
+		LEFT JOIN role r ON r.id = u.roleId
+		WHERE
+		w.id =#{ids2}
+		GROUP BY
+		id
+	</select>
+	<update id="updateuserinfo" parameterType="cn.tedu.store.bean.User">
+		update
+			w_user
+		<set>		
+			<if test="phone!=null||phone!=''">
+				u_phone=#{phone},
+			</if>
+			<if test="email!=null||email!=''">
+				u_email=#{email},
+			</if>
+				u_updatetime=now()
+		</set>
+		where
+			id=#{id}
+	</update>
+	
+	<insert parameterType="java.lang.Integer" id="updateroleinfo">
+		insert
+		into
+		user_role
+		(userId,roleId)
+		values(#{id},#{valueOf})
+	</insert>
+	
 </mapper>
 
 		

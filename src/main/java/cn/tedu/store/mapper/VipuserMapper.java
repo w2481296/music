@@ -39,4 +39,10 @@ public interface VipuserMapper {
 
 	void addUserinfo(User user);
 
+	List<Map<String, Object>> queryuserById(@Param("ids2")Integer ids2);
+
+	void updateroleinfo(@Param("valueOf")Integer valueOf, @Param("id")Integer id);
+
+	void updateuserinfo(User user);
+
 }

@@ -73,6 +73,8 @@
 			<mvc:exclude-mapping path="/vip/delUserById.do"/>
 			<mvc:exclude-mapping path="/vip/delUsersByIds.do"/>
 			<mvc:exclude-mapping path="/vip/addUserinfo.do"/>
+			<mvc:exclude-mapping path="/vip/updateuserinfo.do"/>
+			<mvc:exclude-mapping path="/vip/updateroleinfo.do"/>
 			<!-- 入库 -->
 			<mvc:exclude-mapping path="/in/selectinstockByName.do"/>
 			<mvc:exclude-mapping path="/in/selectinstockByName1.do"/>

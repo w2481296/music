@@ -162,4 +162,9 @@ public class MainController {
 	public String showIndex30() {
 		return "user-add";
 	}
+	//±‡º≠”√ªß
+	@RequestMapping("/showIndex31.do")
+	public String showIndex31() {
+		return "user-show";
+	}
 }

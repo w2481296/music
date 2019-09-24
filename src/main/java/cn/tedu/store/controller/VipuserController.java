@@ -156,5 +156,25 @@ public class VipuserController {
 		public void addUserinfo(User user) {
 			vipuserMapper.addUserinfo(user);
 		}
-
+		//根据用户id查询用户信息
+		@RequestMapping("/queryuserById.do")
+		@ResponseBody
+		public List<Map<String, Object>> queryuserById(String ids, HttpServletResponse response) {
+			List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
+			Integer ids2 = Integer.parseInt(ids);
+			machiningList = vipuserMapper.queryuserById(ids2);
+			return machiningList;
+		}
+		@RequestMapping("/updateuserinfo.do")
+		@ResponseBody
+		public void updateuserinfo(User user) {
+			vipuserMapper.updateuserinfo(user);
+		}
+		@RequestMapping("/updateroleinfo.do")
+		@ResponseBody
+		public void updateroleinfo(String role,Integer id) {
+			vipuserMapper.updateroleinfo(Integer.valueOf(role),id);
+		}
+		
+		
 }

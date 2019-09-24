@@ -39,6 +39,7 @@
 						<tr class="text-c">
 							<th style="width:50px">ID</th>
 							<th style="width:80px">用户名</th>
+							<th style="width:80px">用户权限</th>
 							<th style="width:50px">客户端IP</th>
 							<th style="width:50px">登陆城市</th>
 							<th style="width:50px">内容</th>
@@ -92,6 +93,7 @@ $(document).ready(function () {
         "columns": [ 
 			{'data': 'id'}, 
             {'data': 'username'},
+            {'data': 'role'},
             {'data': 'userip'},
             {'data': 'city'},
             {'data': 'remake'},
@@ -148,6 +150,7 @@ $("#search").click(function(){
 	        "columns": [ 
 	        			{'data': 'id'}, 
 	                    {'data': 'username'},
+	                    {'data': 'role'},
 	                    {'data': 'userip'},
 	                    {'data': 'city'},
 	                    {'data': 'remake'},
