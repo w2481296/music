@@ -167,4 +167,19 @@ public class MainController {
 	public String showIndex31() {
 		return "user-show";
 	}
+	//角色管理
+	@RequestMapping("/showIndex32.do")
+	public String showIndex32() {
+		return "admin-role";
+	}
+	//角色管理编辑
+	@RequestMapping("/showIndex33.do")
+	public String showIndex33() {
+		return "admin-role-edit";
+	}
+	//角色管理添加
+	@RequestMapping("/showIndex34.do")
+	public String showIndex34() {
+		return "admin-role-add";
+	}
 }

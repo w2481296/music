@@ -34,8 +34,6 @@ $.ajax( {
     data:'id='+id,
     type : 'post',
     success : function(result) {
-        console.log(result);
-
         var navData = ''; //定义变量存储
         var change=false;
         for(var i=0;i<result.length;i++){

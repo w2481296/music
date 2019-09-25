@@ -32,8 +32,7 @@ public class VipuserController {
 	 */
 	@RequestMapping("/selectVipInfo.do")
 	@ResponseBody
-	public PageQueryBean selectVipInfo(String vipName, String vipTime1, String vipTime2,
-			HttpServletResponse response) {
+	public PageQueryBean selectVipInfo(String vipName, String vipTime1, String vipTime2, HttpServletResponse response) {
 		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
 		machiningList = vipuserMapper.selectVipInfo(vipName, vipTime1, vipTime2);// 订单id
 		PageQueryBean pageQueryBean = new PageQueryBean();
@@ -41,7 +40,8 @@ public class VipuserController {
 		pageQueryBean.setTotalRows(machiningList.size());
 		return pageQueryBean;
 	}
-	//删除单个会员
+
+	// 删除单个会员
 	@RequestMapping("/delvipById.do")
 	@ResponseBody
 	public String delvipById(String vipid, HttpServletResponse response) {
@@ -49,7 +49,8 @@ public class VipuserController {
 		vipuserMapper.delMainInsById(vipid2);
 		return "success";
 	}
-	//删除多个会员
+
+	// 删除多个会员
 	@RequestMapping("/delvipsByIds.do")
 	@ResponseBody
 	public String delvipsByIds(String ids, HttpServletResponse response) {
@@ -61,12 +62,14 @@ public class VipuserController {
 		vipuserMapper.delvipsByIds(ids2);
 		return "success";
 	}
-	//添加会员
+
+	// 添加会员
 	@RequestMapping("/addvipinfo.do")
 	@ResponseBody
 	public void addvipinfo(vipuser vipuser) {
 		vipuserMapper.addvipinfo(vipuser);
 	}
+
 	/**
 	 * <pre>
 	 * queryvipById(通过vip Id 查询会员相关信息)    
@@ -97,92 +100,121 @@ public class VipuserController {
 	public void updatevipinfo(vipuser vipuser) {
 		vipuserMapper.updatevipinfo(vipuser);
 	}
+
 	// 查询登陆日志
-		@RequestMapping("/querylogin.do")
+	@RequestMapping("/querylogin.do")
+	@ResponseBody
+	public PageQueryBean querylogin(String vipName, String vipTime1, String vipTime2, HttpServletResponse response) {
+		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
+		machiningList = vipuserMapper.querylogin(vipName, vipTime1, vipTime2);// 订单id
+		PageQueryBean pageQueryBean = new PageQueryBean();
+		pageQueryBean.setItems(machiningList);
+		pageQueryBean.setTotalRows(machiningList.size());
+		return pageQueryBean;
+	}
+
+	/**
+	 * user使用地方
+	 * 
+	 * @param vipName
+	 * @param vipTime1
+	 * @param vipTime2
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/selectUserInfo.do")
+	@ResponseBody
+	public PageQueryBean selectUserInfo(String vipName, String vipTime1, String vipTime2,
+			HttpServletResponse response) {
+		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
+		machiningList = vipuserMapper.selectUserInfo(vipName, vipTime1, vipTime2);// 订单id
+		PageQueryBean pageQueryBean = new PageQueryBean();
+		pageQueryBean.setItems(machiningList);
+		pageQueryBean.setTotalRows(machiningList.size());
+		return pageQueryBean;
+	}
+
+	// 删除单个用户
+	@RequestMapping("/delUserById.do")
+	@ResponseBody
+	public String delUserById(String vipid, HttpServletResponse response) {
+		Integer vipid2 = Integer.valueOf(vipid);
+		vipuserMapper.delMainUserById(vipid2);
+		vipuserMapper.delroleUserById(vipid2);
+		return "success";
+	}
+
+	// 删除多个用户
+	@RequestMapping("/delUsersByIds.do")
+	@ResponseBody
+	public String delUsersByIds(String ids, HttpServletResponse response) {
+		String[] aStrings = ids.split(",");
+		Integer[] ids2 = new Integer[aStrings.length];
+		for (int i = 0; i < ids2.length; i++) {
+			ids2[i] = Integer.parseInt(aStrings[i]);
+		}
+		vipuserMapper.delUsersByIds(ids2);
+		vipuserMapper.delroleUsersByIds(ids2);
+		return "success";
+	}
+
+	// 添加会员
+	@RequestMapping("/addUserinfo.do")
+	@ResponseBody
+	public void addUserinfo(User user) {
+		vipuserMapper.addUserinfo(user);
+	}
+
+	// 根据用户id查询用户信息
+	@RequestMapping("/queryuserById.do")
+	@ResponseBody
+	public List<Map<String, Object>> queryuserById(String ids, HttpServletResponse response) {
+		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
+		Integer ids2 = Integer.parseInt(ids);
+		machiningList = vipuserMapper.queryuserById(ids2);
+		return machiningList;
+	}
+
+	@RequestMapping("/updateuserinfo.do")
+	@ResponseBody
+	public void updateuserinfo(User user) {
+		vipuserMapper.updateuserinfo(user);
+	}
+
+	@RequestMapping("/updateroleinfo.do")
+	@ResponseBody
+	public void updateroleinfo(String role, Integer id) {
+		vipuserMapper.updateroleinfo(Integer.valueOf(role), id);
+	}
+
+	@RequestMapping("/addrole.do")
+	@ResponseBody
+	public void addrole(String role, String username) {
+		Integer id = vipuserMapper.queryuserByname(username);
+		vipuserMapper.updateroleinfo(Integer.valueOf(role), id);
+	}
+
+	// 权限使用地方
+	@RequestMapping("/selectrole.do")
+	@ResponseBody
+	public List<Map<String, Object>> selectrole() {
+		return vipuserMapper.selectrole();
+	}
+
+	// 删除角色
+	@RequestMapping("/delroleById.do")
+	@ResponseBody
+	public String delroleById(String vipid, HttpServletResponse response) {
+		Integer vipid2 = Integer.valueOf(vipid);
+		vipuserMapper.delroleById(vipid2);
+		return "success";
+	}
+	// 所有菜单查询
+		@RequestMapping("/selectmenu.do")
 		@ResponseBody
-		public PageQueryBean querylogin(String vipName, String vipTime1, String vipTime2,
-				HttpServletResponse response) {
+		public List<Map<String, Object>> selectMenu() {
 			List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
-			machiningList = vipuserMapper.querylogin(vipName, vipTime1, vipTime2);// 订单id
-			PageQueryBean pageQueryBean = new PageQueryBean();
-			pageQueryBean.setItems(machiningList);
-			pageQueryBean.setTotalRows(machiningList.size());
-			return pageQueryBean;
-		}
-		
-		
-		/**
-		 * user使用地方
-		 * @param vipName
-		 * @param vipTime1
-		 * @param vipTime2
-		 * @param response
-		 * @return
-		 */
-		@RequestMapping("/selectUserInfo.do")
-		@ResponseBody
-		public PageQueryBean selectUserInfo(String vipName, String vipTime1, String vipTime2,
-				HttpServletResponse response) {
-			List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
-			machiningList = vipuserMapper.selectUserInfo(vipName, vipTime1, vipTime2);// 订单id
-			PageQueryBean pageQueryBean = new PageQueryBean();
-			pageQueryBean.setItems(machiningList);
-			pageQueryBean.setTotalRows(machiningList.size());
-			return pageQueryBean;
-		}
-		//删除单个会员
-		@RequestMapping("/delUserById.do")
-		@ResponseBody
-		public String delUserById(String vipid, HttpServletResponse response) {
-			Integer vipid2 = Integer.valueOf(vipid);
-			vipuserMapper.delMainUserById(vipid2);
-			vipuserMapper.delroleUserById(vipid2);
-			return "success";
-		}
-		//删除多个会员
-		@RequestMapping("/delUsersByIds.do")
-		@ResponseBody
-		public String delUsersByIds(String ids, HttpServletResponse response) {
-			String[] aStrings = ids.split(",");
-			Integer[] ids2 = new Integer[aStrings.length];
-			for (int i = 0; i < ids2.length; i++) {
-				ids2[i] = Integer.parseInt(aStrings[i]);
-			}
-			vipuserMapper.delUsersByIds(ids2);
-			vipuserMapper.delroleUsersByIds(ids2);
-			return "success";
-		}
-		//添加会员
-		@RequestMapping("/addUserinfo.do")
-		@ResponseBody
-		public void addUserinfo(User user) {
-			vipuserMapper.addUserinfo(user);
-		}
-		//根据用户id查询用户信息
-		@RequestMapping("/queryuserById.do")
-		@ResponseBody
-		public List<Map<String, Object>> queryuserById(String ids, HttpServletResponse response) {
-			List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
-			Integer ids2 = Integer.parseInt(ids);
-			machiningList = vipuserMapper.queryuserById(ids2);
+			machiningList = vipuserMapper.selectMenu();
 			return machiningList;
 		}
-		@RequestMapping("/updateuserinfo.do")
-		@ResponseBody
-		public void updateuserinfo(User user) {
-			vipuserMapper.updateuserinfo(user);
-		}
-		@RequestMapping("/updateroleinfo.do")
-		@ResponseBody
-		public void updateroleinfo(String role,Integer id) {
-			vipuserMapper.updateroleinfo(Integer.valueOf(role),id);
-		}
-		@RequestMapping("/addrole.do")
-		@ResponseBody
-		public void addrole(String role,String username) {
-			Integer id=vipuserMapper.queryuserByname(username);
-			vipuserMapper.updateroleinfo(Integer.valueOf(role),id);
-		}
-		
-		
 }

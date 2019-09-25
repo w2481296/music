@@ -8,7 +8,8 @@
 		id as id,
 		vip_name as vipName,
 		vip_gender as vipGender,
-		vip_age as vipAge,
+		vip_age as
+		vipAge,
 		vip_phone as vipPhone,
 		vip_integral as vipIntegral,
 		date_format(vip_createtime,'%Y-%c-%d %H:%i:%S') AS
@@ -40,14 +41,16 @@
 		w.id as id,
 		w.username as username,
 		r.rolename as role,
-		w.userip as userip,
+		w.userip as
+		userip,
 		w.city as city,
 		w.remake as remake,
 		date_format(w.logintime,'%Y-%c-%d %H:%i:%S') AS logintime
 		from
 		w_logininfo w
 		LEFT JOIN w_user wu on w.username = wu.u_username
-		left join user_role
+		left
+		join user_role
 		u on u.userId=wu.id
 		LEFT JOIN role r on r.id=u.roleId
 		<where>
@@ -67,7 +70,8 @@
 
 	<!-- 删除会员 -->
 	<delete id="delMainInsById" parameterType="cn.tedu.store.bean.vipuser">
-		delete from w_vip where id= #{vipid2}
+		delete from w_vip
+		where id= #{vipid2}
 	</delete>
 	<!-- 批量删除 -->
 	<delete id="delvipsByIds" parameterType="java.util.List">
@@ -91,7 +95,8 @@
 		id as id,
 		vip_name as vipName,
 		vip_gender as vipGender,
-		vip_age as vipAge,
+		vip_age as
+		vipAge,
 		vip_phone as vipPhone,
 		vip_integral as vipIntegral,
 		date_format(vip_createtime,'%Y-%c-%d %H:%i:%S') AS vipCreatetime,
@@ -134,13 +139,15 @@
 		r.rolename as role,
 		w.u_password as userPassword,
 		w.u_email as userEmail,
-		w.u_phone as userPhone,
+		w.u_phone as
+		userPhone,
 		date_format(u_updatetime,'%Y-%c-%d %H:%i:%S') AS
 		userUpdatetime
 		from
 		w_user w
 		left join user_role u on u.userId=w.id
-		LEFT JOIN role r on
+		LEFT
+		JOIN role r on
 		r.id=u.roleId
 		<where>
 			1=1
@@ -160,11 +167,13 @@
 	</select>
 	<!-- 删除用户(用户表) -->
 	<delete id="delMainUserById" parameterType="cn.tedu.store.bean.User">
-		delete from w_user where id= #{vipid2}
+		delete from w_user
+		where id= #{vipid2}
 	</delete>
 	<!-- 删除用户（权限表） -->
 	<delete id="delroleUserById" parameterType="cn.tedu.store.bean.User">
-		delete from user_role where userId= #{vipid2}
+		delete from user_role
+		where userId= #{vipid2}
 	</delete>
 
 	<!-- 批量删除 -->
@@ -196,7 +205,8 @@
 		w.id AS id,
 		w.u_username AS username,
 		r.rolename AS role,
-		w.u_password AS PASSWORD,
+		w.u_password AS
+		PASSWORD,
 		w.u_email AS email,
 		w.u_phone AS phone,
 		date_format(
@@ -205,7 +215,8 @@
 		) AS updatetime
 		FROM
 		w_user w
-		LEFT JOIN user_role u ON u.userId = w.id
+		LEFT JOIN
+		user_role u ON u.userId = w.id
 		LEFT JOIN role r ON r.id = u.roleId
 		WHERE
 		w.id =#{ids2}
@@ -214,37 +225,63 @@
 	</select>
 	<update id="updateuserinfo" parameterType="cn.tedu.store.bean.User">
 		update
-			w_user
-		<set>		
+		w_user
+		<set>
 			<if test="phone!=null||phone!=''">
 				u_phone=#{phone},
 			</if>
 			<if test="email!=null||email!=''">
 				u_email=#{email},
 			</if>
-				u_updatetime=now()
+			u_updatetime=now()
 		</set>
 		where
-			id=#{id}
+		id=#{id}
 	</update>
-	
+
 	<update parameterType="java.lang.Integer" id="updateroleinfo">
 		update
-			user_role
+		user_role
 		set
-			roleId=#{valueOf}
+		roleId=#{valueOf}
 		where
-			userId=#{id}
+		userId=#{id}
 	</update>
-	
+
 	<select id="queryuserByname" resultType="java.lang.Integer"
 		parameterType="java.lang.String" useCache="false" flushCache="true">
 		select
 		id
 		from
 		w_user
-		where u_username=#{username} 
+		where u_username=#{username}
 	</select>
+
+	<select id="selectrole" resultType="java.util.Map">
+		SELECT
+		id,
+		rolename,
+		remake
+		FROM
+		role
+	</select>
+	<delete id="delroleById" parameterType="java.lang.Integer">
+		delete
+		t1,t2,t3
+		FROM
+		role AS t1
+		LEFT JOIN user_role AS t2 ON t1.id = t2.roleId
+		LEFT JOIN role_menu t3 ON t1.id = t3.role_id
+		WHERE
+		t1.id =#{vipid2}
+	</delete>
+	<select id="selectMenu" resultType="java.util.Map">
+		SELECT
+		*
+		FROM
+		menu
+	</select>
+	
 </mapper>
 
 		
