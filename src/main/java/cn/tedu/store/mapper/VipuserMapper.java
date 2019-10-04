@@ -41,7 +41,7 @@ public interface VipuserMapper {
 
 	List<Map<String, Object>> queryuserById(@Param("ids2")Integer ids2);
 
-	void updateroleinfo(@Param("valueOf")Integer valueOf, @Param("id")Integer id);
+	void updateroleinfo(@Param("role")Integer role, @Param("id")Integer id);
 
 	void updateuserinfo(User user);
 
@@ -56,5 +56,22 @@ public interface VipuserMapper {
 	void delroleById(@Param("vipid2")Integer vipid2);
 
 	List<Map<String, Object>> selectMenu();
+
+	void addrole(@Param("rolename")String rolename, @Param("remake")String remake);
+
+	void addrolemenu(@Param("id")int id, @Param("valu")int valu);
+
+	int qryroleid(@Param("rolename")String rolename);
+
+	List<Map<String, Object>> selectmenubyid(@Param("id")int id);
+	
+	Map<String, Object> selectrolebyid(@Param("id")int id);
+
+	void delrolemenuById(@Param("id")Integer id);
+
+	void updaterole(@Param("rolename")String rolename, @Param("remake")String remake);
+
+	void insertroleinfo(@Param("role")Integer role, @Param("id")Integer id);
+	
 
 }

@@ -23,7 +23,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">描述：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="" name="">
+				<input type="text" class="input-text" value="" placeholder="" id="remake" name="remake">
 			</div>
 		</div>
 		<div class="row cl">
@@ -64,10 +64,10 @@ $(document).ready(function () {
 	         		 navData+="</dl></dd></dl>";
 	        	}
 	        	if(result[i].menu_pid == 0){
-	        		 navData+='<dl class="permission-list" ><dt><label><input type="checkbox" value="'+result[i].menu_id+'" name="user-Character-0" id="user-Character-0" onclick="checkAll(this)">'+result[i].menu_name+'</label></dt><dd><dl class="cl permission-list2">';
+	        		 navData+='<dl class="permission-list" ><dt><label><input type="checkbox" value="'+result[i].menu_id+'" name="role-Character" id="role-Character" onclick="checkAll(this)">'+result[i].menu_name+'</label></dt><dd><dl class="cl permission-list2">';
 	        		 continue;
 	        	}
-				navData+='<dt><label><input type="checkbox" value="'+result[i].menu_id+'" name="user-Character-0-0" id="user-Character-0-0">'+result[i].menu_name+'</label></dt>'
+				navData+='<dt><label><input type="checkbox" value="'+result[i].menu_id+'" name="role-Character" id="role-Character" onclick="checkParent(this)">'+result[i].menu_name+'</label></dt>'
 				change=true;
 	        }
 	        $('#text-data').html(navData);
@@ -75,6 +75,7 @@ $(document).ready(function () {
 	});
 
 });
+	//选择父级所有子级变化
 	function checkAll(obj){
 		if($(obj).prop("checked")){
 			$(obj).closest("dl").find("dd dl input").prop("checked",true);
@@ -82,6 +83,16 @@ $(document).ready(function () {
 			$(obj).closest("dl").find("dd dl input").prop("checked",false);
 		}
 		
+	}
+	//选择子级，让父级被选
+	 function checkParent(obj){
+		 var allCheckNum = $(obj).closest("dl").find("input[type='checkbox']").length;
+		 var checkedNum = $(obj).closest("dl").find("input[type='checkbox']:checked").length;
+		 if(checkedNum==0){
+			 $(obj).closest("dl").parents("dl").find("dt:first input").prop("checked",false);
+		 }else if($(obj).prop("checked")){
+			$(obj).closest("dl").parents("dl").find("dt:first input").prop("checked",true);
+		}
 	}
 	function addrole(){
 		var i = 0;
@@ -108,11 +119,34 @@ $(document).ready(function () {
 		success:"valid",
 		submitHandler:function(form){
 			if(addrole()){
-				alert("成功");
+				var valu = "";
+				$("#text-data input[type=checkbox]").each(function () {
+				    if (this.checked == true) {
+				      valu += $(this).val() + ",";
+				      }
+				});
+				valu = valu.substring(0, valu.length - 1);
+				var params={
+						rolename:$("#roleName").val(),
+						remake:$("#remake").val(),
+						valu:valu,
+				};
+				$.ajax( {
+				    url : '../vip/addrolemenu.do',
+				    data:params,
+				    type : 'post',
+				    success : function(result) {
+				    	if(result=="error"){
+				    		alert("该角色已存在，请重新输入");
+				    	}else if(result="success"){
+				    		parent.location.reload();
+							layer_close();
+				    	}
+				    	
+				    	
+				    }
+				}); 
 			};
-			/* $(form).ajaxSubmit(); */
-			/* var index = parent.layer.getFrameIndex(window.name);
-			parent.layer.close(index); */
 		}
 	}); 
 

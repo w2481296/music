@@ -79,6 +79,8 @@
 			<mvc:exclude-mapping path="/vip/selectrole.do"/>
 			<mvc:exclude-mapping path="/vip/delroleById.do"/>
 			<mvc:exclude-mapping path="/vip/selectmenu.do"/>
+			<mvc:exclude-mapping path="/vip/addrolemenu.do"/>
+			<mvc:exclude-mapping path="/vip/selectmenubyid.do"/>
 			<!-- 入库 -->
 			<mvc:exclude-mapping path="/in/selectinstockByName.do"/>
 			<mvc:exclude-mapping path="/in/selectinstockByName1.do"/>

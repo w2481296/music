@@ -205,6 +205,7 @@
 		w.id AS id,
 		w.u_username AS username,
 		r.rolename AS role,
+		r.id AS roleId,
 		w.u_password AS
 		PASSWORD,
 		w.u_email AS email,
@@ -243,7 +244,7 @@
 		update
 		user_role
 		set
-		roleId=#{valueOf}
+		roleId=#{role}
 		where
 		userId=#{id}
 	</update>
@@ -281,6 +282,64 @@
 		FROM
 		menu
 	</select>
+	
+	<insert parameterType="java.lang.String" id="addrole">
+		insert into
+			role
+			(rolename,remake)
+		values(#{rolename},#{remake})
+	</insert>
+	<insert parameterType="java.lang.Integer" id="insertroleinfo">
+		insert into
+			user_role
+			(userId,roleId)
+		values(#{id},#{role})
+	</insert>
+	<select id="qryroleid" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT
+			IFNULL (sum(id), 0)
+		FROM
+			role
+		where rolename=#{rolename}
+	</select>
+	
+	<insert parameterType="java.lang.Integer" id="addrolemenu">
+		insert into
+			role_menu
+			(role_id,menu_id)
+		values
+     	 (#{id},#{valu})
+	</insert>
+	
+	<select id="selectmenubyid" resultType="java.util.Map" parameterType="java.lang.Integer">
+		SELECT
+			menu_id as menuid
+		FROM
+			role_menu
+		where role_id=#{id}
+		order by menu_id
+	</select>
+	<select id="selectrolebyid" resultType="java.util.Map" parameterType="java.lang.Integer">
+		SELECT
+		id,
+		rolename,
+		remake
+		FROM
+		role
+		where id=#{id}
+	</select>
+	<delete id="delrolemenuById" parameterType="java.lang.Integer">
+		delete from role_menu
+		where role_id= #{id}
+	</delete>
+	<update parameterType="java.lang.String" id="updaterole">
+		update
+			role
+		set
+			remake=#{remake}
+			where
+			rolename=#{rolename}
+	</update>
 	
 </mapper>
 

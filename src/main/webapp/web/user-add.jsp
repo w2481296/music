@@ -58,18 +58,8 @@
 			<label class="form-label col-xs-4 col-sm-3"><span
 					class="c-red">*</span>权限：</label>
 			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
-				<div class="radio-box">
-					<input name="userrole" type="radio" value="1" id="userrole">
-					<label for="role-1">超级管理员</label>
-				</div>
-				<div class="radio-box">
-					<input type="radio" id="userrole" value="2" name="userrole">
-					<label for="role-2">管理员</label>
-				</div>
-				<div class="radio-box">
-					<input type="radio" id="userrole" value="3" name="userrole">
-					<label for="role-3">售货员</label>
-				</div>
+				<select name="ddlroom" class="selcet-input w48" id="roledata">
+				</select>
 			</div>
 			</div>
 			<div class="row cl">
@@ -118,6 +108,20 @@
 	<script type="text/javascript"
 		src="../lib/jquery.validation/1.14.0/messages_zh.js"></script>
 	<script type="text/javascript">
+	$(document).ready(function () {
+		$.ajax( {
+		    url : '../vip/selectrole.do',
+		    type : 'post',
+		    success : function(result) {
+		    	var navData = '<option>请选择权限</option>'; //定义变量存储
+		        for(var i=0;i<result.length;i++){
+					navData+='<option id="'+result[i].id+'" value="'+result[i].id+'">'+result[i].rolename+'</option>'
+		        }
+		        $('#roledata').html(navData);
+		    }
+		});
+
+	});
 		$(function() {
 			$("#form-change-password").validate({
 				rules : {
@@ -187,7 +191,7 @@
 		    		type:"post",
 		    		success:function(obj){
 		    			if(obj.state==1){
-		    				var role = $('input[name="userrole"]:checked').val(); 
+		    				var role = $("#roledata").val();
 		    				var username = $('#username').val();
 		    				var params={
 		    						role:role,

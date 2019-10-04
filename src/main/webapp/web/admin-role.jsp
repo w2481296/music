@@ -74,8 +74,9 @@ function admin_role_add(title,url,w,h){
 }
 /*管理员-角色-编辑33*/
 function edit(id){
+	localStorage.setItem("roleid",id);
 	layer_show('权限编辑','../main/showIndex33.do');
-	var id=id;
+	
 }
 /*管理员-角色-删除*/
 function admin_role_del(obj,id){

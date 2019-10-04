@@ -38,19 +38,9 @@
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">权限：</label>
-			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
-				<div class="radio-box">
-					<input name="userrole" type="radio" value="1" id="userrole">
-					<label for="role-1">超级管理员</label>
-				</div>
-				<div class="radio-box">
-					<input type="radio" id="userrole" value="2" name="userrole">
-					<label for="role-2">管理员</label>
-				</div>
-				<div class="radio-box">
-					<input type="radio" id="userrole" value="3" name="userrole">
-					<label for="role-3">售货员</label>
-				</div>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal" id="checkdat">
+				<select name="ddlroom" class="selcet-input w48" id="roledata">
+				</select>
 			</div>
 		</div>
 		<div class="row cl">
@@ -86,46 +76,47 @@
 <script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.js"></script> 	
 <script type="text/javascript">
-$(function(){
-	//清空表单
-	if(localStorage.getItem("vipeditId")==null){
-		layer_close();
-	}
-	//document.getElementById("form-article-add").reset(); 
-	var vipeditId=localStorage.getItem("vipeditId");
-	console.log("=="+vipeditId);
-	var params={
-			ids:vipeditId
-	};
-	$.ajax({
-		url :"../vip/queryuserById.do",
-		type:"post",
-		data:params,
-		async : false,
-		success : function(result) {
-			localStorage.clear();
-			document.getElementById("id").value=result[0].id!=null?result[0].id:"";
-			document.getElementById("username").value=result[0].username!=null?result[0].username:"";
-			var role=result[0].role!=null?result[0].role:"";
-			if(role=="超级管理员"){
-				$("input[name='userrole'][value=1]").attr("checked",true); 
-			}else if(role=="管理员"){
-				$("input[name='userrole'][value=2]").attr("checked",true); 
-			}else if(role=="售货员"){
-				$("input[name='userrole'][value=3]").attr("checked",true); 
-			}
-			document.getElementById("phone").value=result[0].phone!=null?result[0].phone:"";
-			document.getElementById("email").value=result[0].email!=null?result[0].email:"";
-			document.getElementById("updatetime").value=result[0].updatetime!=null?result[0].updatetime:"";
-			document.getElementById("vipNametitle").innerText=result[0].username!=null?result[0].username:"";
-		}
+$(document).ready(function () {
+	$.ajax( {
+	    url : '../vip/selectrole.do',
+	    type : 'post',
+	    success : function(result) {
+	    	var navData = ''; //定义变量存储
+	        for(var i=0;i<result.length;i++){
+				navData+='<option id="'+result[i].id+'" value="'+result[i].id+'">'+result[i].rolename+'</option>'
+	        }
+	        $('#roledata').html(navData);
+	      //清空表单
+	    	if(localStorage.getItem("vipeditId")==null){
+	    		layer_close();
+	    	}
+	    	var vipeditId=localStorage.getItem("vipeditId");
+	    	console.log("=="+vipeditId);
+	    	var params={
+	    			ids:vipeditId
+	    	};
+	    	$.ajax({
+	    		url :"../vip/queryuserById.do",
+	    		type:"post",
+	    		data:params,
+	    		async : false,
+	    		success : function(result) {
+	    			localStorage.clear();
+	    			document.getElementById("id").value=result[0].id!=null?result[0].id:"";
+	    			document.getElementById("username").value=result[0].username!=null?result[0].username:"";
+	    			$("#roledata").val(result[0].roleId);
+	    			document.getElementById("phone").value=result[0].phone!=null?result[0].phone:"";
+	    			document.getElementById("email").value=result[0].email!=null?result[0].email:"";
+	    			document.getElementById("updatetime").value=result[0].updatetime!=null?result[0].updatetime:"";
+	    			document.getElementById("vipNametitle").innerText=result[0].username!=null?result[0].username:"";
+	    		}
+	    	});
+	    }
 	});
-
 });
 function article_save_submit(){
-	var role = $('input[name="userrole"]:checked').val(); 
+	var role = $("#roledata").val();
 	var id = $('#id').val(); 
-	console.log("+"+role);
 	var params={
 			role:role,
 			id:id

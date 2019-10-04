@@ -191,9 +191,9 @@ public class VipuserController {
 	@ResponseBody
 	public void addrole(String role, String username) {
 		Integer id = vipuserMapper.queryuserByname(username);
-		vipuserMapper.updateroleinfo(Integer.valueOf(role), id);
+		vipuserMapper.insertroleinfo(Integer.valueOf(role), id);
 	}
-
+	
 	// 权限使用地方
 	@RequestMapping("/selectrole.do")
 	@ResponseBody
@@ -209,12 +209,57 @@ public class VipuserController {
 		vipuserMapper.delroleById(vipid2);
 		return "success";
 	}
+
 	// 所有菜单查询
-		@RequestMapping("/selectmenu.do")
-		@ResponseBody
-		public List<Map<String, Object>> selectMenu() {
-			List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
-			machiningList = vipuserMapper.selectMenu();
-			return machiningList;
+	@RequestMapping("/selectmenu.do")
+	@ResponseBody
+	public List<Map<String, Object>> selectMenu() {
+		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
+		machiningList = vipuserMapper.selectMenu();
+		return machiningList;
+	}
+
+	// 新增角色
+	@RequestMapping("/addrolemenu.do")
+	@ResponseBody
+	public String addrolemenu(String rolename, String remake, String valu) {
+		if (vipuserMapper.qryroleid(rolename) != 0) {
+			return "error";
+		} else {
+			vipuserMapper.addrole(rolename, remake);
 		}
+		;
+		int id = vipuserMapper.qryroleid(rolename);
+		String[] aa = valu.split(",");
+		for (int i = 0; i < aa.length; i++) {
+			vipuserMapper.addrolemenu(id, Integer.valueOf(aa[i]));
+		}
+		return "success";
+
+	}
+
+	// 编辑
+	@RequestMapping("/editrolemenu.do")
+	@ResponseBody
+	public String editrolemenu(String id,String rolename,String remake, String valu) {
+		vipuserMapper.delrolemenuById(Integer.valueOf(id));
+		vipuserMapper.updaterole(rolename,remake);
+		String[] aa = valu.split(",");
+		for (int i = 0; i < aa.length; i++) {
+			vipuserMapper.addrolemenu(Integer.valueOf(id), Integer.valueOf(aa[i]));
+		}
+		return "success";
+
+	}
+
+	// 指定角色菜单查询
+	@RequestMapping("/selectmenubyid.do")
+	@ResponseBody
+	public List<Map<String, Object>> selectmenubyid(int id) {
+		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
+		Map<String, Object> a=vipuserMapper.selectrolebyid(id);
+		machiningList = vipuserMapper.selectmenubyid(id);
+		machiningList.add(a);
+		return machiningList;
+	}
 }
