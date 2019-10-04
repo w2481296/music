@@ -54,6 +54,7 @@ public interface VipuserMapper {
 	List<Map<String, Object>> selectrole();
 
 	void delroleById(@Param("vipid2")Integer vipid2);
+	void delroleById2(@Param("vipid2")Integer vipid2);
 
 	List<Map<String, Object>> selectMenu();
 

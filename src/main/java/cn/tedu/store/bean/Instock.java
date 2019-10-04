@@ -7,7 +7,7 @@ public class Instock implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 6098281059734849763L;
+	private static final long serialVersionUID = 2284952000934703960L;
 	private Integer id;
 	private String inName;// 入库名称
 	private String inType;// 入库类型

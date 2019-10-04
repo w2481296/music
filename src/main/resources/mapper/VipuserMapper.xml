@@ -268,14 +268,21 @@
 	</select>
 	<delete id="delroleById" parameterType="java.lang.Integer">
 		delete
-		t1,t2,t3
+		t1,t3
 		FROM
 		role AS t1
-		LEFT JOIN user_role AS t2 ON t1.id = t2.roleId
 		LEFT JOIN role_menu t3 ON t1.id = t3.role_id
 		WHERE
 		t1.id =#{vipid2}
 	</delete>
+	<update parameterType="java.lang.Integer" id="delroleById2">
+		update
+			user_role
+		set
+			roleId=null
+			WHERE
+		userId =#{vipid2}
+	</update>
 	<select id="selectMenu" resultType="java.util.Map">
 		SELECT
 		*

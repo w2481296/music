@@ -117,28 +117,25 @@ $(document).ready(function () {
 function article_save_submit(){
 	var role = $("#roledata").val();
 	var id = $('#id').val(); 
+	var phone = $('#phone').val(); 
+	var email = $('#email').val(); 
 	var params={
+			id:id,
 			role:role,
-			id:id
+			phone:phone,
+			email:email
 	};
 	$.ajax({
 		url :"../vip/updateuserinfo.do",
 		type:"post",
-		data:$("#form-member-add").serializeArray(),
+		data:params,
 		success : function(result) {
-			$.ajax({
-				url :"../vip/updateroleinfo.do",
-				type:"post",
-				data:params,
-				success : function(result) {
 					alert("修改成功！");
 					parent.location.reload();
 					layer_close();
-				},
-			});
 		},
 	});
-	parent.location.reload();
+	
 }
 </script>
 </body>

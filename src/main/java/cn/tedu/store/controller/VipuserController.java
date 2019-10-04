@@ -177,13 +177,12 @@ public class VipuserController {
 
 	@RequestMapping("/updateuserinfo.do")
 	@ResponseBody
-	public void updateuserinfo(User user) {
+	public void updateuserinfo(Integer id,String role,String phone,String email) {
+		User user=new User();
+		user.setId(id);
+		user.setEmail(email);
+		user.setPhone(phone);
 		vipuserMapper.updateuserinfo(user);
-	}
-
-	@RequestMapping("/updateroleinfo.do")
-	@ResponseBody
-	public void updateroleinfo(String role, Integer id) {
 		vipuserMapper.updateroleinfo(Integer.valueOf(role), id);
 	}
 
@@ -207,6 +206,7 @@ public class VipuserController {
 	public String delroleById(String vipid, HttpServletResponse response) {
 		Integer vipid2 = Integer.valueOf(vipid);
 		vipuserMapper.delroleById(vipid2);
+		vipuserMapper.delroleById2(vipid2);
 		return "success";
 	}
 
