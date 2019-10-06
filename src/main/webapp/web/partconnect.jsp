@@ -71,7 +71,7 @@ table tr:nth-child(even) {
     border: 1px solid #eee;"/>
     <table class="table table-border table-bordered table-hover table-bg table-sort" id="DataTables_Table_0">
 					<thead>
-						<tr onclick="setCustomerNumber(this)">
+						<tr>
 				    		<th >id</th>
 				    		<th>配件名称</th>
 				    		<th>配件规格</th>
@@ -235,7 +235,15 @@ $("#query").click(function(){
   /**
 * 配件点击事件
 */
-function setCustomerNumber(tr){
+*$('#DataTables_Table_0').on('click', 'tr',function() {
+ 	    var myTable = $('#DataTables_Table_0').DataTable();
+	    var data = myTable.row(this).data(); //获取单击那一行的数据
+		var id=data.id;
+		var partname=data.insName;
+		window.parent.CallMoney(id,partname);
+		layer_close();
+} );
+/* function setCustomerNumber(tr){
 	var sparepartBom = $(tr);
 	var i=1;
 	var id;
@@ -252,7 +260,7 @@ function setCustomerNumber(tr){
 	});
 	window.parent.CallMoney(id,partname);
 	layer_close();
-}
+} */
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->
 </body>

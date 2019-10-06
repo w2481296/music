@@ -90,8 +90,106 @@ table tr:nth-child(even) {
 		src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
 	<script type="text/javascript"
 		src="../lib/jquery.validation/1.14.0/messages_zh.js"></script>
+	<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+		
 	<script type="text/javascript">
-		$(document).ready(function() {
+	$(document).ready(function () {
+	    $('#sparepartBom').DataTable({
+	        serverSide: false, //启用服务器端分页
+	        searching: false, //禁用原生搜索
+	        pagingType: "simple_numbers", //分页样式：simple,simple_numbers,full,full_numbers
+	        ajax: function (data, callback, settings) { 
+		        //封装请求参数
+		        var param = {};
+	            param.pageSize = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
+	            param.start = data.start;//开始的记录序号
+	            param.currentPage = (data.start / data.length) + 1;//当前页码
+	            $.ajax({
+	                type: "post",
+	                url : "../out/selectgoodsorname.do",
+	                cache: false, //禁用缓存
+	                dataType: "json",
+	                success: function (result) {
+	                    var returnData = {};
+	                    returnData.draw = data.startRow;//这里直接自行返回了draw计数器,应该由后台返回
+	                    returnData.recordsTotal = result.totalRows;//返回数据全部记录
+	                    returnData.recordsFiltered = result.totalRows;//后台不实现过滤功能，每次查询均视作全部结果
+	                    returnData.data = result.items;//返回的数据列表
+	                    //此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
+	                    callback(returnData);
+	                }
+	            });
+	        },
+	        "columns": [ 
+	            {'data': 'outName'},
+	            {'data': 'outType'},
+	            {'data': 'outSpecifications'},
+	            {'data': 'outPricing'},
+	            {'data': 'outCost'},
+	            {'data': 'outQty'},
+	            {'data': 'outManufacturers'},
+	        ],
+	        "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull)            {                    //列样式处理
+	        }
+	    })
+	});
+	/*-查询功能*/
+	$("#query").click(function(){
+		var datatable = $("#sparepartBom").dataTable();
+		        if (datatable) {  
+		         datatable.fnClearTable();    //清空数据
+		         datatable.fnDestroy();         //销毁datatable
+		 } 
+		var tablebody = $('.sparepartBom').find('tbody');
+		tablebody.children().remove();
+		
+		 $('#sparepartBom').DataTable({
+		        serverSide: false, //启用服务器端分页
+		        searching: false, //禁用原生搜索
+		        pagingType: "simple_numbers", //分页样式：simple,simple_numbers,full,full_numbers
+		        ajax: function (data, callback, settings) { 
+			        //封装请求参数
+			      	var insName2=document.getElementById('search').value;
+					var param={
+							outName:insName2
+					}
+		            param.pageSize = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
+		            param.start = data.start;//开始的记录序号
+		            param.currentPage = (data.start / data.length) + 1;//当前页码
+		            $.ajax({
+		                type: "post",
+		                url : "../out/selectgoodsorname.do",
+		                cache: false, //禁用缓存
+		                data:param,
+		                dataType: "json",
+		                success: function (result) {
+		                    var returnData = {};
+		                    returnData.draw = data.startRow;//这里直接自行返回了draw计数器,应该由后台返回
+		                    returnData.recordsTotal = result.totalRows;//返回数据全部记录
+		                    returnData.recordsFiltered = result.totalRows;//后台不实现过滤功能，每次查询均视作全部结果
+		                    returnData.data = result.items;//返回的数据列表
+		                    //此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
+		                    callback(returnData);
+		                }
+		            });
+		        },
+		        "columns": [ 
+		    	            {'data': 'outName'},
+		    	            {'data': 'outType'},
+		    	            {'data': 'outSpecifications'},
+		    	            {'data': 'outPricing'},
+		    	            {'data': 'outCost'},
+		    	            {'data': 'outQty'},
+		    	            {'data': 'outManufacturers'},
+		    	        ],
+		    	        "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull)            {                    //列样式处理
+		    	        }
+		    })
+		
+	});	
+	
+	
+	/* 	$(document).ready(function() {
 			selBomSparepart();
 		});
 		function selBomSparepart() {
@@ -202,7 +300,7 @@ table tr:nth-child(even) {
 											}
 										}
 									});
-						})
+						}) */
 		//返回逻辑
 		$("#back").click(function() {
 			layer_close();
@@ -210,7 +308,22 @@ table tr:nth-child(even) {
 		/**
 		 * 配件点击事件
 		 */
-		function setCustomerNumber(tr) {
+		 $('#sparepartBom').on('click', 'tr',function() {
+			    var myTable = $('#sparepartBom').DataTable();
+			    var data = myTable.row(this).data(); //获取单击那一行的数据
+				var id=data.id;
+				var outCost=data.outCost;
+				var outName=data.outName;
+				var outType=data.outType;
+				var outSpecifications=data.outSpecifications;
+				var outPricing=data.outPricing;
+				var outQty=data.outQty;
+				var outManufacturers=data.outManufacturers;
+				window.parent.CallMoney(outCost,outName, outType, outSpecifications,
+						outPricing, outQty, outManufacturers); 
+				layer_close();
+		 } );
+		/* function setCustomerNumber(tr) {
 			var sparepartBom = $(tr);
 			var i = 0;
 			var id;
@@ -243,7 +356,7 @@ table tr:nth-child(even) {
 			window.parent.CallMoney(outCost,outName, outType, outSpecifications,
 					outPricing, outQty, outManufacturers);
 			layer_close();
-		}
+		} */
 	</script>
 	<!--/请在上方写此页面业务相关的脚本-->
 </body>

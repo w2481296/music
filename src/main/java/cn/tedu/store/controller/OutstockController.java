@@ -148,10 +148,12 @@ public class OutstockController extends BaseController {
 	
 	@RequestMapping("/selectgoodsorname.do")
 	@ResponseBody
-	public List<Map<String, Object>> selectgoodsorname(String outName, HttpServletResponse response) {
+	public PageQueryBean selectgoodsorname(String outName, HttpServletResponse response) {
 		List<Map<String, Object>> machiningList = new ArrayList<Map<String, Object>>();
 		machiningList = outstockMapper.selectgoodsorname(outName);
-		return machiningList;
+		PageQueryBean pageQueryBean = new PageQueryBean();
+		pageQueryBean.setItems(machiningList);
+		pageQueryBean.setTotalRows(machiningList.size());
+		return pageQueryBean;
 	}
-
 }
