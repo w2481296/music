@@ -37,7 +37,6 @@
 				<table class="table table-border table-bordered table-hover table-bg table-sort" id="DataTables_Table_0">
 					<thead>
 						<tr class="text-c">
-							<th style="width:10px"><input type="checkbox" name="" value=""></th>
 							<th style="width:50px">ID</th>
 							<th style="width:80px">名称</th>
 							<th style="width:80px">类型</th>
@@ -100,7 +99,6 @@ $(document).ready(function () {
             });
         },
         "columns": [ 
-			{'data': 'null'}, 
             {'data': 'id'},
             {'data': 'insName'},
             {'data': 'insType'},
@@ -115,22 +113,13 @@ $(document).ready(function () {
             {'data': 'null'}, 
         ],
         "columnDefs" : [ {
-        	"targets" : 12,//操作按钮目标列
+        	"targets" : 11,//操作按钮目标列
         	"data" : null,
         	"render" : function(data, type,row) {
         	var id = row.id;
         	var html = '<a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex13.do',"+"'"+id+"'"+','+"'800',"+"'620'"+')" style="text-decoration:none"><u class="Hui-iconfont">连接配件</u></a>';
         	return html;
-      		}},
-      		{
-            	"targets" : 0,//操作按钮目标列
-            	"data" : null,
-            	"render" : function(data, type,row) {
-            	var id =row.id;
-            	var html = '<input type="checkbox" value="'+id+'" name="">';
-            	return html;
-            	}
-            	}
+      		}}
         	],
         "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull)            {                    //列样式处理
         }
@@ -182,7 +171,6 @@ $("#search").click(function(){
 	            });
 	        },
 	        "columns": [ 
-	        			{'data': 'null'}, 
 	                    {'data': 'id'},
 	                    {'data': 'insName'},
 	                    {'data': 'insType'},
@@ -197,22 +185,13 @@ $("#search").click(function(){
 	                    {'data': 'null'}, 
 	                ],
 	                "columnDefs" : [ {
-	                	"targets" : 12,//操作按钮目标列
+	                	"targets" : 11,//操作按钮目标列
 	                	"data" : null,
 	                	"render" : function(data, type,row) {
 	                	var id = row.id;
 	                	var html = '<a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex13.do',"+"'"+id+"'"+','+"'800',"+"'620'"+')" style="text-decoration:none"><u class="Hui-iconfont">连接配件</u></a>';
 	                	return html;
-	              		}},
-	              		{
-	                    	"targets" : 0,//操作按钮目标列
-	                    	"data" : null,
-	                    	"render" : function(data, type,row) {
-	                    	var id =row.id;
-	                    	var html = '<input type="checkbox" value="'+id+'" name="">';
-	                    	return html;
-	                    	}
-	                    	}
+	              		}}
 	                	],
 	                "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull)            {                    //列样式处理
 	                }

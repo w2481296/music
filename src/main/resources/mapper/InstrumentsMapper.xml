@@ -55,6 +55,7 @@
 		wii.ins_qty as insQty,
 		wii.ins_pricing as insPricing,
 		wii.ins_manufacturers as insManufacturers,
+		wii.ins_parts as insPartId,
 		wp.parts_name as insParts,
 		wii.ins_remake as insRemake
 		from

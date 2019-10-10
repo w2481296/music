@@ -126,6 +126,7 @@ $(function(){
 			document.getElementById("insManufacturers").value=result[0].insManufacturers!=null?result[0].insManufacturers:"";
 			document.getElementById("insPartsname").value=result[0].insParts!=null?result[0].insParts:"";
 			//document.getElementById("insCost").value=result[0].insCost!=null?result[0].insCost:"";
+			document.getElementById("insParts").value=result[0].insPartId!=null?result[0].insPartId:"";
 			document.getElementById("insQty").value=result[0].insQty!=null?result[0].insQty:"";
 			$("#insRemake").val(result[0].insRemake!=null?result[0].insRemake:"");
 		}

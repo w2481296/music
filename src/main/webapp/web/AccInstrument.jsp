@@ -37,7 +37,6 @@
 				<table class="table table-border table-bordered table-hover table-bg table-sort" id="DataTables_Table_0">
 					<thead>
 						<tr class="text-c">
-							<th style="width:10px"><input type="checkbox" name="" value=""></th>
 							<th style="width:50px">ID</th>
 							<th style="width:80px">名称</th>
 							<th style="width:80px">类型</th>
@@ -102,7 +101,6 @@ $(document).ready(function () {
             });
         },
         "columns": [ 
-			{'data': 'null'}, 
             {'data': 'id'},
             {'data': 'insName'},
             {'data': 'insType'},
@@ -116,23 +114,14 @@ $(document).ready(function () {
             {'data': 'null'}, 
         ],
         "columnDefs" : [ {
-        	"targets" : 11,//操作按钮目标列
+        	"targets" : 10,//操作按钮目标列
         	"data" : null,
         	"render" : function(data, type,row) {
         	var id = row.id;
         	var html = '<a title='+"'添加备注'"+' href="javascript:;" onclick="member_show('+"'添加备注',"+"'../main/showIndex14.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')" style="text-decoration:none"><u class="Hui-iconfont">添加备注</u></a>';
         	//var html = '<a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex14.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>';
         	return html;
-      		}},
-      		{
-            	"targets" : 0,//操作按钮目标列
-            	"data" : null,
-            	"render" : function(data, type,row) {
-            	var id =row.id;
-            	var html = '<input type="checkbox" value="'+id+'" name="">';
-            	return html;
-            	}
-            	}
+      		}}
         	],
         "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull)            {                    //列样式处理
         }
@@ -184,7 +173,6 @@ $("#search").click(function(){
 	            });
 	        },
 	        "columns": [ 
-	        			{'data': 'null'}, 
 	                    {'data': 'id'},
 	                    {'data': 'insName'},
 	                    {'data': 'insType'},
@@ -198,7 +186,7 @@ $("#search").click(function(){
 	                    {'data': 'null'}, 
 	                ],
 	                "columnDefs" : [ {
-	                	"targets" : 11,//操作按钮目标列
+	                	"targets" : 10,//操作按钮目标列
 	                	"data" : null,
 	                	"render" : function(data, type,row) {
 	                	var id = row.id;
@@ -206,16 +194,7 @@ $("#search").click(function(){
 
 	                	//var html = '<a title='+"'编辑'"+' href="javascript:;" onclick="member_show('+"'编辑',"+"'../main/showIndex14.do',"+"'"+id+"'"+','+"'700',"+"'550'"+')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'+id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>';
 	                	return html;
-	              		}},
-	              		{
-	                    	"targets" : 0,//操作按钮目标列
-	                    	"data" : null,
-	                    	"render" : function(data, type,row) {
-	                    	var id =row.id;
-	                    	var html = '<input type="checkbox" value="'+id+'" name="">';
-	                    	return html;
-	                    	}
-	                    	}
+	              		}}
 	                	],
 	                "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull)            {                    //列样式处理
 	                }
@@ -237,71 +216,6 @@ function member_show(title,url,id,w,h){
 	localStorage.setItem("partseditId",id);
 	layer_show(title,url,w,h);
 }
-/*用户-删除*/
-/* function member_del(obj,id){
-	layer.confirm('确认要删除吗？',{
-		btn: ['确定', '取消']
-	  },function(index){
-			var params={
-					insid:id
-			};
-			$.ajax({
-				url :"../parts/delpartsById.do",
-				data : params,
-				type:"post",
-				async : false,
-				success : function(result) {
-					if(result=="success"){
-						$(obj).parents("tr").remove();
-					}else{
-						alert("删除失败");
-					}
-				}
-			});
-			layer.closeAll('dialog'); 
-	},function(){
-		layer.closeAll('dialog'); 
-	});
-}
-/*用户-批量删除*/
-/* function datadel(){
-	console.log("批量删除");
-	var ptag_ids = new Array(); //定义一个数组存储id
-	     // 循环获取选中的checkbox
-	    $("#table-data input[type='checkbox']:checked").each(function() {
-	        if (!isNaN($(this).val())) {
-	            ptag_ids.push($(this).val()); // 把值push进入数组里面
-	        }
-	    });
-	    if(ptag_ids.length ==0){
-	        alert('请选择至少一条记录删除');
-	        return false;
-	    }
-		console.log("选择得id"+ptag_ids);
-	     //调用删除函数
-	    deletePtag(ptag_ids);
-	} */
-
-	 
-
-	/* function deletePtag(ptag_ids){
-	     if(confirm("您确定要删除单条或者多条标签记录吗？删除后无法恢复,请谨慎操作！")){
-	         $.ajax({
-	             type : "post",
-	             url : "../parts/delsById.do",
-	             data : { "ids" : ptag_ids.toString() },  //数组.toString();转成字符串，号隔开的
-	             success : function(data) {
-	                 console.info(data);
-	                 if(data=="success"){
-	                     $("#btn-danger").prop("checked", false);//成功后把全选按钮设置成不选中，其他下面刷新了，要不要都可以的
-	                     location.reload();
-	                 }else{
-	                     alert(data.msg);
-	                 }
-	             }
-	         });
-	     }
-	} */ 
 
 </script>
 <!--/请在上方写此页面业务相关的脚本-->
