@@ -19,7 +19,12 @@
 <!-- 导航栏 -->
 <div class="nav">
 	<div class="nav-top">
-		<div id="mi" style="border-bottom:1px solid rgba(255,255,255,.1)"><img src="../images/header/zong.png"  style="margin-left: 72px;width: 37px;height: 41px;margin-top: 2px;"></div>
+		<div id="mi" style="border-bottom:1px solid rgba(255,255,255,.1)">
+			<!-- <a  href='javascript:;' _link='"+result[i].menu_url+"'>
+				<span>"+result[i].menu_name+"</span>
+			</a> -->
+			<img src="../images/header/zong.png"    onclick="javascript:location.href='showIndex.do'" style="margin-left: 72px;width: 37px;height: 41px;margin-top: 2px;">
+		</div>
 	</div>
 	<ul id="aat">
 		
